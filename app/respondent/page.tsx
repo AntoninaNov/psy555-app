@@ -6,22 +6,25 @@ import { useHasHydrated } from "@/lib/useHydration";
 import { RESPONDENT_STEPS } from "@/lib/types";
 import { StepProgress } from "@/components/StepProgress";
 import { StepIntro } from "@/components/respondent/StepIntro";
-import { StepClustering } from "@/components/respondent/StepClustering";
-import { StepEdgeCreation } from "@/components/respondent/StepEdgeCreation";
+import { StepConceptMap } from "@/components/respondent/StepConceptMap";
 import { StepPathfinding } from "@/components/respondent/StepPathfinding";
 import { StepPerturbation } from "@/components/respondent/StepPerturbation";
 import { StepMetadata } from "@/components/respondent/StepMetadata";
 import { StepComplete } from "@/components/respondent/StepComplete";
+import type { RespondentStep } from "@/lib/types";
 
-const CANVAS_STEPS = new Set(["edge_creation"]);
+// clustering is now a full-canvas step (the unified concept map)
+const CANVAS_STEPS = new Set(["clustering"]);
 
-// Steps where the respondent has already started entering data — warn before leaving
 const WARN_ON_LEAVE_STEPS = new Set([
-  "clustering", "edge_creation", "metadata", "pathfinding", "perturbation",
+  "clustering", "metadata", "pathfinding", "perturbation",
 ]);
 
+// Ordered steps for back-navigation (excludes "complete" — no going back from there)
+const NAV_STEPS = RESPONDENT_STEPS.map(s => s.key).filter(k => k !== "complete");
+
 export default function RespondentPage() {
-  const { session, respondentStep, recordStepEntry, loadServerSession } = useAppStore();
+  const { session, respondentStep, setRespondentStep, recordStepEntry, loadServerSession } = useAppStore();
   const router   = useRouter();
   const hydrated = useHasHydrated();
   const isCanvas = CANVAS_STEPS.has(respondentStep);
@@ -162,39 +165,63 @@ export default function RespondentPage() {
           }}
         >
           {/* Top row */}
-          <div style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: respondentStep !== "intro" && respondentStep !== "complete" ? 10 : 0,
-          }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          {(() => {
+            const prevIdx = NAV_STEPS.indexOf(respondentStep as RespondentStep) - 1;
+            const prevStep = prevIdx >= 0 ? NAV_STEPS[prevIdx] : null;
+            const canGoBack = !!prevStep && respondentStep !== "intro" && respondentStep !== "complete";
+            return (
               <div style={{
-                width: 24, height: 24, borderRadius: 6,
-                background: isCanvas ? "rgba(255,255,255,0.08)" : "var(--ink)",
-                display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: respondentStep !== "intro" && respondentStep !== "complete" ? 10 : 0,
               }}>
-                <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
-                  <circle cx="2.5" cy="2.5" r="1.8" fill={isCanvas ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.9)"}/>
-                  <circle cx="8.5" cy="2.5" r="1.8" fill={isCanvas ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.45)"}/>
-                  <circle cx="8.5" cy="8.5" r="1.8" fill="#C84B1C" opacity="0.9"/>
-                  <line x1="2.5" y1="2.5" x2="8.5" y2="8.5" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8"/>
-                </svg>
-              </div>
-              <span
-                className="font-display"
-                style={{ fontSize: 13, fontWeight: 600, color: isCanvas ? "rgba(255,255,255,0.35)" : "var(--ink)", letterSpacing: "-0.01em" }}
-              >
-                Cognitive Navigation Study
-              </span>
-            </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  {canGoBack && (
+                    <button
+                      onClick={() => setRespondentStep(prevStep!)}
+                      title="Go back"
+                      style={{
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        width: 28, height: 28, borderRadius: 7, border: "none", cursor: "pointer",
+                        background: isCanvas ? "rgba(255,255,255,0.08)" : "var(--ink-pale)",
+                        color: isCanvas ? "rgba(255,255,255,0.5)" : "var(--text-2)",
+                        flexShrink: 0,
+                      }}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M9 11L5 7l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
+                  )}
+                  <div style={{
+                    width: 24, height: 24, borderRadius: 6,
+                    background: isCanvas ? "rgba(255,255,255,0.08)" : "var(--ink)",
+                    display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+                  }}>
+                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+                      <circle cx="2.5" cy="2.5" r="1.8" fill={isCanvas ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.9)"}/>
+                      <circle cx="8.5" cy="2.5" r="1.8" fill={isCanvas ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.45)"}/>
+                      <circle cx="8.5" cy="8.5" r="1.8" fill="#C84B1C" opacity="0.9"/>
+                      <line x1="2.5" y1="2.5" x2="8.5" y2="8.5" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8"/>
+                    </svg>
+                  </div>
+                  <span
+                    className="font-display"
+                    style={{ fontSize: 13, fontWeight: 600, color: isCanvas ? "rgba(255,255,255,0.35)" : "var(--ink)", letterSpacing: "-0.01em" }}
+                  >
+                    Cognitive Navigation Study
+                  </span>
+                </div>
 
-            {respondentStep !== "complete" && (
-              <span className="font-mono-custom" style={{ fontSize: 10, color: isCanvas ? "rgba(255,255,255,0.16)" : "var(--text-3)" }}>
-                No right or wrong answers
-              </span>
-            )}
-          </div>
+                {respondentStep !== "complete" && (
+                  <span className="font-mono-custom" style={{ fontSize: 10, color: isCanvas ? "rgba(255,255,255,0.16)" : "var(--text-3)" }}>
+                    No right or wrong answers
+                  </span>
+                )}
+              </div>
+            );
+          })()}
 
           {/* Progress bar */}
           {respondentStep !== "intro" && respondentStep !== "complete" && (
@@ -206,13 +233,12 @@ export default function RespondentPage() {
       {/* ── Content ── */}
       {isCanvas ? (
         <div style={{ flex: 1, minHeight: 0 }}>
-          {respondentStep === "edge_creation" && <StepEdgeCreation />}
+          {respondentStep === "clustering" && <StepConceptMap />}
         </div>
       ) : (
         <main style={{ flex: 1, padding: respondentStep === "complete" ? "0" : "56px 16px" }}>
           <div style={{ maxWidth: 880, margin: "0 auto" }}>
             {respondentStep === "intro"        && <StepIntro        />}
-            {respondentStep === "clustering"   && <StepClustering   />}
             {respondentStep === "pathfinding"  && <StepPathfinding  />}
             {respondentStep === "perturbation" && <StepPerturbation />}
             {respondentStep === "metadata"     && <StepMetadata     />}

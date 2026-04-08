@@ -91,13 +91,12 @@ export interface StepTimestamp {
 }
 
 export const RESPONDENT_STEPS: Array<{ key: RespondentStep; label: string }> = [
-  { key: "intro",         label: "Intro"     },
-  { key: "clustering",    label: "Map"       },
-  { key: "edge_creation", label: "Connect"   },
-  { key: "metadata",      label: "About You" },
-  { key: "pathfinding",   label: "Navigate"  },
-  { key: "perturbation",  label: "Adapt"     },
-  { key: "complete",      label: "Done"      },
+  { key: "intro",        label: "Intro"     },
+  { key: "clustering",   label: "Map"       },
+  { key: "metadata",     label: "About You" },
+  { key: "pathfinding",  label: "Navigate"  },
+  { key: "perturbation", label: "Adapt"     },
+  { key: "complete",     label: "Done"      },
 ];
 
 // ─── Respondent session data ──────────────────────────────────────────────────
