@@ -23,11 +23,23 @@ const WARN_ON_LEAVE_STEPS = new Set([
 // Ordered steps for back-navigation (excludes "complete" — no going back from there)
 const NAV_STEPS = RESPONDENT_STEPS.map(s => s.key).filter(k => k !== "complete") as RespondentStep[];
 
+// All valid step keys — used to detect stale localStorage values
+const VALID_STEPS = new Set(RESPONDENT_STEPS.map(s => s.key));
+
 export default function RespondentPage() {
   const { session, respondentStep, setRespondentStep, recordStepEntry, loadServerSession } = useAppStore();
   const router   = useRouter();
   const hydrated = useHasHydrated();
   const isCanvas = CANVAS_STEPS.has(respondentStep);
+
+  // Guard: if localStorage has a stale step (e.g. "edge_creation" from an old session)
+  // that no longer exists in the flow, reset to intro so the page doesn't appear blank.
+  useEffect(() => {
+    if (!hydrated) return;
+    if (!VALID_STEPS.has(respondentStep)) {
+      setRespondentStep("intro");
+    }
+  }, [hydrated, respondentStep]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // The server is the authority on whether the study is launched.
   // We ALWAYS fetch from the server — never trust localStorage isLaunched as the gate.

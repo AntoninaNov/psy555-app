@@ -126,7 +126,7 @@ export function StepIntro() {
             {
               n: "2",
               title: "Draw pathways between concepts",
-              body: "Connect related concepts and rate each link as weak, moderate, or strong. You're mapping the routes through your knowledge.",
+              body: "Connect related concepts and mark how close each pair is — Distant, Nearby, or Adjacent. You're mapping the proximity between ideas in your knowledge.",
               accent: "var(--rust)",
               bg: "var(--rust-pale)",
             },
