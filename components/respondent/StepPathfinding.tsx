@@ -2,7 +2,9 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useAppStore } from "@/lib/store";
 import { CLUSTER_COLORS } from "@/lib/types";
-import { selectPathfindingPair, validatePath } from "@/lib/metrics";
+import { selectMultiplePathfindingPairs, validatePath } from "@/lib/metrics";
+
+const TASK_COUNT = 3;
 
 export function StepPathfinding() {
   const { session, setPathfindingResult, setRespondentStep, recordStepExit } = useAppStore();
@@ -10,48 +12,37 @@ export function StepPathfinding() {
   const nodes = session?.respondentData?.nodes ?? [];
   const edges = session?.respondentData?.edges ?? [];
 
-  const startMs = useRef(Date.now());
-
   const clusterMap = useMemo(() => {
     const m = new Map<string, number>();
     for (const n of nodes) if (n.cluster) m.set(n.id, n.cluster);
     return m;
   }, [nodes]);
 
-  // Pick source/target pair once
-  const scenario = useMemo(() => selectPathfindingPair(plos, edges), [plos, edges]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const [path, setPath] = useState<string[]>(() =>
-    scenario ? [scenario.sourceId] : []
+  // Select up to TASK_COUNT distinct pairs once
+  const scenarios = useMemo(
+    () => selectMultiplePathfindingPairs(TASK_COUNT, plos, edges),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [plos, edges],
   );
 
+  const [taskIdx,   setTaskIdx]   = useState(0);
+  const [path,      setPath]      = useState<string[]>([]);
+  const startMs                   = useRef(Date.now());
+
+  // Accumulated results for averaging
+  const accumulated = useRef<Array<{ accuracy: number; timeMs: number }>>([]);
+
+  const scenario = scenarios[taskIdx] ?? null;
+
+  // Reset path and timer whenever the task changes
   useEffect(() => {
-    if (scenario) setPath([scenario.sourceId]);
-  }, [scenario?.sourceId]); // eslint-disable-line react-hooks/exhaustive-deps
+    setPath(scenario ? [scenario.sourceId] : []);
+    startMs.current = Date.now();
+  }, [taskIdx, scenario?.sourceId]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  function proceed(skip = false) {
-    recordStepExit("pathfinding");
-    if (!skip && scenario && path.length >= 2) {
-      const finalPath = path[path.length - 1] !== scenario.targetId
-        ? [...path, scenario.targetId]
-        : path;
-      const hops = finalPath.length - 1;
-      const accuracy = Math.min(1, scenario.optimalLength / Math.max(hops, 1));
-      setPathfindingResult({
-        sourceId:      scenario.sourceId,
-        targetId:      scenario.targetId,
-        chosenPath:    finalPath,
-        optimalLength: scenario.optimalLength,
-        accuracy:      Math.round(accuracy * 100) / 100,
-        timeMs:        Date.now() - startMs.current,
-      });
-    }
-    setRespondentStep("perturbation");
-  }
+  // ── No usable scenarios ──────────────────────────────────────────────────────
 
-  // ── No usable scenario ──────────────────────────────────────────────────────
-
-  if (!scenario) {
+  if (scenarios.length === 0) {
     return (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "60vh", padding: "40px 24px", textAlign: "center" }}>
         <div style={{ fontSize: 32, marginBottom: 16 }}>🗺️</div>
@@ -59,12 +50,14 @@ export function StepPathfinding() {
         <p style={{ fontSize: 14, color: "var(--text-2)", maxWidth: 400, lineHeight: 1.65, marginBottom: 28 }}>
           The pathfinding task needs at least two connected concepts with an intermediate step. Skip ahead to the next task.
         </p>
-        <button onClick={() => proceed(true)} className="btn btn-primary" style={{ fontSize: 13, padding: "10px 28px" }}>
+        <button onClick={() => { recordStepExit("pathfinding"); setRespondentStep("perturbation"); }} className="btn btn-primary" style={{ fontSize: 13, padding: "10px 28px" }}>
           Continue →
         </button>
       </div>
     );
   }
+
+  if (!scenario) return null;
 
   const srcPlo = plos.find((p) => p.id === scenario.sourceId);
   const tgtPlo = plos.find((p) => p.id === scenario.targetId);
@@ -74,24 +67,74 @@ export function StepPathfinding() {
 
   function addToPath(ploId: string) {
     if (path.includes(ploId)) {
-      // Remove this node and everything after it
       setPath((prev) => prev.slice(0, prev.indexOf(ploId)));
-      return;
+    } else {
+      setPath((prev) => [...prev, ploId]);
     }
-    setPath((prev) => [...prev, ploId]);
   }
 
-  const pathComplete = path[path.length - 1] === scenario.targetId && path.length >= 2;
-  const intermediates = plos.filter((p) => p.id !== scenario.sourceId && p.id !== scenario.targetId);
-  const inPath = new Set(path);
+  const pathComplete   = path[path.length - 1] === scenario.targetId && path.length >= 2;
+  const intermediates  = plos.filter((p) => p.id !== scenario.sourceId && p.id !== scenario.targetId);
+  const inPath         = new Set(path);
+  const totalTasks     = scenarios.length;
+  const isLastTask     = taskIdx >= totalTasks - 1;
+
+  function submitTask(skip = false) {
+    if (!skip && scenario && path.length >= 2) {
+      const finalPath = path[path.length - 1] !== scenario.targetId
+        ? [...path, scenario.targetId]
+        : path;
+      const hops     = finalPath.length - 1;
+      const accuracy = Math.min(1, scenario.optimalLength / Math.max(hops, 1));
+      accumulated.current.push({
+        accuracy: Math.round(accuracy * 100) / 100,
+        timeMs:   Date.now() - startMs.current,
+      });
+    }
+
+    if (isLastTask || skip) {
+      // Save averaged result (or null if all skipped)
+      if (accumulated.current.length > 0) {
+        const avgAccuracy = accumulated.current.reduce((s, r) => s + r.accuracy, 0) / accumulated.current.length;
+        const avgTime     = accumulated.current.reduce((s, r) => s + r.timeMs,   0) / accumulated.current.length;
+        setPathfindingResult({
+          sourceId:      scenarios[0].sourceId,
+          targetId:      scenarios[0].targetId,
+          chosenPath:    path,
+          optimalLength: scenarios[0].optimalLength,
+          accuracy:      Math.round(avgAccuracy * 100) / 100,
+          timeMs:        Math.round(avgTime),
+        });
+      }
+      recordStepExit("pathfinding");
+      setRespondentStep("perturbation");
+    } else {
+      setTaskIdx((i) => i + 1);
+    }
+  }
 
   return (
     <div style={{ maxWidth: 760, margin: "0 auto", padding: "40px 24px" }}>
 
       {/* Header */}
       <div style={{ marginBottom: 28 }}>
-        <div style={{ fontSize: 9.5, fontWeight: 600, letterSpacing: "0.1em", color: "var(--text-3)", fontFamily: "'Fira Code', monospace", marginBottom: 8 }}>
-          NAVIGATION TASK
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+          <div style={{ fontSize: 9.5, fontWeight: 600, letterSpacing: "0.1em", color: "var(--text-3)", fontFamily: "'Fira Code', monospace" }}>
+            NAVIGATION TASK
+          </div>
+          {/* Task progress dots */}
+          <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+            <span style={{ fontSize: 9.5, color: "var(--text-3)", fontFamily: "'Fira Code', monospace", marginRight: 4 }}>
+              {taskIdx + 1} of {totalTasks}
+            </span>
+            {Array.from({ length: totalTasks }).map((_, i) => (
+              <div key={i} style={{
+                width: 7, height: 7, borderRadius: "50%",
+                background: i < taskIdx ? "var(--ink)" : i === taskIdx ? "var(--ink)" : "var(--line)",
+                opacity: i < taskIdx ? 0.35 : 1,
+              }} />
+            ))}
+          </div>
         </div>
         <h2 className="font-display" style={{ fontSize: 22, fontWeight: 700, color: "var(--ink)", marginBottom: 8, lineHeight: 1.2 }}>
           Trace a path through your knowledge map
@@ -217,13 +260,13 @@ export function StepPathfinding() {
 
       {/* Actions */}
       <div style={{ display: "flex", gap: 10 }}>
-        <button onClick={() => proceed(true)}
+        <button onClick={() => submitTask(true)}
           style={{ fontSize: 12, padding: "9px 20px", borderRadius: 9, border: "1px solid var(--line)", background: "#fff", color: "var(--text-2)", cursor: "pointer", fontFamily: "'Sora', sans-serif" }}>
           Skip task
         </button>
-        <button onClick={() => proceed(false)} className="btn btn-primary"
+        <button onClick={() => submitTask(false)} className="btn btn-primary"
           style={{ fontSize: 13, padding: "9px 24px", opacity: path.length < 2 ? 0.6 : 1 }}>
-          Submit path →
+          {isLastTask ? "Submit path →" : "Next task →"}
         </button>
       </div>
     </div>

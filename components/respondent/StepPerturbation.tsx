@@ -2,7 +2,9 @@
 import { useState, useMemo, useRef } from "react";
 import { useAppStore } from "@/lib/store";
 import { CLUSTER_COLORS } from "@/lib/types";
-import { selectPerturbationScenario, computeBridgeAccuracy } from "@/lib/metrics";
+import { selectMultiplePerturbationScenarios, computeBridgeAccuracy } from "@/lib/metrics";
+
+const TASK_COUNT = 3;
 
 export function StepPerturbation() {
   const { session, setPerturbationResult, setRespondentStep, recordStepExit } = useAppStore();
@@ -10,33 +12,29 @@ export function StepPerturbation() {
   const nodes = session?.respondentData?.nodes ?? [];
   const edges = session?.respondentData?.edges ?? [];
 
-  const startMs = useRef(Date.now());
-
   const clusterMap = useMemo(() => {
     const m = new Map<string, number>();
     for (const n of nodes) if (n.cluster) m.set(n.id, n.cluster);
     return m;
   }, [nodes]);
 
-  const scenario = useMemo(() => selectPerturbationScenario(plos, edges), [plos, edges]); // eslint-disable-line react-hooks/exhaustive-deps
+  const scenarios = useMemo(
+    () => selectMultiplePerturbationScenarios(TASK_COUNT, plos, edges),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [plos, edges],
+  );
 
+  const [taskIdx,  setTaskIdx]  = useState(0);
   const [chosenId, setChosenId] = useState<string | null>(null);
+  const startMs                 = useRef(Date.now());
 
-  function proceed(skip = false) {
-    recordStepExit("perturbation");
-    if (!skip && scenario && chosenId) {
-      const accuracy = computeBridgeAccuracy(chosenId, scenario.neighborIds, edges);
-      setPerturbationResult({
-        removedId:      scenario.removedId,
-        bridgeChoiceId: chosenId,
-        bridgeAccuracy: accuracy,
-        timeMs:         Date.now() - startMs.current,
-      });
-    }
-    setRespondentStep("complete");
-  }
+  const accumulated = useRef<Array<{ bridgeAccuracy: number; timeMs: number }>>([]);
 
-  if (!scenario) {
+  const scenario   = scenarios[taskIdx] ?? null;
+  const totalTasks = scenarios.length;
+  const isLastTask = taskIdx >= totalTasks - 1;
+
+  if (scenarios.length === 0) {
     return (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "60vh", padding: "40px 24px", textAlign: "center" }}>
         <div style={{ fontSize: 32, marginBottom: 16 }}>🔄</div>
@@ -44,20 +42,20 @@ export function StepPerturbation() {
         <p style={{ fontSize: 14, color: "var(--text-2)", maxWidth: 400, lineHeight: 1.65, marginBottom: 28 }}>
           The adaptation task needs at least one concept with two or more connections.
         </p>
-        <button onClick={() => proceed(true)} className="btn btn-primary" style={{ fontSize: 13, padding: "10px 28px" }}>Continue →</button>
+        <button onClick={() => { recordStepExit("perturbation"); setRespondentStep("complete"); }} className="btn btn-primary" style={{ fontSize: 13, padding: "10px 28px" }}>Continue →</button>
       </div>
     );
   }
+
+  if (!scenario) return null;
 
   const removedPlo     = plos.find((p) => p.id === scenario.removedId);
   const removedCluster = clusterMap.get(scenario.removedId);
   const removedColor   = removedCluster ? CLUSTER_COLORS[removedCluster - 1] : "var(--rust)";
 
-  // Candidate concepts = everyone except the removed node
   const candidates = plos.filter((p) => p.id !== scenario.removedId);
 
-  // Group candidates by cluster
-  const groups = useMemo(() => {
+  const groups = (() => {
     const map = new Map<number, typeof candidates>();
     const unassigned: typeof candidates = [];
     for (const p of candidates) {
@@ -68,15 +66,59 @@ export function StepPerturbation() {
     const sorted = [...map.entries()].sort(([a], [b]) => a - b);
     if (unassigned.length) sorted.push([0, unassigned]);
     return sorted;
-  }, [candidates, clusterMap]); // eslint-disable-line react-hooks/exhaustive-deps
+  })();
+
+  function submitTask(skip = false) {
+    if (!skip && scenario && chosenId) {
+      const accuracy = computeBridgeAccuracy(chosenId, scenario.neighborIds, edges);
+      accumulated.current.push({
+        bridgeAccuracy: accuracy,
+        timeMs: Date.now() - startMs.current,
+      });
+    }
+
+    if (isLastTask || skip) {
+      if (accumulated.current.length > 0) {
+        const avgAcc  = accumulated.current.reduce((s, r) => s + r.bridgeAccuracy, 0) / accumulated.current.length;
+        const avgTime = accumulated.current.reduce((s, r) => s + r.timeMs, 0) / accumulated.current.length;
+        setPerturbationResult({
+          removedId:      scenarios[0].removedId,
+          bridgeChoiceId: chosenId ?? scenarios[0].removedId,
+          bridgeAccuracy: Math.round(avgAcc * 100) / 100,
+          timeMs:         Math.round(avgTime),
+        });
+      }
+      recordStepExit("perturbation");
+      setRespondentStep("complete");
+    } else {
+      setChosenId(null);
+      startMs.current = Date.now();
+      setTaskIdx((i) => i + 1);
+    }
+  }
 
   return (
     <div style={{ maxWidth: 760, margin: "0 auto", padding: "40px 24px" }}>
 
       {/* Header */}
       <div style={{ marginBottom: 28 }}>
-        <div style={{ fontSize: 9.5, fontWeight: 600, letterSpacing: "0.1em", color: "var(--rust)", fontFamily: "'Fira Code', monospace", marginBottom: 8 }}>
-          ADAPTATION TASK
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+          <div style={{ fontSize: 9.5, fontWeight: 600, letterSpacing: "0.1em", color: "var(--rust)", fontFamily: "'Fira Code', monospace" }}>
+            ADAPTATION TASK
+          </div>
+          {/* Task progress dots */}
+          <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+            <span style={{ fontSize: 9.5, color: "var(--text-3)", fontFamily: "'Fira Code', monospace", marginRight: 4 }}>
+              {taskIdx + 1} of {totalTasks}
+            </span>
+            {Array.from({ length: totalTasks }).map((_, i) => (
+              <div key={i} style={{
+                width: 7, height: 7, borderRadius: "50%",
+                background: i < taskIdx ? "var(--ink)" : i === taskIdx ? "var(--rust)" : "var(--line)",
+                opacity: i < taskIdx ? 0.35 : 1,
+              }} />
+            ))}
+          </div>
         </div>
         <h2 className="font-display" style={{ fontSize: 22, fontWeight: 700, color: "var(--ink)", marginBottom: 8, lineHeight: 1.2 }}>
           The knowledge landscape has shifted
@@ -156,13 +198,13 @@ export function StepPerturbation() {
 
       {/* Actions */}
       <div style={{ display: "flex", gap: 10 }}>
-        <button onClick={() => proceed(true)}
+        <button onClick={() => submitTask(true)}
           style={{ fontSize: 12, padding: "9px 20px", borderRadius: 9, border: "1px solid var(--line)", background: "#fff", color: "var(--text-2)", cursor: "pointer", fontFamily: "'Sora', sans-serif" }}>
           Skip task
         </button>
-        <button onClick={() => proceed(false)} className="btn btn-primary"
+        <button onClick={() => submitTask(false)} className="btn btn-primary"
           style={{ fontSize: 13, padding: "9px 24px", opacity: !chosenId ? 0.6 : 1 }}>
-          Submit answer →
+          {isLastTask ? "Submit answer →" : "Next task →"}
         </button>
       </div>
     </div>

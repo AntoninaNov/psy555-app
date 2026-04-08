@@ -87,6 +87,60 @@ export function selectPerturbationScenario(
   return { removedId: bridgeId, neighborIds };
 }
 
+/** Pick up to n distinct source-target pairs for multiple pathfinding tasks */
+export function selectMultiplePathfindingPairs(
+  n: number,
+  plos: PLO[],
+  edges: Edge[],
+): Array<{ sourceId: string; targetId: string; optimalLength: number }> {
+  if (plos.length < 3 || edges.length < 2) return [];
+
+  const ids = plos.map((p) => p.id);
+  const adj = buildAdj(ids, edges);
+  const directSet = new Set(edges.flatMap((e) => [`${e.source}:${e.target}`, `${e.target}:${e.source}`]));
+
+  const results: Array<{ sourceId: string; targetId: string; optimalLength: number }> = [];
+  const usedPairs = new Set<string>();
+
+  const shuffled = [...ids].sort(() => Math.random() - 0.5);
+  for (let i = 0; i < shuffled.length && results.length < n; i++) {
+    for (let j = i + 1; j < shuffled.length && results.length < n; j++) {
+      const a = shuffled[i], b = shuffled[j];
+      const key = [a, b].sort().join(":");
+      if (usedPairs.has(key)) continue;
+      if (directSet.has(`${a}:${b}`)) continue;
+      const path = bfsPath(adj, a, b);
+      if (!path || path.length < 3 || path.length > 5) continue;
+      usedPairs.add(key);
+      results.push({ sourceId: a, targetId: b, optimalLength: path.length - 1 });
+    }
+  }
+  return results;
+}
+
+/** Pick up to n distinct nodes (highest-degree first) for multiple perturbation tasks */
+export function selectMultiplePerturbationScenarios(
+  n: number,
+  plos: PLO[],
+  edges: Edge[],
+): Array<{ removedId: string; neighborIds: string[] }> {
+  if (edges.length < 2) return [];
+
+  // Sort by degree descending, require at least 2 connections
+  const ranked = plos
+    .map((p) => ({ id: p.id, deg: degree(p.id, edges) }))
+    .filter((x) => x.deg >= 2)
+    .sort((a, b) => b.deg - a.deg)
+    .slice(0, n);
+
+  return ranked.map(({ id }) => ({
+    removedId: id,
+    neighborIds: edges
+      .filter((e) => e.source === id || e.target === id)
+      .map((e) => (e.source === id ? e.target : e.source)),
+  }));
+}
+
 /** Compute bridge-replacement accuracy for perturbation task */
 export function computeBridgeAccuracy(
   chosenId: string,

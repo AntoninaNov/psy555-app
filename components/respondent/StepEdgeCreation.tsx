@@ -7,8 +7,8 @@ import { TutorialOverlay, EdgeCreationDemo } from "./TutorialOverlay";
 
 const W_STROKE = [0, 2, 3.5, 5.5] as const;
 const W_COLOR  = ["", "#3b82f6", "#10b981", "#f59e0b"] as const;
-const W_LABEL  = ["", "Weak", "Moderate", "Strong"] as const;
-const W_DESC   = ["", "loosely related", "clearly related", "very closely related"] as const;
+const W_LABEL  = ["", "Distant", "Nearby", "Adjacent"] as const;
+const W_DESC   = ["", "far apart in your knowledge", "somewhat close", "immediately adjacent"] as const;
 
 function getEdgeBetween(edges: Edge[], a: string, b: string): Edge | undefined {
   return edges.find((e) => (e.source === a && e.target === b) || (e.source === b && e.target === a));
@@ -96,7 +96,7 @@ export function StepEdgeCreation() {
     return (
       <TutorialOverlay
         title="Connect related concepts"
-        body="Click any concept to focus it, then click others to mark a connection and rate its strength — weak, moderate, or strong. No right or wrong answers."
+        body="Click any concept to focus it, then click others to connect them. For each connection, say how close they are — Distant, Nearby, or Adjacent. No right or wrong answers."
         demo={<EdgeCreationDemo />}
         onDismiss={() => setShowTutorial(false)}
       />
@@ -210,7 +210,7 @@ export function StepEdgeCreation() {
                         onClick={(e) => e.stopPropagation()}
                         style={{ border: "1.5px solid var(--ink)", borderTop: "none", borderRadius: "0 0 10px 10px", padding: "10px", background: "#fff", display: "flex", flexDirection: "column", gap: 7 }}
                       >
-                        <div style={{ fontSize: 8.5, fontWeight: 600, letterSpacing: "0.08em", color: "var(--text-3)", fontFamily: "'Fira Code', monospace" }}>CONNECTION STRENGTH</div>
+                        <div style={{ fontSize: 8.5, fontWeight: 600, letterSpacing: "0.08em", color: "var(--text-3)", fontFamily: "'Fira Code', monospace" }}>HOW CLOSE ARE THESE CONCEPTS?</div>
                         <div style={{ display: "flex", gap: 5 }}>
                           {([1, 2, 3] as const).map((w) => {
                             const active = edge?.weight === w;

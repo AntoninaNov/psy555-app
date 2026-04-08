@@ -287,9 +287,9 @@ export function ClusteringDemo() {
 //   0  idle — grouped grid, nothing selected
 //   1  "Neurobiology" focused — dark banner appears, grid shows others
 //   2  "Cognition" expanded — inline picker shown
-//   3  "Moderate" chosen — connection saved, picker collapses
+//   3  "Nearby" chosen — connection saved, picker collapses
 //   4  "Statistics" expanded — second connection
-//   5  "Strong" saved — 2 connections total, idle view
+//   5  "Adjacent" saved — 2 connections total, idle view
 
 export function EdgeCreationDemo() {
   const [frame, setFrame] = useState(0);
@@ -306,8 +306,8 @@ export function EdgeCreationDemo() {
   const statConnected  = frame >= 5;
 
   const concepts = [
-    { name: "Cognition",  connected: cogConnected,  expanded: cogExpanded,  color: "#10b981", strength: "Moderate", h: 3.5 },
-    { name: "Statistics", connected: statConnected, expanded: statExpanded, color: "#f59e0b", strength: "Strong",   h: 5.5 },
+    { name: "Cognition",  connected: cogConnected,  expanded: cogExpanded,  color: "#10b981", strength: "Nearby",   h: 3.5 },
+    { name: "Statistics", connected: statConnected, expanded: statExpanded, color: "#f59e0b", strength: "Adjacent", h: 5.5 },
     { name: "Ethics",     connected: false,          expanded: false,        color: null,      strength: null,       h: 0 },
   ];
 
@@ -369,9 +369,9 @@ export function EdgeCreationDemo() {
             {expanded && (
               <div style={{ border: "1.5px solid #1f2937", borderTop: "none", borderRadius: "0 0 7px 7px", padding: "7px 6px", background: "#fff", display: "flex", gap: 4 }}>
                 {[
-                  { label: "Weak",     c: "#3b82f6", h: 2   },
-                  { label: "Moderate", c: "#10b981", h: 3.5 },
-                  { label: "Strong",   c: "#f59e0b", h: 5.5 },
+                  { label: "Distant",  c: "#3b82f6", h: 2   },
+                  { label: "Nearby",   c: "#10b981", h: 3.5 },
+                  { label: "Adjacent", c: "#f59e0b", h: 5.5 },
                 ].map((s) => (
                   <div key={s.label} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 3, padding: "5px 3px", borderRadius: 5, border: "1px solid #e5e7eb" }}>
                     <div style={{ width: "50%", height: s.h, background: s.c, borderRadius: 2, opacity: 0.8 }} />
@@ -388,9 +388,9 @@ export function EdgeCreationDemo() {
       <div style={{ marginTop: 8, fontSize: 9, color: "#9ca3af", fontFamily: "'Fira Code', monospace", textAlign: "center", minHeight: 12 }}>
         {frame === 0 && "click any concept to select it as the focus"}
         {frame === 1 && "Neurobiology selected — click others to connect"}
-        {frame === 2 && "Cognition clicked — pick connection strength"}
-        {frame === 3 && "Moderate saved — keep connecting"}
-        {frame === 4 && "Statistics clicked — pick strength"}
+        {frame === 2 && "Cognition clicked — how close are they?"}
+        {frame === 3 && "Nearby saved — keep connecting"}
+        {frame === 4 && "Statistics clicked — how close?"}
         {frame === 5 && "2 connections drawn from Neurobiology"}
       </div>
     </div>

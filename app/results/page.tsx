@@ -8,7 +8,7 @@ import { downloadJSON, downloadCSV } from "@/lib/export";
 import { CLUSTER_COLORS, RespondentData, StudySession } from "@/lib/types";
 
 const W_COLOR = ["", "#60a5fa", "#34d399", "#f59e0b"] as const;
-const W_LABEL = ["", "Weak", "Moderate", "Strong"] as const;
+const W_LABEL = ["", "Distant", "Nearby", "Adjacent"] as const;
 
 // ── Interpretation helpers ─────────────────────────────────────────────────────
 function navInterp(pct: number) {

@@ -21,7 +21,7 @@ const WARN_ON_LEAVE_STEPS = new Set([
 ]);
 
 // Ordered steps for back-navigation (excludes "complete" — no going back from there)
-const NAV_STEPS = RESPONDENT_STEPS.map(s => s.key).filter(k => k !== "complete");
+const NAV_STEPS = RESPONDENT_STEPS.map(s => s.key).filter(k => k !== "complete") as RespondentStep[];
 
 export default function RespondentPage() {
   const { session, respondentStep, setRespondentStep, recordStepEntry, loadServerSession } = useAppStore();

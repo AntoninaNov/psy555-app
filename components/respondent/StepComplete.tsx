@@ -4,7 +4,7 @@ import { useAppStore } from "@/lib/store";
 import { computeMetrics } from "@/lib/metrics";
 import { useRouter } from "next/navigation";
 
-const WEIGHT_LABELS = ["", "Weak", "Moderate", "Strong"] as const;
+const WEIGHT_LABELS = ["", "Distant", "Nearby", "Adjacent"] as const;
 const W_COLOR       = ["", "#60a5fa", "#34d399", "#f59e0b"] as const;
 
 type SubmitState = "idle" | "submitting" | "done" | "error";

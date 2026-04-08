@@ -14,7 +14,7 @@ export function StepMetadata() {
 
   function submit() {
     if (!valid) {
-      setError("Please enter a valid GPA (e.g. 87, or 4.5).");
+      setError("Please enter a valid GPA (e.g. 87).");
       return;
     }
     setGpa(gpaNum);
@@ -115,7 +115,7 @@ export function StepMetadata() {
               step="0.1"
               min="1"
               max="100"
-              placeholder="e.g. 87 or 4.5"
+              placeholder="e.g. 87"
               value={gpaRaw}
               onChange={(e) => { setGpaRaw(e.target.value); setError(""); }}
               onKeyDown={(e) => e.key === "Enter" && submit()}

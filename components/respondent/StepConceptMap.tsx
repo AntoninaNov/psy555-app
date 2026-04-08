@@ -10,7 +10,7 @@ const NH = 40;  // node height
 const MAX_G = 5;
 const EC = { 1: "#64748b", 2: "#60a5fa", 3: "#fbbf24" } as const;
 const EW = { 1: 1.5,      2: 2.5,      3: 4.0      } as const;
-const EL = { 1: "Weak",   2: "Moderate", 3: "Strong" } as const;
+const EL = { 1: "Distant", 2: "Nearby", 3: "Adjacent" } as const;
 
 // ─── Layout helpers ───────────────────────────────────────────────────────────
 
@@ -258,7 +258,7 @@ export function StepConceptMap() {
             ? <><span style={{ color: "#fff", fontWeight: 700 }}>Click another concept</span><span style={{ color: "rgba(255,255,255,0.35)" }}> to connect · or click the map to cancel</span></>
             : paintG !== null
             ? <><span style={{ color: CLUSTER_COLORS[paintG - 1], fontWeight: 700 }}>Paint mode on</span><span style={{ color: "rgba(255,255,255,0.35)" }}> — click concepts to move them to this group · click the colour again to stop</span></>
-            : <span style={{ color: "rgba(255,255,255,0.35)" }}>Select a concept to connect · drag to move · click a connection dot to rate its strength</span>
+            : <span style={{ color: "rgba(255,255,255,0.35)" }}>Select a concept to connect · drag to move · click a connection dot to set how close they are</span>
           }
         </div>
 
@@ -447,7 +447,7 @@ export function StepConceptMap() {
                 borderRadius: 12, padding: "12px", boxShadow: "0 8px 32px rgba(0,0,0,0.65)", width: 172,
               }}
             >
-              <div style={{ fontSize: 9, letterSpacing: "0.08em", color: "rgba(255,255,255,0.28)", fontFamily: "'Fira Code', monospace", marginBottom: 8 }}>CONNECTION STRENGTH</div>
+              <div style={{ fontSize: 9, letterSpacing: "0.08em", color: "rgba(255,255,255,0.28)", fontFamily: "'Fira Code', monospace", marginBottom: 8 }}>HOW CLOSE ARE THESE CONCEPTS?</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                 {([1, 2, 3] as const).map(w => {
                   const active = edge.weight === w;

@@ -47,9 +47,9 @@ export interface Edge {
 }
 
 export const WEIGHT_LABELS: Record<Edge["weight"], string> = {
-  1: "Weak",
-  2: "Moderate",
-  3: "Strong",
+  1: "Distant",
+  2: "Nearby",
+  3: "Adjacent",
 };
 
 // ─── Behavioural task results ─────────────────────────────────────────────────
