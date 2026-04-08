@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.vercel
+
+# Claude Code session files
+.claude/
+
+# Personal / research documents
+"Research Proposal_ Cognitive Navigation.md"
+"Поведінка та психологія тварин_ еволюційні основи соціальної поведінки.docx.md"
+image.png
