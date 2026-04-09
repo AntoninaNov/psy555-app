@@ -321,17 +321,28 @@ textarea.input { resize: vertical; }
   50%       { box-shadow: 0 0 0 4px rgba(200,75,28,0.2), 0 0 24px rgba(200,75,28,0.08); }
 }
 @keyframes plo-float {
-  0%, 100% { transform: translateY(0px);   }
-  50%       { transform: translateY(-5px);  }
+  0%, 100% { transform: translateY(0px);  }
+  50%       { transform: translateY(-6px); }
 }
 @keyframes plo-float-subtle {
-  0%, 100% { transform: translateY(0px);   }
-  50%       { transform: translateY(-2px);  }
+  0%, 100% { transform: translateY(0px);  }
+  50%       { transform: translateY(-3px); }
 }
 @keyframes plo-connected-flash {
-  0%   { box-shadow: 0 0 0 0 rgba(245,158,11,0);   }
-  30%  { box-shadow: 0 0 0 6px rgba(245,158,11,0.3); }
-  100% { box-shadow: 0 0 0 0 rgba(245,158,11,0);   }
+  0%   { box-shadow: 0 0 0 0   rgba(245,158,11,0);    }
+  30%  { box-shadow: 0 0 0 8px rgba(245,158,11,0.35); }
+  100% { box-shadow: 0 0 0 0   rgba(245,158,11,0);    }
+}
+
+/* Applied directly via className on PLO cards */
+.plo-float {
+  animation: plo-float 2.6s ease-in-out infinite;
+}
+.plo-float-subtle {
+  animation: plo-float-subtle 2.8s ease-in-out infinite;
+}
+.plo-flash {
+  animation: plo-connected-flash 0.7s ease-out;
 }
 
 .anim-up   { animation: fadeUp  0.3s ease both; }

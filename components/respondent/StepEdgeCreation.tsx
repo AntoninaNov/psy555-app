@@ -207,6 +207,7 @@ export function StepEdgeCreation() {
                         <div key={plo.id} style={{ display: "flex", flexDirection: "column" }}>
                           <div
                             onClick={() => handleCardClick(plo.id)}
+                            className={`${floatAmp}${isFlashing ? " plo-flash" : ""}`}
                             style={{
                               padding,
                               borderRadius: isExpanded ? "10px 10px 0 0" : 10,
@@ -216,7 +217,7 @@ export function StepEdgeCreation() {
                               cursor: "pointer",
                               position: "relative",
                               userSelect: "none",
-                              animation: `${floatAmp} 2.6s ease-in-out ${delay} infinite, ${isFlashing ? "plo-connected-flash 0.7s ease-out" : "none"}`,
+                              animationDelay: delay,
                               transition: "box-shadow 0.15s",
                             }}
                             onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = `0 4px 14px ${color}28`; }}
@@ -268,6 +269,7 @@ export function StepEdgeCreation() {
                         <div key={plo.id} style={{ display: "flex", flexDirection: "column" }}>
                           <div
                             onClick={() => handleCardClick(plo.id)}
+                            className="plo-float-subtle"
                             style={{
                               padding: "10px 12px",
                               borderRadius: isExpanded ? "10px 10px 0 0" : 10,
@@ -276,7 +278,7 @@ export function StepEdgeCreation() {
                               cursor: "pointer",
                               position: "relative",
                               userSelect: "none",
-                              animation: `plo-float-subtle 2.8s ease-in-out ${delay} infinite`,
+                              animationDelay: delay,
                               transition: "border-color 0.12s, box-shadow 0.15s",
                             }}
                             onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; if (!isExpanded) el.style.borderColor = "var(--ink-soft)"; el.style.boxShadow = "var(--sh-xs)"; }}
@@ -324,6 +326,7 @@ export function StepEdgeCreation() {
                       const delay     = `${(idx * 0.21) % 2.3}s`;
                       return (
                         <div key={plo.id} onClick={() => handleCardClick(plo.id)}
+                          className="plo-float-subtle"
                           style={{
                             padding: "11px 12px",
                             borderRadius: 10,
@@ -333,7 +336,7 @@ export function StepEdgeCreation() {
                             cursor: "pointer",
                             position: "relative",
                             userSelect: "none",
-                            animation: `plo-float-subtle 2.8s ease-in-out ${delay} infinite`,
+                            animationDelay: delay,
                             transition: "border-color 0.12s, box-shadow 0.15s",
                           }}
                           onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = color; el.style.boxShadow = `0 4px 12px ${color}22`; }}
