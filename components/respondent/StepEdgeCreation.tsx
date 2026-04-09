@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/lib/store";
 import { Edge, PLO, CanvasNode, CLUSTER_COLORS } from "@/lib/types";
@@ -58,7 +58,11 @@ export function StepEdgeCreation() {
   const [pickerId,     setPickerId]     = useState<string | null>(null);
   const [hoverId,      setHoverId]      = useState<string | null>(null);
   const [edges,        setLocalEdges]   = useState<Edge[]>(savedEdges);
+  const [pan,          setPan]          = useState({ x: 0, y: 0 });
+  const [isDragging,   setIsDragging]   = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const dragOrigin   = useRef<{ mx: number; my: number; px: number; py: number } | null>(null);
+  const didDrag      = useRef(false);
 
   // ── Node positions ─────────────────────────────────────────────────────────
 
@@ -81,6 +85,39 @@ export function StepEdgeCreation() {
   const canvasW = useMemo(() => Math.max(...nodes.map(n => n.x + NODE_W + PAD), 600), [nodes]);
   const canvasH = useMemo(() => Math.max(...nodes.map(n => n.y + NODE_H + PAD), 400), [nodes]);
 
+  // Center graph in viewport on first render
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || nodes.length === 0) return;
+    const { width, height } = el.getBoundingClientRect();
+    const cx = nodes.reduce((s, n) => s + n.x + NODE_W / 2, 0) / nodes.length;
+    const cy = nodes.reduce((s, n) => s + n.y + NODE_H / 2, 0) / nodes.length;
+    setPan({ x: width / 2 - cx, y: height / 2 - cy });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Pan handlers ───────────────────────────────────────────────────────────
+
+  function onPanStart(e: React.MouseEvent) {
+    dragOrigin.current = { mx: e.clientX, my: e.clientY, px: pan.x, py: pan.y };
+    didDrag.current = false;
+  }
+
+  function onPanMove(e: React.MouseEvent) {
+    if (!dragOrigin.current) return;
+    const dx = e.clientX - dragOrigin.current.mx;
+    const dy = e.clientY - dragOrigin.current.my;
+    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+      didDrag.current = true;
+      setIsDragging(true);
+    }
+    setPan({ x: dragOrigin.current.px + dx, y: dragOrigin.current.py + dy });
+  }
+
+  function onPanEnd() {
+    dragOrigin.current = null;
+    setIsDragging(false);
+  }
+
   // ── Derived ────────────────────────────────────────────────────────────────
 
   const focusNode = focusId ? posMap.get(focusId) : null;
@@ -91,6 +128,7 @@ export function StepEdgeCreation() {
   // ── Handlers ───────────────────────────────────────────────────────────────
 
   function handleNodeClick(ploId: string) {
+    if (didDrag.current) return; // pan gesture — ignore click
     if (!focusId) {
       setFocusId(ploId);
       setPickerId(null);
@@ -192,12 +230,23 @@ export function StepEdgeCreation() {
       </div>
 
       {/* ── Graph canvas ────────────────────────────────────────────────── */}
-      <div ref={containerRef} style={{ flex: 1, overflow: "auto", position: "relative" }}>
+      <div
+        ref={containerRef}
+        style={{ flex: 1, overflow: "hidden", position: "relative", cursor: isDragging ? "grabbing" : "grab" }}
+        onMouseDown={onPanStart}
+        onMouseMove={onPanMove}
+        onMouseUp={onPanEnd}
+        onMouseLeave={onPanEnd}
+      >
         <div
           className="cv-grid"
-          style={{ position: "relative", width: canvasW, height: canvasH, minWidth: "100%", minHeight: "100%" }}
+          style={{
+            position: "absolute",
+            width: canvasW, height: canvasH,
+            transform: `translate(${pan.x}px, ${pan.y}px)`,
+            transformOrigin: "0 0",
+          }}
           onClick={(e) => {
-            // Click on canvas background → close picker
             if (e.target === e.currentTarget) setPickerId(null);
           }}
         >
