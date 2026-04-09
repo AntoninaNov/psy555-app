@@ -1,5 +1,6 @@
 "use client";
 import { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/lib/store";
 import { Edge, PLO, CLUSTER_COLORS } from "@/lib/types";
 import { nanoid } from "@/lib/nanoid";
@@ -10,20 +11,34 @@ const W_COLOR  = ["", "#3b82f6", "#10b981", "#f59e0b"] as const;
 const W_LABEL  = ["", "Distant", "Nearby", "Adjacent"] as const;
 const W_DESC   = ["", "far apart in your knowledge", "somewhat close", "immediately adjacent"] as const;
 
-// Sections shown when a card is focused, ordered closest→farthest
+// Float amplitude per weight: closer → more energetic float
+const FLOAT_Y = { connected: [-6, 0], subtle: [-3, 0] };
+
 const WEIGHT_SECTIONS = [
-  { weight: 3 as const, minWidth: 210, fontSize: 13,   padding: "14px 15px", floatAmp: "plo-float"        },
-  { weight: 2 as const, minWidth: 188, fontSize: 12.5, padding: "12px 13px", floatAmp: "plo-float"        },
-  { weight: 1 as const, minWidth: 172, fontSize: 12,   padding: "10px 12px", floatAmp: "plo-float-subtle" },
+  { weight: 3 as const, minWidth: 210, fontSize: 13,   padding: "14px 15px" },
+  { weight: 2 as const, minWidth: 188, fontSize: 12.5, padding: "12px 13px" },
+  { weight: 1 as const, minWidth: 172, fontSize: 12,   padding: "10px 12px" },
 ] as const;
 
 function getEdgeBetween(edges: Edge[], a: string, b: string): Edge | undefined {
   return edges.find((e) => (e.source === a && e.target === b) || (e.source === b && e.target === a));
 }
 
-/** Show original file header if stored, otherwise fall back to shortTitle */
 function getPloName(plo: PLO): string {
   return plo.original?.trim() || plo.shortTitle;
+}
+
+/** Framer Motion float animation — staggered by index */
+function floatVariant(idx: number, amp: number) {
+  const delay = (idx * 0.22) % 2.4;
+  return {
+    animate: {
+      y: [0, -amp, 0],
+      transition: {
+        y: { duration: 2.6, ease: [0.45, 0, 0.55, 1] as [number,number,number,number], repeat: Infinity, delay },
+      },
+    },
+  };
 }
 
 export function StepEdgeCreation() {
@@ -36,7 +51,6 @@ export function StepEdgeCreation() {
   const [focusId, setFocusId]           = useState<string | null>(null);
   const [expandedId, setExpandedId]     = useState<string | null>(null);
   const [edges, setLocalEdges]          = useState<Edge[]>(savedEdges);
-  const [flashId, setFlashId]           = useState<string | null>(null);
 
   const clusterMap = useMemo(() => {
     const m = new Map<string, number>();
@@ -47,12 +61,10 @@ export function StepEdgeCreation() {
   const focusPlo     = plos.find((p) => p.id === focusId);
   const focusCluster = focusId ? clusterMap.get(focusId) : undefined;
   const focusColor   = focusCluster ? CLUSTER_COLORS[focusCluster - 1] : "var(--ink)";
-
   const focusEdgeCount = focusId
     ? edges.filter((e) => e.source === focusId || e.target === focusId).length
     : 0;
 
-  // Group non-focus PLOs by their connection weight to the focused card
   const grouped = useMemo(() => {
     const byWeight = new Map<number, PLO[]>([[3, []], [2, []], [1, []], [0, []]]);
     for (const plo of plos) {
@@ -63,7 +75,6 @@ export function StepEdgeCreation() {
     return byWeight;
   }, [focusId, edges, plos]);
 
-  // Cluster grouping for unfocused mode
   const clusteredGroups = useMemo(() => {
     const map = new Map<number, PLO[]>();
     const unassigned: PLO[] = [];
@@ -91,9 +102,6 @@ export function StepEdgeCreation() {
       setLocalEdges((prev) => [...prev, { id: nanoid(), source: focusId, target: targetId, weight: w }]);
     }
     setExpandedId(null);
-    // Brief flash to confirm connection
-    setFlashId(targetId);
-    setTimeout(() => setFlashId(null), 700);
   }
 
   function handleRemove(targetId: string) {
@@ -151,42 +159,56 @@ export function StepEdgeCreation() {
       </div>
 
       {/* ── Focus banner ────────────────────────────────────────────────────── */}
-      {focusId && focusPlo && (
-        <div style={{ flexShrink: 0, background: "var(--ink)", padding: "14px 24px", display: "flex", alignItems: "flex-start", gap: 20, borderLeft: `4px solid ${focusColor}` }}>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: 9, letterSpacing: "0.1em", color: "rgba(255,255,255,0.35)", fontFamily: "'Fira Code', monospace", marginBottom: 4 }}>SELECTED CONCEPT</div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: "#fff", fontFamily: "'Sora', sans-serif", marginBottom: 4, lineHeight: 1.3 }}>{getPloName(focusPlo)}</div>
-            <div style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", fontFamily: "'Sora', sans-serif", lineHeight: 1.55 }}>{focusPlo.paraphrase}</div>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 10, flexShrink: 0 }}>
-            <button
-              onClick={() => { setFocusId(null); setExpandedId(null); }}
-              style={{ fontSize: 11, padding: "4px 12px", borderRadius: 7, border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.65)", cursor: "pointer", fontFamily: "'Sora', sans-serif" }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.16)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.08)"; }}
-            >✕ Deselect</button>
-            <div style={{ textAlign: "right" }}>
-              <div style={{ fontSize: 22, fontWeight: 700, color: "#fff", lineHeight: 1, fontFamily: "'Sora', sans-serif" }}>{focusEdgeCount}</div>
-              <div style={{ fontSize: 9, color: "rgba(255,255,255,0.35)", fontFamily: "'Fira Code', monospace" }}>connections</div>
+      <AnimatePresence>
+        {focusId && focusPlo && (
+          <motion.div
+            key="focus-banner"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22 }}
+            style={{ flexShrink: 0, background: "var(--ink)", padding: "14px 24px", display: "flex", alignItems: "flex-start", gap: 20, borderLeft: `4px solid ${focusColor}` }}
+          >
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 9, letterSpacing: "0.1em", color: "rgba(255,255,255,0.35)", fontFamily: "'Fira Code', monospace", marginBottom: 4 }}>SELECTED CONCEPT</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "#fff", fontFamily: "'Sora', sans-serif", marginBottom: 4, lineHeight: 1.3 }}>{getPloName(focusPlo)}</div>
+              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", fontFamily: "'Sora', sans-serif", lineHeight: 1.55 }}>{focusPlo.paraphrase}</div>
             </div>
-          </div>
-        </div>
-      )}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 10, flexShrink: 0 }}>
+              <button
+                onClick={() => { setFocusId(null); setExpandedId(null); }}
+                style={{ fontSize: 11, padding: "4px 12px", borderRadius: 7, border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.65)", cursor: "pointer", fontFamily: "'Sora', sans-serif" }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.16)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.08)"; }}
+              >✕ Deselect</button>
+              <div style={{ textAlign: "right" }}>
+                <div style={{ fontSize: 22, fontWeight: 700, color: "#fff", lineHeight: 1, fontFamily: "'Sora', sans-serif" }}>{focusEdgeCount}</div>
+                <div style={{ fontSize: 9, color: "rgba(255,255,255,0.35)", fontFamily: "'Fira Code', monospace" }}>connections</div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ── Card area ───────────────────────────────────────────────────────── */}
       <div style={{ flex: 1, overflow: "auto", padding: "20px 24px" }}>
 
-        {/* FOCUSED MODE — sections by proximity */}
+        {/* FOCUSED MODE */}
         {focusId && (
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
 
-            {/* Connected sections: Adjacent → Nearby → Distant */}
-            {WEIGHT_SECTIONS.map(({ weight, minWidth, fontSize, padding, floatAmp }) => {
+            {WEIGHT_SECTIONS.map(({ weight, minWidth, fontSize, padding }) => {
               const group = grouped.get(weight)!;
               if (group.length === 0) return null;
               const color = W_COLOR[weight];
               return (
-                <div key={weight}>
+                <motion.div
+                  key={weight}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.28 }}
+                >
                   {/* Section header */}
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                     <div style={{ width: 28, height: W_STROKE[weight] * 2, background: color, borderRadius: 2, opacity: 0.85, flexShrink: 0 }} />
@@ -194,20 +216,22 @@ export function StepEdgeCreation() {
                     <span style={{ fontSize: 10, color: "var(--text-3)", fontFamily: "'Sora', sans-serif" }}>— {W_DESC[weight]}</span>
                     <span style={{ marginLeft: "auto", fontSize: 10, fontFamily: "'Fira Code', monospace", color, background: `${color}18`, borderRadius: 8, padding: "1px 7px" }}>{group.length}</span>
                   </div>
-                  {/* Cards */}
+
                   <div style={{ display: "grid", gridTemplateColumns: `repeat(auto-fill, minmax(${minWidth}px, 1fr))`, gap: 8 }}>
                     {group.map((plo, idx) => {
                       const edge       = getEdgeBetween(edges, focusId!, plo.id)!;
                       const isExpanded = expandedId === plo.id;
-                      const isFlashing = flashId === plo.id;
                       const cluster    = clusterMap.get(plo.id);
                       const dotColor   = cluster ? CLUSTER_COLORS[cluster - 1] : undefined;
-                      const delay      = `${(idx * 0.22) % 2.4}s`;
+                      const fv         = floatVariant(idx, 6);
                       return (
                         <div key={plo.id} style={{ display: "flex", flexDirection: "column" }}>
-                          <div
+                          <motion.div
+                            layout
                             onClick={() => handleCardClick(plo.id)}
-                            className={`${floatAmp}${isFlashing ? " plo-flash" : ""}`}
+                            animate={fv.animate}
+                            whileHover={{ scale: 1.025, boxShadow: `0 6px 18px ${color}30` }}
+                            whileTap={{ scale: 0.97 }}
                             style={{
                               padding,
                               borderRadius: isExpanded ? "10px 10px 0 0" : 10,
@@ -217,11 +241,7 @@ export function StepEdgeCreation() {
                               cursor: "pointer",
                               position: "relative",
                               userSelect: "none",
-                              animationDelay: delay,
-                              transition: "box-shadow 0.15s",
                             }}
-                            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = `0 4px 14px ${color}28`; }}
-                            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
                           >
                             <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 5 }}>
                               <div style={{ width: 16, height: W_STROKE[weight], background: color, borderRadius: 2, opacity: 0.8, flexShrink: 0 }} />
@@ -230,21 +250,32 @@ export function StepEdgeCreation() {
                             <div style={{ fontSize, fontWeight: 600, color: "var(--ink)", fontFamily: "'Sora', sans-serif", lineHeight: 1.35 }}>{getPloName(plo)}</div>
                             {dotColor && <div style={{ position: "absolute", top: 8, right: 8, width: 6, height: 6, borderRadius: "50%", background: dotColor, opacity: 0.55 }} />}
                             {!isExpanded && <div style={{ position: "absolute", bottom: 7, right: 9, fontSize: 9, color, opacity: 0.6 }}>✎ edit</div>}
-                          </div>
+                          </motion.div>
 
-                          {isExpanded && (
-                            <DistancePanel
-                              currentWeight={edge.weight}
-                              color={color}
-                              onSelect={(w) => handleSetStrength(plo.id, w)}
-                              onRemove={() => handleRemove(plo.id)}
-                            />
-                          )}
+                          <AnimatePresence>
+                            {isExpanded && (
+                              <motion.div
+                                key="panel"
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.2 }}
+                                style={{ overflow: "hidden" }}
+                              >
+                                <DistancePanel
+                                  currentWeight={edge.weight}
+                                  color={color}
+                                  onSelect={(w) => handleSetStrength(plo.id, w)}
+                                  onRemove={() => handleRemove(plo.id)}
+                                />
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
                         </div>
                       );
                     })}
                   </div>
-                </div>
+                </motion.div>
               );
             })}
 
@@ -264,12 +295,15 @@ export function StepEdgeCreation() {
                       const isExpanded = expandedId === plo.id;
                       const cluster    = clusterMap.get(plo.id);
                       const dotColor   = cluster ? CLUSTER_COLORS[cluster - 1] : undefined;
-                      const delay      = `${(idx * 0.19) % 2.2}s`;
+                      const fv         = floatVariant(idx, 3);
                       return (
                         <div key={plo.id} style={{ display: "flex", flexDirection: "column" }}>
-                          <div
+                          <motion.div
+                            layout
                             onClick={() => handleCardClick(plo.id)}
-                            className="plo-float-subtle"
+                            animate={fv.animate}
+                            whileHover={{ scale: 1.02, boxShadow: "var(--sh-sm)" }}
+                            whileTap={{ scale: 0.97 }}
                             style={{
                               padding: "10px 12px",
                               borderRadius: isExpanded ? "10px 10px 0 0" : 10,
@@ -278,25 +312,32 @@ export function StepEdgeCreation() {
                               cursor: "pointer",
                               position: "relative",
                               userSelect: "none",
-                              animationDelay: delay,
-                              transition: "border-color 0.12s, box-shadow 0.15s",
                             }}
-                            onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; if (!isExpanded) el.style.borderColor = "var(--ink-soft)"; el.style.boxShadow = "var(--sh-xs)"; }}
-                            onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; if (!isExpanded) el.style.borderColor = "var(--line)"; el.style.boxShadow = "none"; }}
                           >
                             <div style={{ fontSize: 12, fontWeight: 600, color: "var(--ink)", fontFamily: "'Sora', sans-serif", lineHeight: 1.35 }}>{getPloName(plo)}</div>
                             {dotColor && <div style={{ position: "absolute", top: 8, right: 8, width: 6, height: 6, borderRadius: "50%", background: dotColor, opacity: 0.55 }} />}
                             {!isExpanded && <div style={{ position: "absolute", bottom: 7, right: 9, fontSize: 11, color: "var(--text-3)", opacity: 0.5 }}>+</div>}
-                          </div>
+                          </motion.div>
 
-                          {isExpanded && (
-                            <DistancePanel
-                              currentWeight={undefined}
-                              color="var(--ink)"
-                              onSelect={(w) => handleSetStrength(plo.id, w)}
-                              onRemove={undefined}
-                            />
-                          )}
+                          <AnimatePresence>
+                            {isExpanded && (
+                              <motion.div
+                                key="panel"
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.2 }}
+                                style={{ overflow: "hidden" }}
+                              >
+                                <DistancePanel
+                                  currentWeight={undefined}
+                                  color="var(--ink)"
+                                  onSelect={(w) => handleSetStrength(plo.id, w)}
+                                  onRemove={undefined}
+                                />
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
                         </div>
                       );
                     })}
@@ -323,10 +364,15 @@ export function StepEdgeCreation() {
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(185px, 1fr))", gap: 8 }}>
                     {group.map((plo, idx) => {
                       const connCount = edges.filter((e) => e.source === plo.id || e.target === plo.id).length;
-                      const delay     = `${(idx * 0.21) % 2.3}s`;
+                      const fv        = floatVariant(idx, 3);
                       return (
-                        <div key={plo.id} onClick={() => handleCardClick(plo.id)}
-                          className="plo-float-subtle"
+                        <motion.div
+                          key={plo.id}
+                          layout
+                          onClick={() => handleCardClick(plo.id)}
+                          animate={fv.animate}
+                          whileHover={{ scale: 1.02, boxShadow: `0 4px 14px ${color}28` }}
+                          whileTap={{ scale: 0.97 }}
                           style={{
                             padding: "11px 12px",
                             borderRadius: 10,
@@ -336,17 +382,13 @@ export function StepEdgeCreation() {
                             cursor: "pointer",
                             position: "relative",
                             userSelect: "none",
-                            animationDelay: delay,
-                            transition: "border-color 0.12s, box-shadow 0.15s",
                           }}
-                          onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = color; el.style.boxShadow = `0 4px 12px ${color}22`; }}
-                          onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = connCount > 0 ? `${color}50` : "var(--line)"; el.style.boxShadow = "none"; }}
                         >
                           <div style={{ fontSize: 12, fontWeight: 600, color: "var(--ink)", fontFamily: "'Sora', sans-serif", lineHeight: 1.35 }}>{getPloName(plo)}</div>
                           {connCount > 0 && (
                             <div style={{ position: "absolute", top: 7, right: 8, fontSize: 9, fontFamily: "'Fira Code', monospace", background: "var(--ink-pale)", color: "var(--text-2)", borderRadius: 10, padding: "1px 6px" }}>{connCount}</div>
                           )}
-                        </div>
+                        </motion.div>
                       );
                     })}
                   </div>
@@ -360,7 +402,7 @@ export function StepEdgeCreation() {
   );
 }
 
-// ── Distance selection panel (shared between connected and unconnected states) ──
+// ── Distance panel ────────────────────────────────────────────────────────────
 interface DistancePanelProps {
   currentWeight: Edge["weight"] | undefined;
   color: string;
@@ -379,24 +421,26 @@ function DistancePanel({ currentWeight, color, onSelect, onRemove }: DistancePan
         {([3, 2, 1] as const).map((w) => {
           const active = currentWeight === w;
           return (
-            <button key={w} onClick={() => onSelect(w)}
-              style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 5, padding: "9px 4px", borderRadius: 8, outline: "none", cursor: "pointer", border: `2px solid ${active ? W_COLOR[w] : "var(--line)"}`, background: active ? `${W_COLOR[w]}14` : "#fff", transition: "all 0.12s" }}
-              onMouseEnter={(e) => { if (!active) { e.currentTarget.style.borderColor = W_COLOR[w]; e.currentTarget.style.background = `${W_COLOR[w]}0A`; } }}
-              onMouseLeave={(e) => { if (!active) { e.currentTarget.style.borderColor = "var(--line)"; e.currentTarget.style.background = "#fff"; } }}
+            <motion.button
+              key={w}
+              onClick={() => onSelect(w)}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 5, padding: "9px 4px", borderRadius: 8, outline: "none", cursor: "pointer", border: `2px solid ${active ? W_COLOR[w] : "var(--line)"}`, background: active ? `${W_COLOR[w]}14` : "#fff", transition: "border-color 0.12s, background 0.12s" }}
             >
               <div style={{ width: "55%", height: W_STROKE[w] * 2, background: W_COLOR[w], borderRadius: 2, opacity: 0.85 }} />
               <span style={{ fontSize: 10, fontWeight: active ? 700 : 500, color: active ? W_COLOR[w] : "var(--text-2)", fontFamily: "'Sora', sans-serif" }}>{W_LABEL[w]}</span>
               <span style={{ fontSize: 8.5, color: "var(--text-3)", fontFamily: "'Sora', sans-serif", textAlign: "center" }}>{W_DESC[w]}</span>
-            </button>
+            </motion.button>
           );
         })}
       </div>
       {onRemove && (
-        <button onClick={onRemove}
+        <motion.button
+          onClick={onRemove}
+          whileHover={{ scale: 1.02, backgroundColor: "#fef2f2" }}
           style={{ padding: "5px", borderRadius: 6, border: "1px solid #fca5a5", background: "transparent", color: "#b91c1c", fontSize: 10, cursor: "pointer", fontFamily: "'Sora', sans-serif" }}
-          onMouseEnter={(e) => { e.currentTarget.style.background = "#fef2f2"; }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
-        >Remove connection</button>
+        >Remove connection</motion.button>
       )}
     </div>
   );
