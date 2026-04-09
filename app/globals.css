@@ -320,6 +320,19 @@ textarea.input { resize: vertical; }
   0%, 100% { box-shadow: 0 0 0 2px rgba(200,75,28,0.4), 0 0 16px rgba(200,75,28,0.15); }
   50%       { box-shadow: 0 0 0 4px rgba(200,75,28,0.2), 0 0 24px rgba(200,75,28,0.08); }
 }
+@keyframes plo-float {
+  0%, 100% { transform: translateY(0px);   }
+  50%       { transform: translateY(-5px);  }
+}
+@keyframes plo-float-subtle {
+  0%, 100% { transform: translateY(0px);   }
+  50%       { transform: translateY(-2px);  }
+}
+@keyframes plo-connected-flash {
+  0%   { box-shadow: 0 0 0 0 rgba(245,158,11,0);   }
+  30%  { box-shadow: 0 0 0 6px rgba(245,158,11,0.3); }
+  100% { box-shadow: 0 0 0 0 rgba(245,158,11,0);   }
+}
 
 .anim-up   { animation: fadeUp  0.3s ease both; }
 .anim-up-1 { animation: fadeUp  0.3s 0.06s ease both; }
