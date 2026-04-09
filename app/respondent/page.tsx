@@ -6,22 +6,23 @@ import { useHasHydrated } from "@/lib/useHydration";
 import { RESPONDENT_STEPS } from "@/lib/types";
 import { StepProgress } from "@/components/StepProgress";
 import { StepIntro } from "@/components/respondent/StepIntro";
-import { StepConceptMap } from "@/components/respondent/StepConceptMap";
+import { StepClustering } from "@/components/respondent/StepClustering";
+import { StepEdgeCreation } from "@/components/respondent/StepEdgeCreation";
 import { StepPathfinding } from "@/components/respondent/StepPathfinding";
 import { StepPerturbation } from "@/components/respondent/StepPerturbation";
 import { StepMetadata } from "@/components/respondent/StepMetadata";
 import { StepComplete } from "@/components/respondent/StepComplete";
 import type { RespondentStep } from "@/lib/types";
 
-// clustering is now a full-canvas step (the unified concept map)
-const CANVAS_STEPS = new Set(["clustering"]);
+// edge_creation is the full-height floating-card step
+const CANVAS_STEPS = new Set(["edge_creation"]);
 
 const WARN_ON_LEAVE_STEPS = new Set([
-  "clustering", "metadata", "pathfinding", "perturbation",
+  "clustering", "edge_creation", "metadata", "pathfinding", "perturbation",
 ]);
 
 // Ordered steps for back-navigation (excludes "complete" — no going back from there)
-const NAV_STEPS = RESPONDENT_STEPS.map(s => s.key).filter(k => k !== "complete") as RespondentStep[];
+const NAV_STEPS = RESPONDENT_STEPS.map(s => s.key).filter(k => k !== "complete" && k !== "node_selection") as RespondentStep[];
 
 // All valid step keys — used to detect stale localStorage values
 const VALID_STEPS = new Set(RESPONDENT_STEPS.map(s => s.key));
@@ -245,12 +246,13 @@ export default function RespondentPage() {
       {/* ── Content ── */}
       {isCanvas ? (
         <div style={{ flex: 1, minHeight: 0 }}>
-          {respondentStep === "clustering" && <StepConceptMap />}
+          {respondentStep === "edge_creation" && <StepEdgeCreation />}
         </div>
       ) : (
         <main style={{ flex: 1, padding: respondentStep === "complete" ? "0" : "56px 16px" }}>
           <div style={{ maxWidth: 880, margin: "0 auto" }}>
             {respondentStep === "intro"        && <StepIntro        />}
+            {respondentStep === "clustering"   && <StepClustering   />}
             {respondentStep === "pathfinding"  && <StepPathfinding  />}
             {respondentStep === "perturbation" && <StepPerturbation />}
             {respondentStep === "metadata"     && <StepMetadata     />}
