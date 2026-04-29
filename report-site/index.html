@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Concept mapping in the space of intended learning outcomes: between compliance adaptation and cognitive hierarchy" />
+    <meta property="og:title" content="Concept mapping in the space of intended learning outcomes" />
+    <meta property="og:description" content="Pilot study of the structure of psychology students' concept maps through an evolutionary frame. N=12 (11 complete), 6 hypotheses, 5 exploratory findings." />
+    <meta name="keywords" content="concept map, intended learning outcomes, evolutionary educational psychology, cognitive navigation, compliance adaptation, Dunning-Kruger, metacognition" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Cognitive navigation in the space of learning outcomes</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet" />
+
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Academicons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
+
+    <!-- Tailwind (preflight OFF — do not reset Bulma styles) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        prefix: 'tw-',
+        corePlugins: { preflight: false }
+      };
+    </script>
+
+    <style>
+      /* ── base ── */
+      body { font-family: 'Noto Sans', sans-serif; }
+      .publication-title { font-family: 'Google Sans', sans-serif; }
+      .publication-authors { font-family: 'Google Sans', sans-serif; }
+      .author-block { display: inline-block; margin-right: 0.5em; }
+      .author-block a { color: #363636; border-bottom: 1px solid #aaa; text-decoration: none; }
+      .author-block a:hover { color: #3273dc; border-bottom-color: #3273dc; }
+      .publication-links .button { margin: 0.25rem; }
+      section.hero .hero-body { padding: 3rem 1.5rem 1.5rem; }
+      .content ul li { margin-bottom: 0.6em; }
+      figure { margin: 0; }
+      figcaption { font-size: 0.82rem; color: #6b7280; margin-top: 0.75rem; text-align: left; }
+      figcaption b { color: #374151; }
+      .table-container table { font-size: 0.88rem; }
+      .rho { font-family: 'Castoro', serif; font-style: italic; }
+      .section + .section { padding-top: 1.5rem; }
+      .hero.is-light { background: #f5f7fb; }
+
+      /* ── finding cards ── */
+      .finding-card {
+        background: #f8f9fa;
+        border-left: 4px solid #3273dc;
+        padding: 1rem 1.25rem;
+        margin-bottom: 1rem;
+        border-radius: 0 6px 6px 0;
+      }
+      .finding-card.orange { border-left-color: #e69f00; }
+      .finding-card.green  { border-left-color: #009e73; }
+      .finding-card.red    { border-left-color: #d55e00; }
+      .finding-card.purple { border-left-color: #cc79a7; }
+
+      /* ── stat pills ── */
+      .stat-pill {
+        display: inline-block;
+        background: #eef2ff; color: #1e3a8a; border: 1px solid #c7d2fe;
+        border-radius: 9999px; padding: 0.2em 0.75em;
+        font-size: 0.85em; font-weight: 600; margin: 0 0.2em;
+        font-family: 'Castoro', serif;
+      }
+      .stat-pill.negative { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+      .stat-pill.null     { background: #f9fafb; color: #6b7280; border-color: #d1d5db; }
+      .stat-pill.positive { background: #ecfdf5; color: #065f46; border-color: #a7f3d0; }
+
+      /* ── outline nav ── */
+      .outline-nav a {
+        color: #3273dc; margin: 0 0.75rem; font-size: 1.05rem;
+        text-decoration: none; border-bottom: 2px solid transparent; transition: border-color 0.2s;
+      }
+      .outline-nav a:hover { border-bottom-color: #3273dc; }
+
+      /* ── hypothesis detail cards ── */
+      .hyp-card { border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 1.25rem; overflow: hidden; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+      .hyp-header { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.25rem; background: #f8fafc; border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; }
+      .hyp-label { font-weight: 800; font-size: 1rem; color: #1e3a8a; min-width: 2.5rem; }
+      .hyp-title { flex: 1; font-weight: 600; color: #1e293b; font-size: 0.95rem; }
+      .verdict-ns  { background:#f3f4f6; color:#6b7280; border:1px solid #d1d5db; border-radius:6px; padding:0.2em 0.6em; font-size:0.8rem; font-weight:700; }
+      .verdict-sig { background:#ecfdf5; color:#065f46; border:1px solid #6ee7b7; border-radius:6px; padding:0.2em 0.6em; font-size:0.8rem; font-weight:700; }
+      .verdict-na  { background:#fef9c3; color:#854d0e; border:1px solid #fde68a; border-radius:6px; padding:0.2em 0.6em; font-size:0.8rem; font-weight:700; }
+      .verdict-opp { background:#fef2f2; color:#991b1b; border:1px solid #fecaca; border-radius:6px; padding:0.2em 0.6em; font-size:0.8rem; font-weight:700; }
+      .hyp-body { padding: 1rem 1.25rem; font-size: 0.88rem; }
+      .hyp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 0.5rem; }
+      @media (max-width: 640px) { .hyp-grid { grid-template-columns: 1fr; } }
+      .hyp-cell { background: #f8fafc; border-radius: 6px; padding: 0.6rem 0.8rem; }
+      .hyp-cell b { display: block; color: #374151; margin-bottom: 0.15rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: .03em; }
+      .hyp-stat-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 0.4rem; }
+      .ceiling-banner { background: linear-gradient(135deg,#fff7ed,#fef3c7); border: 1.5px solid #f59e0b; border-radius: 10px; padding: 1.1rem 1.4rem; margin: 1.5rem 0; }
+      .ceiling-banner h4 { color: #92400e; margin-bottom: 0.5rem; font-size: 1rem; }
+
+      /* ── hypothesis summary cards ── */
+      .hsum { display:grid; gap:0.6rem; margin-bottom:1.25rem; }
+      .hsum-row {
+        display:grid; grid-template-columns:3.5rem 1fr auto;
+        align-items:start; gap:0.75rem;
+        background:#fff; border:1px solid #e2e8f0; border-radius:8px;
+        padding:0.75rem 1rem; box-shadow:0 1px 3px rgba(0,0,0,.05);
+      }
+      .hsum-badge {
+        font-weight:800; font-size:1rem; color:#1e3a8a;
+        background:#eef2ff; border-radius:6px;
+        padding:0.3em 0.5em; text-align:center; line-height:1.3;
+      }
+      .hsum-badge.opp  { background:#fef2f2; color:#991b1b; }
+      .hsum-badge.na   { background:#fef9c3; color:#854d0e; }
+      .hsum-badge.null { background:#f3f4f6; color:#6b7280; }
+      .hsum-main { min-width:0; }
+      .hsum-formula { font-size:0.82rem; color:#6b7280; margin-bottom:0.3rem; font-family:'Castoro',serif; }
+      .hsum-formula b { color:#374151; }
+      .hsum-interp { font-size:0.87rem; color:#374151; line-height:1.5; }
+      .hsum-stats { display:flex; flex-direction:column; align-items:flex-end; gap:0.3rem; white-space:nowrap; }
+      .expected-row { font-size:0.75rem; color:#9ca3af; }
+      @media(max-width:600px){
+        .hsum-row { grid-template-columns:3rem 1fr; }
+        .hsum-stats { flex-direction:row; flex-wrap:wrap; justify-content:flex-start; grid-column:1/-1; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ═══════════════════════════════════════════════ HERO ═══ -->
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+
+              <h2 class="title is-2 publication-title">
+                When students draw everything:<br>
+                concept mapping of learning outcomes between<br>
+                compliance adaptation and cognitive hierarchy
+              </h2>
+
+              <div class="is-size-5 publication-authors" style="margin-top:1rem;">
+                <span class="author-block">
+                  <a href="#" target="_blank">Dmytro Yashchuk</a>,
+                </span>
+                <span class="author-block">
+                  <a href="#" target="_blank">Antonina Novak</a>
+                </span>
+              </div>
+
+              <div class="is-size-5 publication-authors" style="margin-top:0.4rem;">
+                <span class="author-block">
+                  Kyiv School of Economics &nbsp;·&nbsp;
+                  PSY555 course &nbsp;·&nbsp; April 2026
+                </span>
+              </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <span class="link-block">
+                    <a href="https://github.com/AntoninaNov/psy555-app/blob/master/psy555-all-sessions-2026-04-14.json" target="_blank"
+                       class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><i class="fas fa-database"></i></span>
+                      <span>Data (JSON)</span>
+                    </a>
+                  </span>
+                  <span class="link-block">
+                    <a href="https://github.com/AntoninaNov/psy555-app/blob/master/figures.py" target="_blank"
+                       class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><i class="fab fa-python"></i></span>
+                      <span>Figure code</span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ TEASER ═══ -->
+    <section class="section" style="padding-top:0.5rem; padding-bottom:0.5rem;">
+      <div class="container is-max-desktop">
+        <figure class="has-text-centered">
+          <img src="fig6_hypotheses.png"
+               alt="Hypothesis summary: observed correlations"
+               style="max-width:100%; display:block; margin:0 auto;" />
+        </figure>
+        <figcaption class="tw-text-center tw-mt-3">
+          <b>Results overview.</b> Observed Spearman coefficients for the pre-specified hypotheses (H1–H5) and two exploratory (EDA) findings, N=11. Most hypotheses were not supported because of a density ceiling effect (9 of 11 participants built complete graphs). At the same time, two unexpected strong effects were uncovered.
+        </figcaption>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ OUTLINE ═══ -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="has-text-centered outline-nav">
+          <a href="#hypotheses">Hypotheses H1–H6</a> |
+          <a href="#eda-socratic">Socratic effect</a> |
+          <a href="#eda-overconf">Confidence penalty</a> |
+          <a href="#eda-homophily">Cluster homophily</a> |
+          <a href="#s7">S7 profile</a> |
+          <a href="#corr">Correlation matrix</a> |
+          <a href="#key-findings">Key findings</a> |
+          <a href="#implications">Implications</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ CONTEXT ═══ -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">Context and method</h2>
+            <div class="content has-text-justified">
+              <p>
+                Twelve third-year students of the KSE “Psychology” programme (GPA: 82.11–96.00)
+                completed a computerised protocol (11 finished in full): clustering of 14 intended
+                learning outcomes (ILOs), construction of a weighted concept map (edge weights 1–3),
+                self-rating of competence on each ILO (1–7 scale), a pathfinding task on the
+                participant's own graph, and a perturbation task (choose a structural replacement
+                for a removed node).
+              </p>
+              <p>
+                The study draws on <b>Tinbergen's four-questions framework (1963)</b>
+                and the theory of evolutionary mismatch in education (Geary, 2008): the university
+                system can incentivise cognitive accumulation of facts instead of building functional
+                hierarchical knowledge networks.
+              </p>
+              <p>
+                The main unexpected finding: <b>9 of 11 participants built complete graphs</b>
+                (density = 1.0) — they connected all 91 possible ILO pairs. This ceiling effect
+                made it impossible to test most pre-specified hypotheses, but is itself an
+                important result.
+              </p>
+            </div>
+
+            <!-- Stats row -->
+            <div class="tw-flex tw-flex-wrap tw-gap-4 tw-justify-center tw-my-6">
+              <div class="tw-bg-white tw-rounded-xl tw-shadow tw-p-4 tw-text-center tw-min-w-32">
+                <div class="tw-text-3xl tw-font-bold tw-text-blue-700">12</div>
+                <div class="tw-text-sm tw-text-gray-500">participants (11 complete)</div>
+              </div>
+              <div class="tw-bg-white tw-rounded-xl tw-shadow tw-p-4 tw-text-center tw-min-w-32">
+                <div class="tw-text-3xl tw-font-bold tw-text-blue-700">14</div>
+                <div class="tw-text-sm tw-text-gray-500">ILOs / nodes</div>
+              </div>
+              <div class="tw-bg-white tw-rounded-xl tw-shadow tw-p-4 tw-text-center tw-min-w-32">
+                <div class="tw-text-3xl tw-font-bold tw-text-orange-600">9/11</div>
+                <div class="tw-text-sm tw-text-gray-500">complete graphs</div>
+              </div>
+              <div class="tw-bg-white tw-rounded-xl tw-shadow tw-p-4 tw-text-center tw-min-w-32">
+                <div class="tw-text-3xl tw-font-bold tw-text-green-700">6</div>
+                <div class="tw-text-sm tw-text-gray-500">hypotheses H1–H6</div>
+              </div>
+              <div class="tw-bg-white tw-rounded-xl tw-shadow tw-p-4 tw-text-center tw-min-w-32">
+                <div class="tw-text-3xl tw-font-bold tw-text-purple-700">5</div>
+                <div class="tw-text-sm tw-text-gray-500">EDA findings</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════ HYPOTHESES ═══ -->
+    <section class="section hero is-light" id="hypotheses">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">Pre-specified hypotheses (H1–H6)</h2>
+
+            <div class="content has-text-justified">
+              <p>
+                Six hypotheses were formulated <em>before data collection</em> on the basis of
+                the evolutionary theoretical frame (Tinbergen, 1963; Geary, 2008). All correlations
+                were computed with a Spearman permutation test
+                (<span class="rho">nresample</span> = 9,999, seed = 42) on a sample of N = 11
+                (S2 excluded — incomplete session). At this N the critical |ρ| for α = .05
+                is ≈ 0.62 (two-tailed), so only <em>large</em> effects are detectable.
+                The focus is on effect sizes and directions, not p-values.
+              </p>
+            </div>
+
+            <!-- Summary cards -->
+            <div class="hsum">
+
+              <!-- H1 -->
+              <div class="hsum-row">
+                <div class="hsum-badge null">H1<br><span style="font-size:0.68rem;">a·b·c</span></div>
+                <div class="hsum-main">
+                  <div class="hsum-formula"><b>GPA</b> → WGD · density · avgWeight</div>
+                  <div class="hsum-interp">
+                    <b>Hypothesis logic:</b> top students draw <em>more</em> edges (H1b: density&nbsp;+) but each edge is <em>weaker</em> (H1c: avgWeight&nbsp;−). The two effects were expected to cancel out → overall integration WGD does not depend on GPA (H1a:&nbsp;≈&nbsp;0). GPA is a marker of accumulation, not network quality.
+                    <br><br>
+                    <b>What went wrong:</b> H1c failed — top students set <em>higher</em>, not lower weights (ρ&nbsp;=&nbsp;+0.23 instead of −). The compensatory mechanism did not appear. So WGD correlates positively with GPA (+0.47) — the direct opposite of the «≈&nbsp;0» prediction. H1b is in the right direction, but the ceiling effect (density&nbsp;=&nbsp;1.0 in most cases) prevents reliable testing.
+                    <br><br>
+                    <b>In one sentence:</b> H1 said «GPA and map quality are unrelated» — reality showed a moderate positive link, because the compensatory mechanism failed to materialise.
+                  </div>
+                </div>
+                <div class="hsum-stats">
+                  <div class="expected-row">H1a: ≈0 &nbsp;H1b: + &nbsp;H1c: −</div>
+                  <span class="stat-pill null">+0.47</span>
+                  <span class="stat-pill positive">+0.30 ✓</span>
+                  <span class="stat-pill null">+0.23</span>
+                  <span class="verdict-ns">Mixed</span>
+                </div>
+              </div>
+
+              <!-- H2 -->
+              <div class="hsum-row">
+                <div class="hsum-badge opp">H2</div>
+                <div class="hsum-main">
+                  <div class="hsum-formula"><b>density</b> → avgWeight</div>
+                  <div class="hsum-interp">
+                    A negative sign was expected: more edges → each one weaker (limited cognitive resource). What is observed is a weak positive value (ρ&nbsp;=&nbsp;+0.27), driven entirely by the contrast of one outlier (S7: density&nbsp;=&nbsp;0.19) against the rest (density&nbsp;≈&nbsp;1.0). Without real variation in density the trade-off is untested.
+                  </div>
+                </div>
+                <div class="hsum-stats">
+                  <div class="expected-row">expected: −</div>
+                  <span class="stat-pill positive">ρ = +0.27</span>
+                  <span class="verdict-opp">Opposite sign</span>
+                </div>
+              </div>
+
+              <!-- H3 -->
+              <div class="hsum-row">
+                <div class="hsum-badge null">H3</div>
+                <div class="hsum-main">
+                  <div class="hsum-formula"><b>GPA</b> → edgeWeightSD</div>
+                  <div class="hsum-interp">
+                    Top students were expected to build «flat» maps with low weight variance. The result is null (ρ&nbsp;=&nbsp;+0.11). With complete graphs the SD of weights is compressed into a narrow range (0.58–0.83) → it is impossible to distinguish «flat» from «hierarchical» builders.
+                  </div>
+                </div>
+                <div class="hsum-stats">
+                  <div class="expected-row">expected: −</div>
+                  <span class="stat-pill null">ρ = +0.11</span>
+                  <span class="verdict-ns">Null</span>
+                </div>
+              </div>
+
+              <!-- H4 -->
+              <div class="hsum-row">
+                <div class="hsum-badge na">H4</div>
+                <div class="hsum-main">
+                  <div class="hsum-formula"><b>edgeWeightSD</b> → pathfinding accuracy</div>
+                  <div class="hsum-interp">
+                    The pathfinding task was completed by only two participants (S4, S9) due to technical conditions of the protocol launch. With N&nbsp;=&nbsp;2 any correlation estimate is statistically meaningless. The hypothesis is fully untested.
+                  </div>
+                </div>
+                <div class="hsum-stats">
+                  <div class="expected-row">expected: +</div>
+                  <span class="stat-pill null">N = 2</span>
+                  <span class="verdict-na">Untestable</span>
+                </div>
+              </div>
+
+              <!-- H5 -->
+              <div class="hsum-row">
+                <div class="hsum-badge null">H5</div>
+                <div class="hsum-main">
+                  <div class="hsum-formula"><b>edgeWeightSD</b> → bridge accuracy</div>
+                  <div class="hsum-interp">
+                    Hierarchical maps were expected to yield a better choice of replacement for a removed node. Bridge accuracy is high for most participants (0.77–0.97) — a ceiling effect again. edgeWeightSD does not differentiate the sample enough, ρ&nbsp;=&nbsp;−0.03.
+                  </div>
+                </div>
+                <div class="hsum-stats">
+                  <div class="expected-row">expected: +</div>
+                  <span class="stat-pill null">ρ = −0.03</span>
+                  <span class="verdict-ns">Null</span>
+                </div>
+              </div>
+
+              <!-- H6 -->
+              <div class="hsum-row">
+                <div class="hsum-badge na">H6</div>
+                <div class="hsum-main">
+                  <div class="hsum-formula"><b>zombie ILO</b> (degree&nbsp;=&nbsp;0) → selfRating ≥ integrated</div>
+                  <div class="hsum-interp">
+                    Illusory competence was expected to show up as inflated self-ratings of isolated concepts. Untestable: at density&nbsp;=&nbsp;1.0 all 14 ILOs have edges — no zombie node exists. The effect was detected qualitatively through the S7 profile: lowest WGD + highest self-rating + worst accuracy.
+                  </div>
+                </div>
+                <div class="hsum-stats">
+                  <div class="expected-row">expected: zombie ≥ int.</div>
+                  <span class="stat-pill null">0 zombie</span>
+                  <span class="verdict-na">Untestable</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Ceiling effect banner -->
+            <div class="ceiling-banner">
+              <h4><b>⚠ Key methodological finding: density ceiling effect</b></h4>
+              <p style="font-size:0.9rem; color:#78350f; margin:0;">
+                <b>9 of 11 participants</b> built <em>complete</em> graphs (density = 1.0) — they connected all 91 possible ILO pairs.
+                All hypotheses H1–H5 rely on variation in density as either an independent or dependent variable.
+                With near-zero variation in density, correlations with it cannot be statistically meaningful —
+                so the hypotheses are <em>untestable</em>, not refuted. H6 is untestable by definition:
+                at density = 1.0 no ILO is isolated (degree&nbsp;&gt;&nbsp;0 for all nodes).
+                This is a compliance adaptation — students optimised their strategy to the absence of explicit constraints.
+              </p>
+            </div>
+
+            <!-- Individual hypothesis cards -->
+            <h3 class="title is-4" style="margin-top:2rem;">Hypothesis-by-hypothesis detail</h3>
+
+            <!-- H1 -->
+            <div class="hyp-card">
+              <div class="hyp-header">
+                <span class="hyp-label">H1</span>
+                <span class="hyp-title">Evolutionary mismatch: GPA does not predict knowledge integration</span>
+                <span class="verdict-ns">All three — ns</span>
+              </div>
+              <div class="hyp-body">
+                <p style="margin-bottom:0.6rem;">
+                  <b>Theoretical rationale.</b> The academic system rewards signalling of competence
+                  (GPA) — accumulation of facts — without requiring functional integration (Geary, 2008).
+                  Prediction: WGD (weighted density) correlates weakly with GPA, since the effect of more edges
+                  (H1b: density +) is offset by lower mean weights (H1c: avgWeight −).
+                </p>
+                <div class="hyp-grid">
+                  <div class="hyp-cell">
+                    <b>H1a — GPA → WGD</b>
+                    <div class="hyp-stat-row">
+                      <span class="stat-pill null">ρ = +0.47</span>
+                      <span style="font-size:0.82rem; color:#6b7280;"><i>p</i><sub>perm</sub> = .153</span>
+                    </div>
+                    <p style="margin-top:0.4rem; color:#374151;">
+                      Moderate positive effect, but below the critical threshold (|ρ| &gt; 0.62).
+                      The direction is consistent with the ceiling effect: at density ≈ 1 in most participants,
+                      WGD essentially reflects only avgWeight, which correlates positively with GPA.
+                    </p>
+                  </div>
+                  <div class="hyp-cell">
+                    <b>H1b — GPA → density</b>
+                    <div class="hyp-stat-row">
+                      <span class="stat-pill positive">ρ = +0.30</span>
+                      <span style="font-size:0.82rem; color:#6b7280;"><i>p</i><sub>perm</sub> = .389</span>
+                    </div>
+                    <p style="margin-top:0.4rem; color:#374151;">
+                      The predicted positive sign — a weak positive value is observed, but
+                      the variation in density is near zero in 9/11 participants. The test loses power
+                      because of a floor-floor contrast: density is either 1.0, or ~0.19–0.84.
+                    </p>
+                  </div>
+                  <div class="hyp-cell" style="grid-column: 1 / -1;">
+                    <b>H1c — GPA → avgWeight</b>
+                    <div class="hyp-stat-row">
+                      <span class="stat-pill null">ρ = +0.23</span>
+                      <span style="font-size:0.82rem; color:#6b7280;"><i>p</i><sub>perm</sub> = .497</span>
+                      <span class="verdict-opp" style="font-size:0.75rem;">Opposite sign</span>
+                    </div>
+                    <p style="margin-top:0.4rem; color:#374151;">
+                      The hypothesis predicted a negative sign — a weak positive (ρ = +0.23) is observed.
+                      A possible explanation: students with higher GPA assign higher weights because
+                      they are more confident in their links — not because they draw fewer of them. This
+                      contradicts the trade-off version of the hypothesis but is consistent with an alternative:
+                      GPA correlates with a general tendency to make stronger statements.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- H2 -->
+            <div class="hyp-card">
+              <div class="hyp-header">
+                <span class="hyp-label">H2</span>
+                <span class="hyp-title">Evolutionary trade-off: number of links vs. their strength</span>
+                <span class="verdict-opp">Opposite sign (ns)</span>
+              </div>
+              <div class="hyp-body">
+                <p style="margin-bottom:0.6rem;">
+                  <b>Theoretical rationale.</b> Cognitive resource is limited (Sweller, 1988; Kahneman, 2011).
+                  Maintaining more links simultaneously should «dilute» their subjective strength —
+                  hence the prediction of a negative correlation between density and mean weight.
+                </p>
+                <div class="hyp-stat-row" style="margin-bottom:0.6rem;">
+                  <span class="stat-pill positive">ρ = +0.27</span>
+                  <span style="font-size:0.82rem; color:#6b7280;"><i>p</i><sub>perm</sub> = .431 — ns</span>
+                  <span class="verdict-opp" style="font-size:0.75rem;">Expected −</span>
+                </div>
+                <p style="color:#374151;">
+                  A weak positive sign is observed, opposite to the prediction.
+                  Yet the effect is fully driven by a single observation (S7: density = 0.187, avgWeight = 1.24)
+                  against the rest (density ≈ 1.0, avgWeight = 1.35–2.25). With S7 excluded
+                  the relationship effectively disappears — i.e. <em>H2 is untestable</em> under the ceiling effect,
+                  not refuted. A real trade-off cannot be detected without genuine variation in density.
+                </p>
+              </div>
+            </div>
+
+            <!-- H3 -->
+            <div class="hyp-card">
+              <div class="hyp-header">
+                <span class="hyp-label">H3</span>
+                <span class="hyp-title">«Flat» landscape of top students — absence of cognitive hierarchy</span>
+                <span class="verdict-ns">Null (ns)</span>
+              </div>
+              <div class="hyp-body">
+                <p style="margin-bottom:0.6rem;">
+                  <b>Theoretical rationale.</b> Natural navigation systems hierarchise routes by frequency
+                  and salience (O'Keefe &amp; Nadel, 1978). The university system encourages an even-handed
+                  approach to all topics — «everything is important». Prediction: top students build flatter maps
+                  with lower weight variance (SD → less hierarchy).
+                </p>
+                <div class="hyp-stat-row" style="margin-bottom:0.6rem;">
+                  <span class="stat-pill null">ρ = +0.11</span>
+                  <span style="font-size:0.82rem; color:#6b7280;"><i>p</i><sub>perm</sub> = .753 — ns</span>
+                  <span class="verdict-opp" style="font-size:0.75rem;">Expected −</span>
+                </div>
+                <p style="color:#374151;">
+                  An effectively null effect with a slight positive deviation — opposite to the prediction.
+                  Weight variance for most students has shifted into a relatively standard range
+                  (SD ≈ 0.58–0.83), which makes it impossible to distinguish «flat» and «hierarchical» builders
+                  under complete graphs. H3 needs a design that forces edge hierarchisation
+                  for proper testing.
+                </p>
+              </div>
+            </div>
+
+            <!-- H4 -->
+            <div class="hyp-card">
+              <div class="hyp-header">
+                <span class="hyp-label">H4</span>
+                <span class="hyp-title">Navigational extrapolation: hierarchical maps → better pathfinding</span>
+                <span class="verdict-na">N = 2 — not tested</span>
+              </div>
+              <div class="hyp-body">
+                <p style="margin-bottom:0.6rem;">
+                  <b>Theoretical rationale.</b> Effective navigation requires the ability to lay out new
+                  routes between known landmarks (Tolman, 1948; Chase &amp; Simon, 1973). Students with
+                  hierarchical maps (high SD of weights) would be expected to find more optimal routes
+                  than those with equal-weight edges.
+                </p>
+                <p style="color:#374151;">
+                  The pathfinding task was completed by only two participants due to technical conditions
+                  of the protocol launch. With N = 2 any correlation estimate is statistically
+                  meaningless. <b>H4 is fully untestable in the data.</b>
+                  Recommendation for future studies: include the task as mandatory for all participants.
+                </p>
+              </div>
+            </div>
+
+            <!-- H5 -->
+            <div class="hyp-card">
+              <div class="hyp-header">
+                <span class="hyp-label">H5</span>
+                <span class="hyp-title">Landscape robustness: hierarchical maps tolerate node loss</span>
+                <span class="verdict-ns">Null (ns)</span>
+              </div>
+              <div class="hyp-body">
+                <p style="margin-bottom:0.6rem;">
+                  <b>Theoretical rationale.</b> Hierarchical networks are more robust to targeted attacks on nodes
+                  thanks to alternative routes (Barabási &amp; Albert, 1999).
+                  Bridge accuracy measures how structurally relevant the chosen replacement
+                  for a removed node is — i.e. the functional robustness of the map.
+                  Formula: bridgeAcc = |neighbors(removed) ∩ neighbors(chosen)| / |neighbors(removed)|.
+                </p>
+                <div class="hyp-stat-row" style="margin-bottom:0.6rem;">
+                  <span class="stat-pill null">ρ = −0.03</span>
+                  <span style="font-size:0.82rem; color:#6b7280;"><i>p</i><sub>perm</sub> = .925 — ns</span>
+                </div>
+                <p style="color:#374151;">
+                  An effectively null correlation. Variation in edgeWeightSD under complete graphs
+                  is limited (SD ranges 0.58–0.83 for 9/11 participants),
+                  which lowers test power. A larger lever for studying H5:
+                  use trial-level data (trial-level analysis),
+                  giving N ≈ 3–4 trials × 11 students = ~33–44 observations.
+                </p>
+              </div>
+            </div>
+
+            <!-- H6 -->
+            <div class="hyp-card">
+              <div class="hyp-header">
+                <span class="hyp-label">H6</span>
+                <span class="hyp-title">Illusory competence: zombie ILO → inflated self-rating</span>
+                <span class="verdict-na">Structurally untestable</span>
+              </div>
+              <div class="hyp-body">
+                <p style="margin-bottom:0.6rem;">
+                  <b>Theoretical rationale.</b> A student who has learned a concept in isolation (for an exam)
+                  has declarative knowledge without procedural integration. Self-rating relies
+                  on declarative knowledge («I know what this is»), not on network position
+                  («I can use this in the context of other ideas») — hence illusory competence
+                  (Flavell, 1979; Dunning &amp; Kruger, 1999).
+                </p>
+                <p style="color:#374151;">
+                  <b>Predicted test:</b> compare selfRating for nodes with degree = 0 («zombie ILOs»)
+                  vs. degree &gt; 0 (Wilcoxon signed-rank per student + binomial test across the group).
+                  <b>Result: untestable.</b> At density = 1.0 all 14 ILOs have degree &gt; 0
+                  for 9/11 participants — no zombie node in the data. H6 can only be tested
+                  with a design that explicitly caps the number of allowed edges (for example, ≤ 30).
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════ EDA: SOCRATIC ═══ -->
+    <section class="section" id="eda-socratic">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">Exploratory finding 1: Socratic effect</h2>
+
+            <div class="content has-text-justified">
+              <p>
+                The most unexpected result of the study was a negative correlation between
+                weighted graph density (WGD) and mean self-rated competence across ILOs.
+                Students with more integrated, «heavier» concept maps
+                <b>rated their own competence lower</b>
+                <span class="stat-pill negative">ρ = −0.69, <i>p</i><sub>perm</sub> = .023*</span>.
+              </p>
+              <p>
+                Excluding S7 (outlier): <span class="stat-pill negative">ρ = −0.59</span> —
+                the effect remains moderate even without the extreme observation.
+                This reproduces the «Socratic effect»: deeper understanding of links between concepts
+                comes with greater awareness of one's own knowledge gaps
+                (Flavell, 1979; Eva & Regehr, 2005).
+              </p>
+              <p>
+                Student S6 (GPA = 89, WGD = 0.740) — <b>lowest</b> mean self-rating (4.71).
+                Student S7 (GPA = 93, WGD = 0.077) — <b>highest</b> self-rating (6.71)
+                with the worst bridge accuracy (0.12).
+              </p>
+            </div>
+
+            <figure style="display:flex; justify-content:center;">
+              <img src="fig1_socratic.png" alt="Fig. 1 — Socratic effect" style="max-width:90%;" />
+            </figure>
+            <figcaption>
+              <b>Fig. 1. Socratic effect.</b>
+              Negative correlation between weighted graph density (WGD) and mean self-rated competence
+              across the 14 ILOs. Grey dashed line — trend across all 11 participants
+              (ρ = −0.69); solid blue — for 10 without S7 (ρ = −0.59). S7 highlighted in orange.
+              The two lines almost coincide because S7 lies on the overall trend.
+            </figcaption>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ EDA: OVERCONFIDENCE ═══ -->
+    <section class="section hero is-light" id="eda-overconf">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">Exploratory finding 2: Confidence penalty</h2>
+
+            <div class="content has-text-justified">
+              <p>
+                Students with higher mean self-rating spent <b>more time</b>
+                on the perturbation task (choosing a structural replacement for a removed ILO):
+                <span class="stat-pill positive">ρ = +0.77, <i>p</i><sub>perm</sub> = .008**</span>.
+                This result contradicts the intuitive expectation that more confident students
+                solve the task faster.
+              </p>
+              <p>
+                A possible explanation: students with higher self-rating take the task more seriously
+                and analyse alternatives more carefully. The exception is S7 (avgRating = 6.71):
+                despite the highest self-rating, his time was relatively short (114.8 s),
+                but bridge accuracy was the worst (0.12) — «fast and wrong».
+              </p>
+            </div>
+
+            <figure style="display:flex; justify-content:center;">
+              <img src="fig2_overconfidence.png" alt="Fig. 2 — Confidence penalty" style="max-width:90%;" />
+            </figure>
+            <figcaption>
+              <b>Fig. 2. Confidence penalty.</b>
+              Positive correlation between mean self-rating and mean perturbation decision time
+              (averaged across 3–4 trials). S7 is highlighted in dark orange: highest self-rating,
+              but lowest bridge accuracy (0.12).
+            </figcaption>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ EDA: HOMOPHILY ═══ -->
+    <section class="section" id="eda-homophily">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">Exploratory finding 3: Cluster homophily</h2>
+
+            <div class="content has-text-justified">
+              <p>
+                <b>All eleven participants</b> without exception assigned higher weights to edges
+                <em>within</em> thematic clusters than to edges <em>between</em>
+                clusters (Δ = 0.20 to 0.90). This pattern is unusually robust —
+                even S7, who drew only 17 edges, shows homophily = 0.36.
+              </p>
+              <p>
+                Cluster homophily confirms that the prior <b>thematic clustering
+                of the 14 ILOs into 4 groups</b> reflects something semantically real in students' perception.
+                Within-cluster links subjectively feel stronger, even without an explicit
+                instruction to differentiate weights along that criterion.
+              </p>
+              <p>
+                The exception is S6 (Δ = 0.20): the most «cross-cluster» mind —
+                possibly a more integrative, cross-disciplinary view of the programme.
+              </p>
+            </div>
+
+            <figure style="display:flex; justify-content:center;">
+              <img src="fig3_homophily.png" alt="Fig. 3 — Cluster homophily" style="max-width:100%;" />
+            </figure>
+            <figcaption>
+              <b>Fig. 3. Cluster homophily.</b>
+              Mean weights of within-cluster (dark blue) and between-cluster (light blue) edges
+              per participant. Δ above each pair of bars — the difference. S7 highlighted with
+              an orange background: despite a much smaller graph, homophily is preserved.
+            </figcaption>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════ S4 RADAR ═══ -->
+    <section class="section hero is-light" id="s7">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">Exploratory finding 4: S7 profile — operationalising the Dunning–Kruger effect</h2>
+
+            <div class="content has-text-justified">
+              <p>
+                Participant S7 (GPA = 93) deviates from the overall pattern across a cluster
+                of interrelated indicators that match the phenomenon of illusory competence
+                (Dunning & Kruger, 1999):
+              </p>
+            </div>
+
+            <div class="columns">
+              <div class="column is-half">
+                <figure>
+                  <img src="fig4_s4_radar.png" alt="Fig. 4 — S7 radar profile" style="max-width:100%;" />
+                </figure>
+                <figcaption>
+                  <b>Fig. 4. S7 profile vs. group median.</b>
+                  Normalised values of 6 indicators. S7 (orange) is well below the median (blue) on every metric, except «Self-rating (inverted)» and «Decision speed», where it is the highest.
+                </figcaption>
+              </div>
+              <div class="column is-half">
+                <div class="content">
+                  <table class="table is-fullwidth is-size-7">
+                    <thead>
+                      <tr><th>Indicator</th><th>S7</th><th>Median of the rest (N=10)</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Density</td><td><b class="has-text-danger">0.187</b></td><td>1.000</td></tr>
+                      <tr><td>WGD</td><td><b class="has-text-danger">0.077</b></td><td>0.621</td></tr>
+                      <tr><td>avgSelfRating</td><td><b class="has-text-danger">6.71 ↑max</b></td><td>5.25</td></tr>
+                      <tr><td>sdSelfRating</td><td><b class="has-text-danger">0.47 ↓min</b></td><td>1.14</td></tr>
+                      <tr><td>Bridge Accuracy</td><td><b class="has-text-danger">0.12 ↓min</b></td><td>0.88</td></tr>
+                      <tr><td>avgDecisionMs</td><td><b class="has-text-danger">10,554 ↓min</b></td><td>39,202</td></tr>
+                      <tr><td>deletionCount</td><td><b class="has-text-danger">4 ↑max</b></td><td>0</td></tr>
+                      <tr><td>rejectedAnchors</td><td><b class="has-text-danger">7 ↑max</b></td><td>2</td></tr>
+                      <tr><td>propChoseHighest</td><td><b class="has-text-danger">0.00</b></td><td>0.67</td></tr>
+                    </tbody>
+                  </table>
+                  <p class="tw-text-sm tw-text-gray-600">
+                    «Fast, confident, inaccurate» profile: minimum possible number of links,
+                    maximum flat self-rating, fastest decisions, worst result.
+                    Never picked the most strongly connected neighbour as a replacement.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ CORRELATION MATRIX ═══ -->
+    <section class="section" id="corr">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">Exploratory finding 5: Correlation matrix</h2>
+            <div class="content has-text-justified">
+              <p>
+                The full Spearman rank-correlation matrix (N = 11) reveals several additional
+                stable links. The most important (|ρ| &gt; 0.5):
+              </p>
+              <ul>
+                <li><span class="rho">ρ</span>(WGD, avgWeight) = <span class="stat-pill positive">+0.86, <i>p</i><sub>perm</sub> = .002**</span> — more integrated maps have stronger mean weights</li>
+                <li><span class="rho">ρ</span>(density, bridgeAcc) = <span class="stat-pill positive">+0.68, <i>p</i><sub>perm</sub> = .020*</span> — higher graph density → better bridge accuracy</li>
+                <li><span class="rho">ρ</span>(WGD, avgRating) = <span class="stat-pill negative">−0.69, <i>p</i><sub>perm</sub> = .023*</span> — Socratic effect (Fig. 1)</li>
+                <li><span class="rho">ρ</span>(avgRating, perturbTime) = <span class="stat-pill positive">+0.77, <i>p</i><sub>perm</sub> = .008**</span> — confidence penalty (Fig. 2)</li>
+                <li><span class="rho">ρ</span>(density, avgRating) = <span class="stat-pill negative">−0.61, <i>p</i><sub>perm</sub> = .044*</span> — incomplete graphs are associated with higher self-rating</li>
+              </ul>
+            </div>
+
+            <figure style="display:flex; justify-content:center;">
+              <img src="fig5_corr_heatmap.png" alt="Fig. 5 — Correlation matrix" style="max-width:100%;" />
+            </figure>
+            <figcaption>
+              <b>Fig. 5. Spearman rank-correlation matrix (N = 11).</b>
+              Red = positive, blue = negative correlation.
+              * <i>p</i> &lt; .05, ** <i>p</i> &lt; .01 (uncorrected values).
+              At N = 11 all values should be treated as preliminary.
+            </figcaption>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════ KEY FINDINGS ═══ -->
+    <section class="section hero is-light" id="key-findings">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Key findings</h2>
+            <div class="content has-text-justified">
+
+              <div class="finding-card">
+                <strong>Complete-graph phenomenon: compliance adaptation as a strategy.</strong>
+                9 of 11 students connected all 91 ILO pairs (density = 1.0). This evolutionarily
+                suboptimal behaviour is interpreted as compliance adaptation: in the absence
+                of a clear «wrong», the student minimises the risk of missing the «right».
+              </div>
+
+              <div class="finding-card orange">
+                <strong>Socratic effect (ρ = −0.69, <i>p</i><sub>perm</sub> = .023*):</strong>
+                stronger integration of the concept map is associated with lower self-rated
+                competence. Students who see more links between concepts
+                are better aware of the limits of their knowledge.
+              </div>
+
+              <div class="finding-card green">
+                <strong>Confidence penalty (ρ = +0.77, <i>p</i><sub>perm</sub> = .008**):</strong>
+                higher self-rating → longer perturbation decision time. Contradicts the
+                «more confident = faster» expectation; may reflect more careful analysis of alternatives.
+              </div>
+
+              <div class="finding-card red">
+                <strong>Dunning–Kruger profile (S7):</strong>
+                the only participant with a very incomplete graph (density = 0.19) shows the combination
+                of maximum self-rating (6.71/7), fastest decisions (10.5 s/edge),
+                and lowest bridge accuracy (0.12). «Fast, confident, inaccurate».
+              </div>
+
+              <div class="finding-card purple">
+                <strong>Cluster homophily — a stable structure:</strong>
+                all 11 participants without exception assign higher weights to within-cluster links
+                (Δ = 0.20–0.90). Confirms the semantic validity of the thematic clustering of ILOs.
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════ IMPLICATIONS ═══ -->
+    <section class="section" id="implications">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Implications and limitations</h2>
+            <div class="content has-text-justified tw-bg-blue-50 tw-p-6 tw-rounded-2xl">
+              <p>
+                This pilot study uncovered an unexpected phenomenon: when building concept maps
+                of intended learning outcomes, most students resorted to a strategy of maximum
+                coverage. This behaviour — compliance adaptation —
+                is a serious methodological challenge for instruments of this type and at the same time
+                an important standalone result: it shows that academic culture can shape
+                cognitive strategies independently of subject knowledge.
+              </p>
+              <p>
+                Practical implication: concept-mapping instruments need design choices
+                that make a full-coverage strategy impossible or unrewarding
+                (for example, capping the number of edges, or ranking instead of binary choice).
+                Without these they will measure compliance, not the structure of knowledge.
+              </p>
+            </div>
+
+            <br />
+
+            <div class="tw-bg-amber-50 tw-border tw-border-amber-200 tw-rounded-2xl tw-p-5 tw-text-left">
+              <h4 class="tw-font-bold tw-text-amber-800 tw-mb-3">⚠ Key limitations</h4>
+              <ul class="tw-text-sm tw-text-amber-900 tw-list-disc tw-pl-4 tw-space-y-1">
+                <li><b>N = 11 (out of 12 enrolled)</b> — no correlation reaches significance after FDR correction; all results are preliminary</li>
+                <li><b>Density ceiling effect</b> — 9/11 complete graphs made testing of H1–H5 impossible</li>
+                <li><b>Pathfinding N = 2</b> — the pathfinding task was completed by only 2 participants</li>
+                <li><b>H6 untested</b> — complete graphs have no zombie nodes (degree = 0)</li>
+                <li><b>S2 — incomplete session</b> (0 edges); excluded from all graph analyses</li>
+                <li><b>Cross-sectional design</b> — no repeated measurements</li>
+                <li><b>No external knowledge criterion</b> — GPA as a proxy, no independent test of competence</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ FOOTER ═══ -->
+    <footer class="footer">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content has-text-centered">
+              <p>
+                <b>PSY555 Cognitive Navigation Study</b> · Kyiv School of Economics · April 2026
+              </p>
+              <p>
+                Analysis and code: Claude Sonnet 4.6 (Anthropic) under the supervision of D. Yashchuk and A. Novak.<br />
+                This page is built on the
+                <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">
+                  Academic Project Page Template</a>
+                (adopted from <a href="https://nerfies.github.io" target="_blank">Nerfies</a>).<br />
+                Licence:
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">
+                  CC BY-SA 4.0</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
