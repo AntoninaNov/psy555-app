@@ -341,54 +341,64 @@
     <!-- ═══════════════════════════════════════ THE IDEA ═══ -->
     <section class="section hero is-light" id="idea">
       <div class="container is-max-desktop">
-        <span class="kicker">The idea</span>
-        <h2 class="section-title">Knowledge is a map, not a list</h2>
+        <span class="kicker">Theoretical background</span>
+        <h2 class="section-title">From cognitive maps to concept graphs</h2>
 
         <p class="section-intro">
-          The intuition that minds carry <em>maps</em> rather than catalogues is older than
-          cognitive science as a discipline. Tolman (1948) put rats in mazes and watched
-          them take shortcuts they had never been rewarded for. The conclusion was radical
-          for behaviourism: rats build an internal spatial representation, not a chain of
-          stimulus–response pairs. The map exists.
+          Spatial-cognition research since Tolman (1948) has converged on a representational
+          rather than associative account of how organisms encode environments. The
+          empirical case rests on novel behaviour — shortcuts and detours an animal has
+          never been reinforced for — which a chained stimulus–response account cannot
+          generate. Tolman labelled the underlying representation a <em>cognitive map</em>;
+          the term was inferential at the time, but a neural substrate was subsequently
+          identified. Recordings from the rat hippocampus (O'Keefe &amp; Nadel, 1978)
+          isolated <em>place cells</em> whose firing rates encode the animal's position in
+          its environment, providing the first single-unit correlate of a Tolmanian map.
         </p>
 
         <p class="section-intro">
-          Three decades later O'Keefe and Nadel (1978) located the substrate in the
-          hippocampus — individual cells whose firing rates code an animal's position in a
-          space. The map is anatomy, not metaphor. In 2005, Hafting, Fyhn, Molden, Moser,
-          and Moser found a second class of cells in the entorhinal cortex that fire on a
-          hexagonal lattice tiling the entire environment — the <b>grid cells</b>. These
-          earned John O'Keefe and the Mosers the <b>2014 Nobel Prize in Physiology or
-          Medicine</b>: a coordinate system for thought, hard-wired by mammalian evolution.
+          The mapping system extends beyond the hippocampus proper. Hafting, Fyhn, Molden,
+          Moser, and Moser (2005) reported a second cell type in the medial entorhinal
+          cortex — <em>grid cells</em> — whose firing fields tile the environment in a
+          regular hexagonal lattice. The discovery established a metric and coordinate
+          basis for spatial representation; the work was recognised by the 2014 Nobel
+          Prize in Physiology or Medicine awarded jointly to John O'Keefe, May-Britt Moser,
+          and Edvard Moser. Of relevance to the present study, Constantinescu, O'Reilly, and
+          Behrens (2016) demonstrated that the same grid-like code is recruited when human
+          participants traverse abstract <em>conceptual</em> dimensions in a non-spatial
+          task, providing direct evidence that the cognitive-map machinery is not modality-
+          specific. We take this as licensing the working assumption that students'
+          representations of programme learning outcomes (PLOs) admit the same graph-
+          theoretic treatment as physical environments.
         </p>
 
         <p class="section-intro">
-          The system was never just for physical space. Constantinescu, O'Reilly, and
-          Behrens (2016) showed that human grid cells fire when participants navigate
-          <em>conceptual</em> spaces — abstract feature dimensions in a non-spatial task.
-          Cognitive maps generalise: ideas live on the same scaffolding as places. The
-          topology of that scaffolding is not arbitrary either — it follows the same
-          network laws (Barabási &amp; Albert, 1999; Latora &amp; Marchiori, 2001) that
-          shape every other complex system, from metabolism to the internet.
+          The structural properties of large biological and informational networks have
+          themselves been characterised: scale-free degree distributions
+          (Barabási &amp; Albert, 1999), small-world routing efficiency
+          (Latora &amp; Marchiori, 2001), and a generalised dependence of behavioural
+          performance on network topology rather than on node count alone. Within
+          cognitive psychology this position has a parallel literature: Chase and Simon
+          (1973) showed that chess expertise produces no gain on randomised boards but a
+          large gain on meaningful positions, locating the advantage in chunking rather
+          than memory capacity; Chi, Feltovich, and Glaser (1981) extended the result to
+          physics, demonstrating that experts categorise problems by underlying principle
+          while novices categorise by surface features. Miller (1956) provides the upper
+          bound on independent chunks in working memory; cognitive load theory
+          (Sweller, 1988) and dual-system models (Kahneman, 2011) describe the failure
+          modes when that limit is exceeded.
         </p>
 
         <p class="section-intro">
-          What makes someone an expert in a field, then, is not how many items they have
-          stored — it is the structure that connects them. Chess masters reconstruct
-          mid-game positions almost perfectly; novices remember a handful of pieces. The
-          advantage disappears when the position is random — it lives in chunking, not
-          capacity (Chase &amp; Simon, 1973). Physics experts categorise problems by deep
-          principles (energy conservation, force balance), novices by surface features
-          (Chi, Feltovich, &amp; Glaser, 1981). Working memory caps the number of
-          independent chunks at roughly seven (Miller, 1956); cognitive load past that
-          limit collapses comprehension into shallow surface coding (Sweller, 1988;
-          Kahneman, 2011). A well-built curriculum is, in part, a scaffold that keeps the
-          load tractable while building deep links. A poorly built one is a list.
-        </p>
-
-        <p class="section-intro">
-          GPA averages exam outputs. It cannot see the topology underneath.
-          <b>So we tried to look directly.</b>
+          From this literature we derive a single working assumption: a learner's grasp
+          of a curriculum is more accurately characterised by the <em>topology</em> of the
+          induced concept graph than by an aggregate of exam outputs. A grade-point average
+          marginalises over that topology and is informative about the marginal density of
+          assessed performance, not about the structural relations the student has
+          acquired. The aim of the present pilot is to evaluate whether a brief
+          computerised concept-mapping protocol can recover usable structural information
+          at the level of an individual undergraduate cohort, as a precondition for
+          deploying the same instrument at programme scale.
         </p>
 
         <!-- Tinbergen 2x2 — the one concept block we keep -->
@@ -430,11 +440,35 @@
     <!-- ═══════════════════════════════════════ PROTOCOL ═══ -->
     <section class="section" id="protocol">
       <div class="container is-max-desktop">
-        <span class="kicker">The protocol</span>
-        <h2 class="section-title">One hour. Five blocks.</h2>
+        <span class="kicker">Sample &amp; protocol</span>
+        <h2 class="section-title">Cohort, instrument, five blocks</h2>
+
         <p class="section-intro">
-          Each session ran the same five-block sequence on the study app. Full session
-          traces are in the public JSON.
+          <b>Sample.</b>  The cohort comprised twelve undergraduates of the BA Psychology
+          programme at the Kyiv School of Economics, all enrolled in the third year of a
+          four-year curriculum (April 2026; <span class="mono">N</span><sub>enrolled</sub> = 12;
+          <span class="mono">N</span><sub>complete</sub> = 11). Recruitment was a
+          full-cohort census of the third-year intake; participation was incentivised by
+          the PSY555 course in which the protocol was administered.
+        </p>
+
+        <p class="section-intro">
+          The choice of programme stage and discipline was theoretically motivated rather
+          than opportunistic. Third-year students at this institution have completed all
+          core methods, biological-psychology, and social-psychology modules, placing them
+          at a curriculum point where the 14 PLOs are substantively familiar but have not
+          yet been consolidated under thesis-stage selection pressure. The Psychology
+          programme additionally publishes its 14 PLOs as an explicit, ESG-aligned list in
+          the official syllabus, which is a precondition for the protocol's clustering and
+          mapping blocks. We treat the resulting sample as a <em>convenience cohort with
+          theoretical justification</em> — adequate for pilot estimation of instrument
+          behaviour, inadequate for population-level inference, and the intended baseline
+          against which a larger pre-registered replication would be evaluated.
+        </p>
+
+        <p class="section-intro">
+          <b>Instrument.</b>  Each session ran the same five-block sequence on the study
+          app; full session traces are released in the public JSON.
         </p>
         <div class="recipe-grid">
           <div class="recipe-card"><span class="recipe-num">A</span><h4>Cluster</h4><p>Group the 14 PLOs into 4 thematic clusters; pick a "central" PLO per cluster.</p></div>
@@ -755,6 +789,14 @@
               <p style="font-size:0.85rem; color:#6b7280;">
                 Data, code, and figures released under
                 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.
+              </p>
+              <p style="font-size:0.82rem; color:#6b7280; max-width:46rem; margin:0.6rem auto 0;">
+                <b>AI use disclosure.</b>
+                Drafting of analysis code (<span class="mono">figures.py</span>),
+                figure layout, and editorial revision of the manuscript were assisted by
+                Anthropic's Claude Opus 4.6. All theoretical claims, study design,
+                interpretations of findings, and final wording are the responsibility of
+                the authors. AI output was reviewed and edited prior to inclusion.
               </p>
             </div>
           </div>
