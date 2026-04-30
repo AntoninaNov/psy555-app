@@ -196,6 +196,56 @@
       .limits-strip h5 { color: #92400e; font-weight: 700; font-size: 0.92rem; margin: 0 0 0.4rem 0; }
       .limits-strip p { color: #78350f; margin: 0; line-height: 1.6; }
 
+      /* Detailed limits */
+      .limits-section {
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-radius: 14px;
+        padding: 1.8rem 2.0rem;
+        margin: 1.6rem 0;
+      }
+      .limits-section .lim-cat-label {
+        display: inline-block;
+        font-family: 'Google Sans', sans-serif;
+        font-size: 0.74rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.13em;
+        color: #92400e; background: rgba(217, 119, 6, 0.12);
+        padding: 0.28em 0.85em; border-radius: 9999px;
+        margin: 1.5rem 0 0.7rem 0;
+      }
+      .limits-section .lim-cat-label:first-of-type { margin-top: 0; }
+      .lim-detail-grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        gap: 0.75rem;
+      }
+      .lim-detail-card {
+        background: #ffffff;
+        border: 1px solid #fde68a;
+        border-left: 4px solid #d97706;
+        border-radius: 8px;
+        padding: 0.95rem 1.1rem;
+      }
+      .lim-detail-card h5 {
+        font-family: 'Google Sans', sans-serif; font-weight: 700;
+        font-size: 0.96rem; color: #92400e;
+        margin: 0 0 0.45rem 0; line-height: 1.3;
+      }
+      .lim-detail-card .lim-num {
+        display: inline-block; background: #d97706; color: #fff;
+        font-family: 'Google Sans', sans-serif; font-weight: 700;
+        font-size: 0.74rem; padding: 0.12em 0.55em;
+        border-radius: 6px; margin-right: 0.5em;
+        vertical-align: middle;
+      }
+      .lim-detail-card p {
+        font-size: 0.88rem; color: #1f2937; line-height: 1.55; margin: 0;
+      }
+      .lim-detail-card p + p { margin-top: 0.5rem; }
+      .lim-detail-card .mono {
+        font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+        color: #92400e; font-size: 0.85em;
+      }
+
       /* PLO derivation callout */
       .plo-callout {
         background: #f8fafc;
@@ -638,21 +688,13 @@
           <h4>⚠ The ceiling came first</h4>
           <p>
             Nine of eleven students saturated <span class="mono">density = 1.000</span>.
-            With near-zero variance, the four GPA-anchored probes we wanted to run on
-            density, hierarchy, and weight differentiation aren't resolvable in this sample.
-            <em>That artefact is itself the first finding</em> — and the design fix is an
-            edge budget, a forced ranking, and a precision-weighted score. Three patterns
-            still emerged from the residual variance.
-          </p>
-        </div>
-
-        <div class="highlight-strip">
-          <span class="hl-label">A second curiosity</span>
-          <p>
-            The compliance gap goes one step further.
-            <b>Across the 9 saturated graphs, mean weight ranges from 1.35 to 2.25</b> —
-            a 1.7× spread on what was meant to be the same "everyone connects everything"
-            pattern. Identical edge sets, very different conviction.
+            With near-zero variance, the four GPA-anchored probes on density, hierarchy,
+            and weight differentiation aren't resolvable in this sample. <em>That
+            artefact is itself the first finding.</em> Yet across those 9 saturated graphs
+            mean weight ranges from <span class="mono">1.35</span> to <span class="mono">2.25</span> —
+            a 1.7× spread on what looked like the same "everyone connects everything"
+            pattern. Identical edge sets, very different conviction. Three further patterns
+            emerged from the residual variance.
           </p>
         </div>
 
@@ -878,18 +920,299 @@
           </p>
         </div>
 
-        <div class="limits-strip">
-          <h5>⚠ Read every effect through these</h5>
-          <p>
-            <b>N = 11</b> — critical |ρ| at α = .05 is ≈ 0.62. <b>Density ceiling</b> —
-            four probes not resolvable. <b>PLO list is researcher-derived</b> by iterative
-            extraction from course syllabuses, not pulled from a published programme-level
-            document; phrasing choices may bias the clustering block.
-            <b>No external knowledge criterion</b> — GPA is a grade proxy, not a knowledge
-            measure. <b>Single cohort</b>, single institution. <b>Exploratory throughout</b>
-            — every effect listed here is hypothesis-generating for the next study.
-          </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ DETAILED LIMITS ═══ -->
+    <section class="section" id="limits">
+      <div class="container is-max-desktop">
+        <span class="kicker">Limitations</span>
+        <h2 class="section-title">What this pilot can and cannot support</h2>
+        <p class="section-intro">
+          Every effect reported above must be read through the limitations below. They are
+          ordered from most to least consequential and grouped by what they constrain —
+          inference, sample, design, instrument, and operationalisation. None is
+          individually fatal; jointly they are the reason this is framed as an exploratory
+          pilot rather than a confirmatory study.
+        </p>
+
+        <div class="limits-section">
+
+          <span class="lim-cat-label">Statistical inference</span>
+          <div class="lim-detail-grid">
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L1</span>Statistical power at N = 11</h5>
+              <p>
+                The asymptotic critical value of |<span class="rho">ρ</span>| for a two-tailed
+                test of Spearman rank correlation at α = .05 is <span class="mono">≈ 0.62</span>
+                (verified by 9 999-resample permutation in this study).
+              </p>
+              <p>
+                A medium effect by Cohen's (1988) heuristic (<span class="rho">ρ</span> ≈ .30)
+                requires roughly N ≈ 80 to detect at 80% power; at N = 11 such effects are
+                visible in scatterplots but indistinguishable from sampling noise. Three of the
+                seven |<span class="rho">ρ</span>| ≥ 0.5 entries in the correlation matrix do
+                not clear the asymptotic threshold despite their visible magnitude.
+              </p>
+            </div>
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L2</span>Multiple comparisons unadjusted</h5>
+              <p>
+                Eight pre-specified probes plus the full nine-by-nine correlation matrix
+                produce a family of dozens of tests. Bonferroni-adjusted α at 36 unique
+                pairs is <span class="mono">≈ .0014</span>; under that threshold only WGD
+                × avgWeight (<i>p</i> = .002) survives. Benjamini–Hochberg FDR control would
+                pass two or three additional pairs depending on the chosen <i>q</i>.
+              </p>
+              <p>
+                We deliberately do not adjust in the main analysis because (a) the
+                interpretive cost at N = 11 is high and (b) the inferential weight of any
+                single p-value is already low. The implication for any downstream
+                meta-analysis is that <em>effect sizes</em>, not p-values, are the export
+                of this study.
+              </p>
+            </div>
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L3</span>Density-ceiling truncation of the predictor space</h5>
+              <p>
+                <span class="mono">Var(density) ≈ 0.060</span> across the analytical sample, with
+                9 of 11 values exactly at <span class="mono">1.000</span>, one at <span class="mono">0.835</span>,
+                and one at <span class="mono">0.187</span>. Any test with density on either
+                side reduces to a binary contrast {S7, S12} versus the rest — not a regression
+                in any meaningful sense.
+              </p>
+              <p>
+                Four pre-specified probes (<span class="mono">P2</span>: GPA → density;
+                <span class="mono">P5</span>: density → avgWeight; <span class="mono">P7</span>:
+                edgeWeightSD → bridgeAcc; <span class="mono">P8</span>: zombie PLO → selfRating)
+                are coded "not resolvable" rather than "null" for this reason. The fix in the
+                next iteration is an explicit edge budget combined with a precision-weighted
+                scoring rule.
+              </p>
+            </div>
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L4</span>Exploratory throughout</h5>
+              <p>
+                None of the eight directional probes constitutes a pre-registered hypothesis
+                in the formal sense. The probes were specified before data inspection but
+                were treated as exploratory throughout — in part because the operationalisations
+                (which weighted-density formula, which Likert anchors, which perturbation
+                scoring rule) were finalised in parallel with instrument development.
+              </p>
+              <p>
+                The Socratic effect, the confidence penalty, and the S7 single-case profile
+                are post-hoc patterns identified after the density ceiling was observed.
+                They should be read as hypothesis-generating for a pre-registered replication.
+              </p>
+            </div>
+
+          </div>
+
+          <span class="lim-cat-label">Sample &amp; population</span>
+          <div class="lim-detail-grid">
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L5</span>Single cohort, single programme, single institution</h5>
+              <p>
+                All eleven complete sessions come from one cohort of the BA Psychology
+                programme at the Kyiv School of Economics. Generalisation to other
+                institutions, programmes, year-stages, or cultural contexts is not warranted
+                without replication. The compliance-adaptation finding in particular may be
+                specific to a culture in which "covering everything" is a successful exam
+                strategy.
+              </p>
+              <p>
+                KSE Psychology is a selective programme (cohort GPA range 82.11–96.00 in
+                this sample). The relevance of a near-saturated GPA distribution to
+                hypotheses about academic-success markers is itself a confound — see L8.
+              </p>
+            </div>
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L6</span>Convenience sample, not random</h5>
+              <p>
+                Recruitment was a full-cohort census of the third year, embedded in the
+                PSY555 course in which the protocol was administered. Participation was thus
+                effectively a course requirement rather than a freely chosen study sign-up;
+                this raises self-selection concerns of a different sort than an opt-in
+                sample, but does not eliminate them (motivation to engage seriously with
+                the protocol still varied).
+              </p>
+            </div>
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L7</span>Cross-sectional, single snapshot</h5>
+              <p>
+                Each participant produced one map at one point in the academic year. Test–retest
+                reliability of WGD, density, edge-weight SD, and self-rating is therefore unknown
+                for this protocol. Within-subject change under instructional intervention or
+                across the academic year cannot be assessed in this design.
+              </p>
+              <p>
+                A within-subject re-test after explicit instruction on edge-budget constraints
+                is the natural next experiment — and would also bear directly on the
+                compliance-adaptation interpretation.
+              </p>
+            </div>
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L8</span>No external criterion of subject knowledge</h5>
+              <p>
+                The design has no proctored test of psychology subject-matter competence.
+                GPA proxies <em>academic-system success</em> — a function of grades, attendance,
+                exam strategy, and institutional norms — not knowledge structure. Self-rating
+                proxies metacognitive belief, not knowledge. Without an independent criterion
+                we cannot distinguish "the participant has the structure but did not draw it"
+                from "the participant does not have the structure".
+              </p>
+            </div>
+
+          </div>
+
+          <span class="lim-cat-label">Design &amp; instrument</span>
+          <div class="lim-detail-grid">
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L9</span>Pathfinding sub-sample collapse</h5>
+              <p>
+                The pathfinding block ran for only 2 of 11 complete sessions (S4, S9) due to a
+                logged session-launcher misconfiguration that bypassed the block in nine
+                sessions. <span class="mono">P6</span> (edgeWeightSD → pathfindingAcc) is
+                therefore reported as "not run" rather than null. Trial-level analysis on
+                N = 2 yields ~6 trials and is statistically inert.
+              </p>
+              <p>
+                The fix is technical, not design-level: the next iteration ensures the block
+                is mandatory for every session.
+              </p>
+            </div>
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L10</span>App-specific UX shapes the data</h5>
+              <p>
+                Edge creation runs on a pannable canvas with no explicit cap on edges and no
+                friction beyond pointer cost. The interaction design itself privileges
+                drawing-many-edges over drawing-careful-edges; the ceiling effect is partly an
+                artefact of that privilege.
+              </p>
+              <p>
+                Categorical edge weights <span class="mono">w ∈ {1, 2, 3}</span> further
+                under-discriminate — three levels are insufficient to recover meaningful
+                hierarchical differentiation when edges saturate. A forced ranking of all
+                drawn edges is the next-iteration replacement.
+              </p>
+            </div>
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L11</span>Self-rating wording primes positive bias</h5>
+              <p>
+                Each Likert item is framed in the affirmative ("Я можу …" / "I can …") with
+                the seven anchors ranging from "Абсолютно не погоджуюсь" to "Повністю
+                погоджуюсь". This is a standard agreement scale, but it primes acquiescence
+                in a context where the probable response distribution is right-skewed by
+                graduate-level academic self-presentation norms. The mean of 5.29 across the
+                cohort and the heavy concentration at 5.71 are consistent with that bias.
+              </p>
+            </div>
+
+          </div>
+
+          <span class="lim-cat-label">Operationalisation</span>
+          <div class="lim-detail-grid">
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L12</span>PLO list is researcher-derived</h5>
+              <p>
+                The 14-item PLO set was extracted iteratively by the authors from individual
+                course syllabuses. There is no published programme-level document of that
+                form at the institution. Phrasing choices, granularity decisions ("merge
+                methods + design into one item or split"), and inclusion thresholds were
+                resolved by author judgement.
+              </p>
+              <p>
+                Two consequences. First, the clustering block (block B) is partly a test of
+                the authors' phrasing rather than the participants' representations: a
+                participant who clusters by phrasing similarity will look as though they
+                cluster by deep structure. Second, no inter-rater reliability statistic was
+                computed for the PLO derivation itself — extraction was iterative and
+                consensual, not blinded.
+              </p>
+            </div>
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L13</span>WGD construction is one of several plausible choices</h5>
+              <p>
+                Weighted graph density is computed as <span class="mono">WGD = (Σ w<sub>ij</sub>) / (3 · 91)</span>,
+                normalising so that the complete graph with all weights equal to 3 has WGD = 1.0.
+                The weight set <span class="mono">{1, 2, 3}</span> is treated as ordinal-and-
+                approximately-interval; participants may use it ordinally only.
+              </p>
+              <p>
+                Alternative formulations (mean-weight × density, eigenvector centrality,
+                spectral measures) would yield different rankings of the eleven graphs and
+                potentially different Socratic-effect magnitudes. The choice of WGD is
+                defensible but not unique.
+              </p>
+            </div>
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L14</span>Bridge-accuracy scoring is symmetric and unweighted</h5>
+              <p>
+                <span class="mono">bridgeAcc = |N(removed) ∩ N(chosen)| / |N(removed)|</span>
+                rewards neighbourhood overlap but ignores edge weights and ignores
+                higher-order structure (path length, betweenness, role similarity). A
+                participant who chose a structurally analogous but distant node would score
+                zero on this measure even if the choice is psychologically defensible.
+              </p>
+            </div>
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L15</span>S7 single-case is illustrative, not inferential</h5>
+              <p>
+                The Dunning–Kruger profile of S7 covers nine simultaneous deviations from the
+                group median in the predicted direction. The combination is striking but is
+                a single observation: it is consistent with the literature, not evidence for
+                it. We report S7 as a profile worth describing in detail, not as a confirmed
+                instance of a population-level effect.
+              </p>
+            </div>
+
+          </div>
+
+          <span class="lim-cat-label">Process &amp; transparency</span>
+          <div class="lim-detail-grid">
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L16</span>AI assistance in code and editorial pass</h5>
+              <p>
+                Drafting of <span class="mono">figures.py</span>, figure layout decisions, and
+                editorial revision of the manuscript were assisted by Anthropic's Claude Opus
+                4.6. All theoretical claims, study design, interpretations of findings, and
+                final wording are the responsibility of the authors; AI output was reviewed
+                and edited prior to inclusion. This is not a methodological flaw but a
+                disclosure relevant to the integrity of the analytical pipeline.
+              </p>
+            </div>
+
+            <div class="lim-detail-card">
+              <h5><span class="lim-num">L17</span>No pre-registration repository</h5>
+              <p>
+                The study was not pre-registered with OSF or a comparable repository. Probes
+                were specified internally before data inspection, and the analysis script
+                lives in the public repository — but neither substitutes for time-stamped
+                external pre-registration. The next iteration will be pre-registered before
+                data collection.
+              </p>
+            </div>
+
+          </div>
+
         </div>
+
       </div>
     </section>
 
