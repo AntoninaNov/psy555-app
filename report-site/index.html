@@ -503,8 +503,8 @@
             an institutional one — a limitation explicitly recognised in
             §<a href="#references">Limits</a>.
           </p>
-          <a class="plo-callout-link" href="plos.html">
-            <i class="fas fa-list-ul"></i> &nbsp;See the full list of 14 PLOs (English &amp; Ukrainian original)
+          <a class="plo-callout-link" href="https://github.com/AntoninaNov/psy555-app/blob/master/lib/mockData.ts" target="_blank">
+            <i class="fas fa-code"></i> &nbsp;Full PLO definitions in the repo (lib/mockData.ts)
           </a>
         </div>
 
@@ -517,15 +517,105 @@
 
         <p class="section-intro">
           <b>Instrument.</b>  Each session ran the same five-block sequence on the study
-          app; full session traces are released in the public JSON.
+          app, in the order below. Full session traces are released in the public JSON.
+          Per-step rationales draw on the cited literature reviewed above.
         </p>
+
         <div class="recipe-grid">
-          <div class="recipe-card"><span class="recipe-num">A</span><h4>Cluster</h4><p>Group the 14 PLOs into 4 thematic clusters; pick a "central" PLO per cluster.</p></div>
-          <div class="recipe-card"><span class="recipe-num">B</span><h4>Map</h4><p>Connect any two PLOs you see related. Weight every edge <code>w ∈ {1, 2, 3}</code>.</p></div>
-          <div class="recipe-card"><span class="recipe-num">C</span><h4>Self-rate</h4><p>Rate your own competence on each PLO on a Likert <code>1–7</code> scale.</p></div>
-          <div class="recipe-card"><span class="recipe-num">D</span><h4>Pathfinding</h4><p>Given two PLOs, choose the shortest weighted path on your own graph.</p></div>
-          <div class="recipe-card"><span class="recipe-num">E</span><h4>Perturbation</h4><p>One PLO is removed. Pick a structural replacement among the rest.</p></div>
+
+          <div class="recipe-card">
+            <span class="recipe-num">A · Self-rate</span>
+            <h4>Likert competence rating per PLO</h4>
+            <p>
+              For each of the 14 PLOs the participant chooses a value on a 1–7 Likert scale
+              ("Абсолютно не погоджуюсь" … "Повністю погоджуюсь") expressing agreement with
+              "I can …" framings of the outcome.
+            </p>
+            <p style="margin-top:0.55rem; font-size:0.86rem; color:#4b5563;">
+              <b>Why first.</b> Self-rating is collected <em>before</em> any mapping
+              activity to capture declarative metacognition uncontaminated by the
+              structural reflection that follows (Flavell, 1979). The same axis later
+              supports the post-hoc test for illusory competence (Dunning &amp; Kruger,
+              1999; Eva &amp; Regehr, 2005).
+            </p>
+          </div>
+
+          <div class="recipe-card">
+            <span class="recipe-num">B · Cluster</span>
+            <h4>Group PLOs + name an anchor per group</h4>
+            <p>
+              Two-phase block. First the participant assigns each of the 14 PLOs to one of
+              up to four colour-coded thematic groups. Then, for every used group, the
+              participant selects a single <em>anchor</em> PLO — the concept that "best
+              represents" that group.
+            </p>
+            <p style="margin-top:0.55rem; font-size:0.86rem; color:#4b5563;">
+              <b>Why.</b> Expert categorisation is organised around deep principles, not
+              surface features (Chi, Feltovich, &amp; Glaser, 1981). Forced clustering
+              elicits the participant's deepest categorical structure; the anchor selection
+              probes whether the participant's representation contains hub concepts of the
+              kind characteristic of scale-free networks (Barabási &amp; Albert, 1999).
+            </p>
+          </div>
+
+          <div class="recipe-card">
+            <span class="recipe-num">C · Map</span>
+            <h4>Build a weighted concept graph</h4>
+            <p>
+              On a pannable canvas the participant draws an undirected edge between any
+              two PLOs they perceive as related and assigns each edge a weight
+              <code>w ∈ {1, 2, 3}</code> — weak, medium, strong association.
+            </p>
+            <p style="margin-top:0.55rem; font-size:0.86rem; color:#4b5563;">
+              <b>Why.</b> Externalising the participant's representation as a weighted
+              graph is the operationalisation of the cognitive-map hypothesis applied to
+              conceptual space (Tolman, 1948; Constantinescu et&nbsp;al., 2016). Weighting
+              forces an explicit cognitive-load trade-off (Sweller, 1988) and produces the
+              graph-theoretic substrate on which density, WGD, and homophily are computed.
+            </p>
+          </div>
+
+          <div class="recipe-card">
+            <span class="recipe-num">D · Pathfinding</span>
+            <h4>Construct a route between two PLOs on your own map</h4>
+            <p>
+              Given a source and a target PLO, the participant builds a path by clicking
+              intermediate concepts. The instruction is to "choose the route that feels
+              most natural given your connections" — not a shortest-path computation.
+            </p>
+            <p style="margin-top:0.55rem; font-size:0.86rem; color:#4b5563;">
+              <b>Why.</b> The capacity to lay out novel routes between known landmarks is
+              the original behavioural test of a cognitive map (Tolman, 1948); the
+              behavioural cost of the chosen route depends on global topology (Latora
+              &amp; Marchiori, 2001).
+            </p>
+          </div>
+
+          <div class="recipe-card">
+            <span class="recipe-num">E · Perturbation</span>
+            <h4>Pick the best replacement for a removed PLO</h4>
+            <p>
+              "The knowledge landscape has changed." One PLO from the participant's own
+              graph is presented as struck through with its neighbours flagged. The
+              participant chooses, from the remaining PLOs, the one that best fills the
+              gap left by the removed concept (3–4 trials).
+            </p>
+            <p style="margin-top:0.55rem; font-size:0.86rem; color:#4b5563;">
+              <b>Why.</b> Network robustness under targeted node removal is a property
+              of topology (Barabási &amp; Albert, 1999). The replacement task probes
+              whether the participant's representation supports recovery of structural
+              role from neighbourhood overlap — i.e. whether their map encodes the kind
+              of expert chunking that survives a missing piece (Chase &amp; Simon, 1973).
+            </p>
+          </div>
+
         </div>
+
+        <p style="font-size:0.86rem; color:#6b7280; margin-top:1rem;">
+          The app additionally collects basic demographic metadata between blocks C and
+          D (block "Про вас" in the running app). It is not analysed in this report.
+        </p>
+
       </div>
     </section>
 
