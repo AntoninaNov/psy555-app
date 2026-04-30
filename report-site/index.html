@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="description" content="What GPA Misses — an exploratory pilot in psychology curriculum design. Twelve students, fourteen learning outcomes, and the patterns GPA never sees." />
     <meta property="og:title" content="What GPA Misses" />
-    <meta property="og:description" content="An exploratory pilot in psychology curriculum design. The full study lands next academic year." />
+    <meta property="og:description" content="An exploratory pilot in psychology curriculum design. Twelve students, fourteen learning outcomes, and the patterns GPA never sees." />
     <meta name="keywords" content="GPA, concept map, complete graph, K14, learning outcomes, compliance, Socratic effect, Dunning-Kruger, curriculum design, KSE" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -196,6 +196,64 @@
       .limits-strip h5 { color: #92400e; font-weight: 700; font-size: 0.92rem; margin: 0 0 0.4rem 0; }
       .limits-strip p { color: #78350f; margin: 0; line-height: 1.6; }
 
+      /* Highlight pull-quote strip */
+      .highlight-strip {
+        background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+        border-left: 4px solid #d97706;
+        border-radius: 0 10px 10px 0;
+        padding: 0.95rem 1.25rem;
+        margin: 1.4rem auto;
+        max-width: 44rem;
+        position: relative;
+      }
+      .highlight-strip .hl-label {
+        display: inline-block;
+        font-family: 'Google Sans', sans-serif;
+        font-size: 0.7rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.12em;
+        color: #92400e;
+        margin-bottom: 0.4rem;
+      }
+      .highlight-strip p {
+        font-size: 1.0rem; color: #1f2937; line-height: 1.55; margin: 0;
+      }
+      .highlight-strip p b { color: #111827; }
+
+      /* Polar comparison card — for S6 ↔ S7 side-by-side */
+      .polar-pair {
+        display: grid; grid-template-columns: 1fr auto 1fr;
+        gap: 0.85rem; align-items: stretch;
+        margin: 1.4rem 0;
+      }
+      .polar-cell {
+        background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
+        padding: 1.0rem 1.1rem; text-align: center;
+      }
+      .polar-cell.left  { border-left: 4px solid #047857; }
+      .polar-cell.right { border-left: 4px solid #b45309; }
+      .polar-cell h6 {
+        font-family: 'Google Sans', sans-serif; font-weight: 700;
+        font-size: 1.0rem; color: #111827; margin: 0 0 0.3rem 0;
+      }
+      .polar-cell .pf-num {
+        display: block; font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+        font-size: 1.4rem; font-weight: 600;
+        margin: 0.4rem 0 0.2rem 0;
+      }
+      .polar-cell.left .pf-num { color: #047857; }
+      .polar-cell.right .pf-num { color: #b45309; }
+      .polar-cell p { font-size: 0.84rem; color: #4b5563; margin: 0; line-height: 1.45; }
+      .polar-vs {
+        align-self: center;
+        font-family: 'Google Sans', sans-serif;
+        font-weight: 700; color: #94a3b8;
+        font-size: 1.1rem;
+      }
+      @media (max-width: 720px) {
+        .polar-pair { grid-template-columns: 1fr; }
+        .polar-vs { display: none; }
+      }
+
       /* Variable glossary */
       .var-grid {
         display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -282,20 +340,20 @@
     <!-- ═══════════════════════════════════════ PUNCHLINE ═══ -->
     <section class="section" style="padding-top:0.5rem;">
       <div class="container is-max-desktop">
-        <figure>
-          <img src="fig0_ceiling.png" alt="Edges drawn per participant" style="width:100%; max-width:1000px; display:block; margin:0 auto;" />
-        </figure>
-        <figcaption style="max-width:1000px; margin:0.6rem auto;">
-          <b>The headline.</b>  Nine of eleven students saturated the graph at
-          <span class="mono">|E| = 91</span> — the maximum possible for 14 nodes
-          (<span class="mono">K<sub>14</sub></span>). Two outliers below.
-        </figcaption>
-
         <div class="stat-row">
           <div class="stat-card"><span class="num">12</span><div class="lbl">enrolled · 11 complete</div></div>
-          <div class="stat-card"><span class="num">14</span><div class="lbl">learning outcomes</div></div>
+          <div class="stat-card"><span class="num">14</span><div class="lbl">learning outcomes (PLOs)</div></div>
           <div class="stat-card"><span class="num">91</span><div class="lbl">possible edges (K<sub>14</sub>)</div></div>
           <div class="stat-card danger"><span class="num">9 / 11</span><div class="lbl">drew them all</div></div>
+        </div>
+
+        <div class="highlight-strip">
+          <span class="hl-label">First curiosity</span>
+          <p>
+            The cohort's three highest GPAs (96.0, 96.0, 94.0) built three of the most
+            <em>different</em> graphs we saw. WGD = 0.751, "incomplete session", 0.729.
+            <b>GPA didn't predict map structure.</b>
+          </p>
         </div>
       </div>
     </section>
@@ -365,11 +423,11 @@
           traces are in the public JSON.
         </p>
         <div class="recipe-grid">
-          <div class="recipe-card"><span class="recipe-num">A</span><h4>Cluster</h4><p>Group the 14 ILOs into 4 thematic clusters; pick a "central" ILO per cluster.</p></div>
-          <div class="recipe-card"><span class="recipe-num">B</span><h4>Map</h4><p>Connect any two ILOs you see related. Weight every edge <code>w ∈ {1, 2, 3}</code>.</p></div>
-          <div class="recipe-card"><span class="recipe-num">C</span><h4>Self-rate</h4><p>Rate your own competence on each ILO on a Likert <code>1–7</code> scale.</p></div>
-          <div class="recipe-card"><span class="recipe-num">D</span><h4>Pathfinding</h4><p>Given two ILOs, choose the shortest weighted path on your own graph.</p></div>
-          <div class="recipe-card"><span class="recipe-num">E</span><h4>Perturbation</h4><p>One ILO is removed. Pick a structural replacement among the rest.</p></div>
+          <div class="recipe-card"><span class="recipe-num">A</span><h4>Cluster</h4><p>Group the 14 PLOs into 4 thematic clusters; pick a "central" PLO per cluster.</p></div>
+          <div class="recipe-card"><span class="recipe-num">B</span><h4>Map</h4><p>Connect any two PLOs you see related. Weight every edge <code>w ∈ {1, 2, 3}</code>.</p></div>
+          <div class="recipe-card"><span class="recipe-num">C</span><h4>Self-rate</h4><p>Rate your own competence on each PLO on a Likert <code>1–7</code> scale.</p></div>
+          <div class="recipe-card"><span class="recipe-num">D</span><h4>Pathfinding</h4><p>Given two PLOs, choose the shortest weighted path on your own graph.</p></div>
+          <div class="recipe-card"><span class="recipe-num">E</span><h4>Perturbation</h4><p>One PLO is removed. Pick a structural replacement among the rest.</p></div>
         </div>
       </div>
     </section>
@@ -392,6 +450,25 @@
           </p>
         </div>
 
+        <figure>
+          <img src="fig0_ceiling.png" alt="Edges drawn per participant" style="width:100%; max-width:1000px; display:block; margin:0.6rem auto 0;" />
+        </figure>
+        <figcaption style="max-width:1000px; margin:0.5rem auto 1.4rem;">
+          <b>The shape of the ceiling.</b>  Number of edges each participant drew.
+          Nine bars sit at <span class="mono">|E| = 91</span> — the complete-graph maximum.
+          S12 drew 76. S7 drew 17.
+        </figcaption>
+
+        <div class="highlight-strip">
+          <span class="hl-label">A second curiosity</span>
+          <p>
+            The compliance gap goes one step further.
+            <b>Across the 9 saturated graphs, mean weight ranges from 1.35 to 2.25</b> —
+            a 1.7× spread on what was meant to be the same "everyone connects everything"
+            pattern. Identical edge sets, very different conviction.
+          </p>
+        </div>
+
         <!-- Finding 1: Socratic -->
         <h3 style="font-family:'Google Sans',sans-serif; font-weight:600; font-size:1.15rem; color:#1e3a8a; margin:1.6rem 0 0.4rem 0;">1.  Higher map integration → lower self-rating  (the Socratic effect)</h3>
         <p>
@@ -399,11 +476,31 @@
           Students whose maps look more integrated rate their own competence
           <em>lower</em>. The effect persists with the outlier removed
           (<span class="stat-pill neg">ρ = −0.58, N = 10</span>) — the textbook Socratic
-          pattern (Flavell, 1979; Eva &amp; Regehr, 2005).
+          pattern (Flavell, 1979; Eva &amp; Regehr, 2005). By Cohen's (1988) heuristic,
+          |ρ| = 0.69 is a <em>large</em> effect; the convention starts at 0.50.
         </p>
         <figure>
           <img src="fig1_socratic.png" alt="Socratic effect" style="width:100%; max-width:720px; display:block; margin:0.7rem auto 1.4rem;" />
         </figure>
+
+        <!-- Polar pair S6 ↔ S7 -->
+        <div class="polar-pair">
+          <div class="polar-cell left">
+            <h6>S6  ·  GPA 89</h6>
+            <span class="pf-num">WGD = 0.74</span>
+            <p>Highest map integration in the cohort.<br/>Self-rating: <b>4.71</b> — the lowest.</p>
+          </div>
+          <div class="polar-vs">↔</div>
+          <div class="polar-cell right">
+            <h6>S7  ·  GPA 93</h6>
+            <span class="pf-num">WGD = 0.08</span>
+            <p>Lowest map integration in the cohort.<br/>Self-rating: <b>6.71</b> — the highest.</p>
+          </div>
+        </div>
+        <p style="font-size:0.92rem; color:#4b5563; text-align:center; margin:0.4rem 0 1.5rem;">
+          Two students at opposite ends of the integration scale. Their self-ratings are
+          inverted. Their GPAs are within four points.
+        </p>
 
         <!-- Finding 2: Confidence penalty -->
         <h3 style="font-family:'Google Sans',sans-serif; font-weight:600; font-size:1.15rem; color:#1e3a8a; margin:1.6rem 0 0.4rem 0;">2.  More confident → slower under perturbation</h3>
@@ -411,23 +508,47 @@
           <span class="stat-pill pos">ρ = +0.77, p<sub>perm</sub> = .008</span>
           Students with higher self-ratings take <em>longer</em> per perturbation choice,
           not shorter — most plausibly task investment. The single Dunning–Kruger case
-          (next section) is off-trend in the opposite direction.
+          (next section) is off-trend in the opposite direction. By Cohen's heuristic
+          this is a <em>very large</em> effect.
         </p>
         <figure>
           <img src="fig2_overconfidence.png" alt="Confidence penalty" style="width:100%; max-width:720px; display:block; margin:0.7rem auto 1.4rem;" />
         </figure>
 
+        <div class="highlight-strip">
+          <span class="hl-label">The ratio is dramatic</span>
+          <p>
+            Fastest decider: <b>20.6 s</b> per perturbation (S5).
+            Slowest: <b>166.6 s</b> (S11). That's an <b>8× spread</b> — and the slowest
+            students were the <em>most confident</em>. Confidence in this cohort buys
+            deliberation, not speed.
+          </p>
+        </div>
+
         <!-- Finding 3: Homophily -->
         <h3 style="font-family:'Google Sans',sans-serif; font-weight:600; font-size:1.15rem; color:#1e3a8a; margin:1.6rem 0 0.4rem 0;">3.  All eleven students weight within-cluster ties higher</h3>
         <p>
-          Without exception. Δ from 0.20 (S6) to 0.90 (S5). Even the outlier with 17 edges
-          shows Δ = 0.36. The unanimity matters: it confirms that the prior thematic
-          clustering of the 14 ILOs is recovered by participants without prompting —
-          ground truth for cluster validity at scale.
+          Without exception. <b>11 of 11</b> participants assigned a higher mean weight to
+          edges <em>within</em> the four prior thematic clusters than to edges
+          <em>between</em> them. Δ ranges from 0.20 (S6) to 0.90 (S5). Even the outlier with
+          17 edges shows Δ = 0.36. Across the cohort the within-cluster mean is
+          <b>2.32</b>; the between-cluster mean is <b>1.71</b> — without any prompting to
+          differentiate by that criterion. The clustering structure of the curriculum is
+          there in students' heads.
         </p>
         <figure>
           <img src="fig3_homophily.png" alt="Cluster homophily" style="width:100%; max-width:920px; display:block; margin:0.7rem auto 0.4rem;" />
         </figure>
+
+        <div class="highlight-strip">
+          <span class="hl-label">Why this matters at scale</span>
+          <p>
+            Cluster homophily gives the next study a <b>free ground truth</b>. With 300+
+            participants and the same 14 PLOs, deviations from this 11/11 unanimity
+            become diagnostic of confused or weakly-coupled segments of the programme —
+            an automatic curriculum red-flag detector.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -448,7 +569,7 @@
             <span class="vname">GPA</span><span class="vdef">academic transcript average (0–100 scale).</span>
           </div>
           <div class="var-card">
-            <span class="vname">density</span><span class="vdef">share of the 91 possible ILO pairs that the participant connected.</span>
+            <span class="vname">density</span><span class="vdef">share of the 91 possible PLO pairs that the participant connected.</span>
             <span class="vform">density = |E| / 91</span>
           </div>
           <div class="var-card">
@@ -462,7 +583,7 @@
             <span class="vform">WGD = (Σ w<sub>ij</sub>) / (3 · 91)</span>
           </div>
           <div class="var-card">
-            <span class="vname">avgRating</span><span class="vdef">mean self-rated competence on the 14 ILOs (Likert 1–7).</span>
+            <span class="vname">avgRating</span><span class="vdef">mean self-rated competence on the 14 PLOs (Likert 1–7).</span>
           </div>
           <div class="var-card">
             <span class="vname">sdRating</span><span class="vdef">SD of self-ratings — high = differentiated; low = flat profile.</span>
@@ -509,6 +630,16 @@
           structural competence. That's nine simultaneous deviations from the median in
           the predicted direction (Dunning &amp; Kruger, 1999).
         </p>
+
+        <div class="highlight-strip">
+          <span class="hl-label">The cleanest signature</span>
+          <p>
+            Across <b>seven perturbation trials</b>, S7 chose the most-strongly-connected
+            neighbour of the removed node <b>zero times</b>. The group median: <b>67 %</b>.
+            Highest self-rating (6.71/7), flattest rating SD (0.47), worst structural
+            accuracy (bridgeAcc = 0.12). Nine extremes, one direction.
+          </p>
+        </div>
         <div class="columns">
           <div class="column is-half">
             <figure><img src="fig4_s4_radar.png" alt="S7 radar" style="width:100%;" /></figure>
@@ -537,13 +668,12 @@
     <section class="section">
       <div class="container is-max-desktop">
         <div class="cta-panel">
-          <h3>The full study lands next academic year</h3>
+          <h3>Where this could go</h3>
           <p>
             This pilot answered one question: <em>does the instrument produce a usable
             signal?</em> It does. Three large effects in N = 11 — and a clear design fix
-            for the ceiling. Next iteration: 300+ students across the undergraduate
-            Psychology programme, edge-budget cap, forced-ranking weights, precision-weighted
-            scoring.
+            for the ceiling. The natural next iteration would run the protocol on a much
+            larger cohort with three changes that turn compliance back into information:
           </p>
           <div class="pill-row">
             <span class="pill">N ≈ 300+</span>
@@ -553,8 +683,8 @@
             <span class="pill">Pre-registered</span>
           </div>
           <p style="margin-top:1.4rem; font-size:0.92rem; color:#cbd5e1;">
-            Curriculum-design diagnostic at programme scale. Get in touch if you want to run
-            the same protocol on your cohort:
+            We can't yet promise when. If your programme would find a structural diagnostic
+            useful, or if you want to run the same protocol on your cohort, write to us:
             <a href="mailto:dyashchuk@kse.org.ua" style="color:#fbbf24; text-decoration:none;">dyashchuk@kse.org.ua</a>
             ·
             <a href="mailto:anovak@kse.org.ua" style="color:#fbbf24; text-decoration:none;">anovak@kse.org.ua</a>.
