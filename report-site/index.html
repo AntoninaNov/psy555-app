@@ -196,6 +196,36 @@
       .limits-strip h5 { color: #92400e; font-weight: 700; font-size: 0.92rem; margin: 0 0 0.4rem 0; }
       .limits-strip p { color: #78350f; margin: 0; line-height: 1.6; }
 
+      /* PLO derivation callout */
+      .plo-callout {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-left: 5px solid #1e3a8a;
+        border-radius: 0 10px 10px 0;
+        padding: 1.1rem 1.4rem;
+        margin: 1.4rem 0 1.6rem 0;
+        max-width: 44rem;
+      }
+      .plo-callout-label {
+        display: inline-block;
+        font-family: 'Google Sans', sans-serif;
+        font-size: 0.72rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.12em;
+        color: #1e3a8a; margin-bottom: 0.5rem;
+      }
+      .plo-callout p {
+        font-size: 0.96rem; color: #1f2937; line-height: 1.6;
+        margin: 0 0 0.85rem 0;
+      }
+      .plo-callout-link {
+        display: inline-flex; align-items: center;
+        background: #1e3a8a; color: #ffffff;
+        padding: 0.5rem 1rem; border-radius: 8px;
+        text-decoration: none; font-size: 0.9rem; font-weight: 600;
+        transition: background 0.15s;
+      }
+      .plo-callout-link:hover { background: #1e40af; color: #ffffff; }
+
       /* Highlight pull-quote strip */
       .highlight-strip {
         background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
@@ -458,16 +488,25 @@
           core methods, biological-psychology, and social-psychology modules, placing them
           at a curriculum point where the relevant programme content is substantively
           familiar but has not yet been consolidated under thesis-stage selection pressure.
-          The 14 PLOs used in the protocol were not pulled from a single canonical
-          document: there is no published programme-level list of that form at the
-          institution. We <em>derived</em> the set ourselves by iteratively extracting and
-          consolidating learning outcomes from individual course syllabuses across the
-          three completed years of the curriculum, merging duplicates and resolving
-          phrasing variants until the resulting list reproduced the substantive coverage
-          of the programme's core. The 14-item set is therefore a research artefact, not
-          an institutional one — a limitation explicitly recognised in
-          §<a href="#references">Limits</a>.
         </p>
+
+        <div class="plo-callout">
+          <div class="plo-callout-label">On the 14 PLOs</div>
+          <p>
+            The 14 PLOs used in the protocol were <em>not</em> pulled from a single canonical
+            document: there is no published programme-level list of that form at the
+            institution. We derived the set ourselves by iteratively extracting and
+            consolidating learning outcomes from individual course syllabuses across the
+            three completed years of the curriculum, merging duplicates and resolving
+            phrasing variants until the resulting list reproduced the substantive coverage
+            of the programme's core. The 14-item set is therefore a research artefact, not
+            an institutional one — a limitation explicitly recognised in
+            §<a href="#references">Limits</a>.
+          </p>
+          <a class="plo-callout-link" href="plos.html">
+            <i class="fas fa-list-ul"></i> &nbsp;See the full list of 14 PLOs (English &amp; Ukrainian original)
+          </a>
+        </div>
 
         <p class="section-intro">
           We treat the resulting sample as a <em>convenience cohort with theoretical
