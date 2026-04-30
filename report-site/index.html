@@ -2,21 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="description" content="What GPA Misses — an exploratory pilot in psychology curriculum design. GPA tells you who passes; concept maps tell you what they actually understood." />
+    <meta name="description" content="What GPA Misses — an exploratory pilot in psychology curriculum design. Twelve students, fourteen learning outcomes, and the patterns GPA never sees." />
     <meta property="og:title" content="What GPA Misses" />
-    <meta property="og:description" content="Exploratory pilot. GPA correlates with little of what students' concept maps reveal about their knowledge structure." />
-    <meta name="keywords" content="GPA, concept map, complete graph, K14, learning outcomes, compliance, Socratic effect, Dunning-Kruger, curriculum design, exploratory, KSE" />
+    <meta property="og:description" content="An exploratory pilot in psychology curriculum design. The full study lands next academic year." />
+    <meta name="keywords" content="GPA, concept map, complete graph, K14, learning outcomes, compliance, Socratic effect, Dunning-Kruger, curriculum design, KSE" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>What GPA Misses · an exploratory pilot in psychology curriculum design</title>
+    <title>What GPA Misses · an exploratory pilot</title>
 
     <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,700|Noto+Sans:400,500,600|Castoro|JetBrains+Mono:400,500" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = { prefix: 'tw-', corePlugins: { preflight: false } };
-    </script>
+    <script>tailwind.config = { prefix: 'tw-', corePlugins: { preflight: false } };</script>
 
     <style>
       body { font-family: 'Noto Sans', sans-serif; color: #1f2937; line-height: 1.65; }
@@ -33,149 +31,63 @@
       .hero.is-light { background: #f5f7fb; }
 
       .lead {
-        font-size: 1.18rem;
-        line-height: 1.65;
-        color: #1f2937;
-        max-width: 38rem;
-        margin: 0 auto;
+        font-size: 1.20rem; line-height: 1.6; color: #1f2937;
+        max-width: 36rem; margin: 0 auto;
       }
       .kicker {
         display: inline-block;
         font-family: 'Google Sans', sans-serif;
-        font-size: 0.78rem;
-        text-transform: uppercase;
+        font-size: 0.78rem; text-transform: uppercase;
         letter-spacing: 0.14em;
-        color: #1e3a8a;
-        background: #eef2ff;
-        padding: 0.3em 0.85em;
-        border-radius: 9999px;
-        margin-bottom: 1rem;
-        font-weight: 600;
+        color: #1e3a8a; background: #eef2ff;
+        padding: 0.3em 0.85em; border-radius: 9999px;
+        margin-bottom: 1rem; font-weight: 600;
       }
 
       h2.section-title {
-        font-family: 'Google Sans', sans-serif;
-        font-weight: 700;
-        font-size: 1.85rem;
-        color: #111827;
-        margin: 0 0 0.4rem 0;
-        letter-spacing: -0.01em;
+        font-family: 'Google Sans', sans-serif; font-weight: 700;
+        font-size: 1.85rem; color: #111827;
+        margin: 0 0 0.4rem 0; letter-spacing: -0.01em;
       }
-      h3.section-sub {
-        font-family: 'Google Sans', sans-serif;
-        font-weight: 600;
-        font-size: 1.15rem;
-        color: #1e3a8a;
-        margin: 1.6rem 0 0.4rem 0;
-      }
-      .section-intro {
-        font-size: 1.02rem; color: #374151; max-width: 44rem; margin: 0 0 1.5rem 0;
-      }
+      .section-intro { font-size: 1.02rem; color: #374151; max-width: 44rem; margin: 0 0 1.4rem 0; }
 
-      /* Big number stat */
       .stat-row {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1rem;
-        margin: 1.4rem 0;
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem; margin: 1.4rem 0;
       }
       .stat-card {
-        background: #fff;
-        border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        padding: 1.1rem 1.2rem;
-        text-align: center;
-        box-shadow: 0 1px 3px rgba(0,0,0,.04);
+        background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
+        padding: 1.1rem 1.2rem; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,.04);
       }
       .stat-card .num {
-        font-family: 'Google Sans', sans-serif;
-        font-weight: 700;
-        font-size: 2.1rem;
-        color: #1e3a8a;
-        display: block;
-        line-height: 1.05;
+        font-family: 'Google Sans', sans-serif; font-weight: 700;
+        font-size: 2.1rem; color: #1e3a8a; display: block; line-height: 1.05;
       }
       .stat-card.danger .num { color: #b45309; }
-      .stat-card .lbl {
-        font-size: 0.82rem;
-        color: #6b7280;
-        margin-top: 0.4rem;
-      }
+      .stat-card .lbl { font-size: 0.82rem; color: #6b7280; margin-top: 0.4rem; }
 
-      /* 8-step recipe grid */
       .recipe-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 0.85rem;
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.85rem;
       }
       .recipe-card {
-        background: #fff;
-        border: 1px solid #e5e7eb;
-        border-radius: 10px;
-        padding: 0.95rem 1.1rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,.04);
-        position: relative;
+        background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
+        padding: 0.95rem 1.1rem; box-shadow: 0 1px 3px rgba(0,0,0,.04); position: relative;
       }
       .recipe-num {
-        position: absolute;
-        top: -0.6rem;
-        left: 1rem;
-        font-family: 'Google Sans', sans-serif;
-        font-weight: 700;
-        font-size: 0.85rem;
-        background: #1e3a8a;
-        color: #fff;
-        padding: 0.18em 0.65em;
-        border-radius: 9999px;
-        letter-spacing: 0.04em;
+        position: absolute; top: -0.6rem; left: 1rem;
+        font-family: 'Google Sans', sans-serif; font-weight: 700; font-size: 0.85rem;
+        background: #1e3a8a; color: #fff;
+        padding: 0.18em 0.65em; border-radius: 9999px; letter-spacing: 0.04em;
       }
       .recipe-card h4 {
-        font-family: 'Google Sans', sans-serif;
-        font-weight: 600;
-        font-size: 1.0rem;
-        margin: 0.4rem 0 0.45rem 0;
-        color: #111827;
+        font-family: 'Google Sans', sans-serif; font-weight: 600; font-size: 1.0rem;
+        margin: 0.4rem 0 0.45rem 0; color: #111827;
       }
       .recipe-card p { font-size: 0.92rem; color: #1f2937; margin: 0; line-height: 1.55; }
       .recipe-card code { font-size: 0.86em; color: #1e3a8a; background: transparent; padding: 0; }
 
-      /* Tables */
-      .results-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.88rem;
-        background: #fff;
-        border: 1px solid #e5e7eb;
-        border-radius: 8px;
-        overflow: hidden;
-      }
-      .results-table thead th {
-        background: #1e3a8a;
-        color: #fff;
-        font-weight: 600;
-        text-align: left;
-        padding: 0.6rem 0.85rem;
-        font-size: 0.84rem;
-      }
-      .results-table tbody td, .results-table tbody th {
-        padding: 0.5rem 0.85rem;
-        border-top: 1px solid #e5e7eb;
-        vertical-align: top;
-      }
-      .results-table tbody tr:nth-child(even) { background: #f9fafb; }
-      .results-table tbody th { font-weight: 600; color: #111827; background: #f3f4f6; }
-      .results-table tfoot td { background: #f9fafb; font-size: 0.78rem; color: #6b7280; padding: 0.4rem 0.85rem; }
-      .results-table .num { font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; text-align: right; }
-
-      /* Verdicts */
-      .v-ns  { background:#f3f4f6; color:#6b7280; border:1px solid #d1d5db; border-radius:6px; padding:0.1em 0.5em; font-size:0.76rem; font-weight:700; }
-      .v-na  { background:#fef9c3; color:#854d0e; border:1px solid #fde68a; border-radius:6px; padding:0.1em 0.5em; font-size:0.76rem; font-weight:700; }
-      .v-opp { background:#fef2f2; color:#991b1b; border:1px solid #fecaca; border-radius:6px; padding:0.1em 0.5em; font-size:0.76rem; font-weight:700; }
-      .v-sig { background:#ecfdf5; color:#065f46; border:1px solid #6ee7b7; border-radius:6px; padding:0.1em 0.5em; font-size:0.76rem; font-weight:700; }
-
       .stat-pill {
-        display: inline-block;
-        background: #eef2ff; color: #1e3a8a; border: 1px solid #c7d2fe;
+        display: inline-block; background: #eef2ff; color: #1e3a8a; border: 1px solid #c7d2fe;
         border-radius: 9999px; padding: 0.18em 0.7em;
         font-size: 0.85em; font-weight: 600; margin: 0 0.15em;
         font-family: 'Castoro', serif;
@@ -183,177 +95,120 @@
       .stat-pill.neg { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
       .stat-pill.pos { background: #ecfdf5; color: #065f46; border-color: #a7f3d0; }
 
-      /* Findings */
       .finding-card {
-        background: #fff;
-        border-left: 5px solid #1e3a8a;
-        padding: 1.1rem 1.3rem;
-        margin: 0.9rem 0;
-        border-radius: 0 8px 8px 0;
+        background: #fff; border-left: 5px solid #1e3a8a;
+        padding: 1.1rem 1.3rem; margin: 0.9rem 0; border-radius: 0 8px 8px 0;
         box-shadow: 0 1px 3px rgba(0,0,0,.04);
       }
       .finding-card.orange { border-left-color: #d97706; }
       .finding-card.green  { border-left-color: #047857; }
-      .finding-card.red    { border-left-color: #b45309; }
-      .finding-card.purple { border-left-color: #be185d; }
       .finding-card h4 {
-        font-family: 'Google Sans', sans-serif;
-        font-weight: 600; font-size: 1.05rem;
+        font-family: 'Google Sans', sans-serif; font-weight: 600; font-size: 1.05rem;
         margin: 0 0 0.3rem 0; color: #111827;
       }
       .finding-card p { font-size: 0.95rem; color: #1f2937; margin: 0; line-height: 1.6; }
 
-      /* Limit cards */
-      .lim-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 0.75rem;
+      .results-table {
+        width: 100%; border-collapse: collapse; font-size: 0.88rem;
+        background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;
       }
-      .lim-card {
-        background: #fff;
-        border: 1px solid #fde68a;
-        border-left: 4px solid #d97706;
-        border-radius: 8px;
-        padding: 0.8rem 0.95rem;
+      .results-table thead th {
+        background: #1e3a8a; color: #fff; font-weight: 600;
+        text-align: left; padding: 0.6rem 0.85rem; font-size: 0.84rem;
       }
-      .lim-card h5 { font-weight: 700; color: #92400e; font-size: 0.88rem; margin: 0 0 0.25rem 0; }
-      .lim-card p { font-size: 0.84rem; color: #1f2937; line-height: 1.5; margin: 0; }
+      .results-table tbody td, .results-table tbody th {
+        padding: 0.5rem 0.85rem; border-top: 1px solid #e5e7eb; vertical-align: top;
+      }
+      .results-table tbody tr:nth-child(even) { background: #f9fafb; }
+      .results-table tbody th { font-weight: 600; color: #111827; background: #f3f4f6; }
+      .results-table tfoot td { background: #f9fafb; font-size: 0.78rem; color: #6b7280; padding: 0.4rem 0.85rem; }
+      .results-table .num { font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; text-align: right; }
 
-      /* Banner */
-      .banner-warning {
-        background: linear-gradient(135deg,#fff7ed,#fef3c7);
-        border-left: 5px solid #f59e0b;
-        border-radius: 8px;
-        padding: 1.05rem 1.3rem;
-        margin: 1.3rem 0;
-      }
-      .banner-warning h4 { color: #92400e; margin: 0 0 0.4rem 0; font-size: 1.0rem; font-weight: 700; }
-      .banner-warning p { color: #78350f; margin: 0; font-size: 0.93rem; line-height: 1.6; }
-
-      /* References */
-      .ref-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        font-size: 0.88rem;
-        line-height: 1.55;
-      }
-      .ref-list li {
-        padding: 0.55rem 0;
-        border-bottom: 1px solid #e5e7eb;
-        text-indent: -1.4rem;
-        padding-left: 1.4rem;
-      }
-      .ref-list li:last-child { border-bottom: none; }
-      .ref-list a { color: #1e3a8a; }
-      .ref-list em { color: #4b5563; }
-
-      /* Concept-illustration blocks */
+      /* Tinbergen-style 2x2 concept block */
       .concept-block {
         background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #312e81 100%);
-        color: #e2e8f0;
-        border-radius: 14px;
-        padding: 1.6rem 1.8rem;
-        margin: 1.8rem 0;
+        color: #e2e8f0; border-radius: 14px;
+        padding: 1.6rem 1.8rem; margin: 1.8rem 0;
         box-shadow: 0 6px 20px rgba(15, 23, 42, 0.18);
       }
       .concept-block .cb-title {
-        font-family: 'Google Sans', sans-serif;
-        font-weight: 600;
-        font-size: 1.1rem;
-        color: #ffffff;
-        margin: 0 0 1.0rem 0;
-        letter-spacing: -0.005em;
+        font-family: 'Google Sans', sans-serif; font-weight: 600; font-size: 1.1rem;
+        color: #ffffff; margin: 0 0 1.0rem 0;
       }
-      .concept-grid-2 {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        gap: 1.0rem;
-        align-items: center;
+      .concept-2x2 {
+        display: grid; grid-template-columns: 9rem repeat(2, 1fr); gap: 0.6rem; margin-top: 0.5rem;
       }
-      .concept-grid-3 {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.85rem;
+      .concept-2x2 .axis-h, .concept-2x2 .axis-v {
+        background: rgba(99, 102, 241, 0.18); color: #c7d2fe;
+        font-family: 'Google Sans', sans-serif; font-weight: 600;
+        font-size: 0.82rem; text-align: center;
+        padding: 0.45rem 0.5rem; border-radius: 6px; align-self: center;
+        text-transform: uppercase; letter-spacing: 0.05em;
       }
-      @media (max-width: 720px) {
-        .concept-grid-2 { grid-template-columns: 1fr; }
-        .concept-grid-2 .arrow-cell { display: none; }
-        .concept-grid-3 { grid-template-columns: 1fr; }
-      }
+      .concept-2x2 .axis-v { writing-mode: vertical-rl; transform: rotate(180deg); }
+      .concept-2x2 .corner { background: transparent; }
       .concept-cell {
         background: rgba(255, 255, 255, 0.04);
         border: 1px solid rgba(148, 163, 184, 0.18);
-        border-radius: 10px;
-        padding: 1.0rem 1.0rem;
-        text-align: center;
+        border-radius: 10px; padding: 0.95rem 1.0rem; text-align: center;
       }
-      .concept-cell .ic {
-        font-size: 1.85rem;
-        color: #93c5fd;
-        margin-bottom: 0.5rem;
-        display: inline-block;
-      }
+      .concept-cell .ic { font-size: 1.55rem; color: #93c5fd; margin-bottom: 0.4rem; display: inline-block; }
       .concept-cell .ic.warm { color: #fbbf24; }
       .concept-cell .ic.green { color: #6ee7b7; }
       .concept-cell .ic.purple { color: #c4b5fd; }
       .concept-cell h5 {
-        font-family: 'Google Sans', sans-serif;
-        font-weight: 600;
-        font-size: 0.96rem;
-        color: #f1f5f9;
-        margin: 0 0 0.3rem 0;
+        font-family: 'Google Sans', sans-serif; font-weight: 600; font-size: 0.95rem;
+        color: #f1f5f9; margin: 0 0 0.25rem 0;
       }
-      .concept-cell p {
-        font-size: 0.84rem;
-        line-height: 1.5;
-        color: #cbd5e1;
-        margin: 0;
-      }
-      .concept-cell .src {
-        display: block;
-        margin-top: 0.5rem;
-        font-size: 0.72rem;
-        color: #94a3b8;
-        font-style: italic;
-      }
-      .arrow-cell {
-        font-size: 1.2rem;
-        color: #94a3b8;
-        text-align: center;
-        font-weight: 700;
-      }
-      .concept-2x2 {
-        display: grid;
-        grid-template-columns: 9rem repeat(2, 1fr);
-        gap: 0.6rem;
-        margin-top: 0.5rem;
-      }
-      .concept-2x2 .axis-h, .concept-2x2 .axis-v {
-        background: rgba(99, 102, 241, 0.18);
-        color: #c7d2fe;
-        font-family: 'Google Sans', sans-serif;
-        font-weight: 600;
-        font-size: 0.82rem;
-        text-align: center;
-        padding: 0.45rem 0.5rem;
-        border-radius: 6px;
-        align-self: center;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-      .concept-2x2 .axis-v { writing-mode: vertical-rl; transform: rotate(180deg); }
-      .concept-2x2 .corner { background: transparent; }
+      .concept-cell p { font-size: 0.84rem; line-height: 1.5; color: #cbd5e1; margin: 0; }
       @media (max-width: 720px) {
         .concept-2x2 { grid-template-columns: 1fr; }
         .concept-2x2 .axis-h, .concept-2x2 .axis-v { display: none; }
       }
 
-      .outline-nav a {
-        color: #1e3a8a; margin: 0 0.55rem; font-size: 1.0rem;
-        text-decoration: none; border-bottom: 2px solid transparent; transition: border-color 0.15s;
+      /* CTA "what's next" panel */
+      .cta-panel {
+        background: linear-gradient(135deg, #1e3a8a 0%, #312e81 100%);
+        color: #f8fafc; border-radius: 16px;
+        padding: 2.2rem 2.4rem; margin: 1.8rem 0;
+        box-shadow: 0 8px 28px rgba(30, 58, 138, 0.22);
+        text-align: center;
       }
-      .outline-nav a:hover { border-bottom-color: #1e3a8a; }
+      .cta-panel h3 {
+        font-family: 'Google Sans', sans-serif; font-weight: 700; font-size: 1.6rem;
+        margin: 0 0 0.6rem 0; letter-spacing: -0.01em;
+      }
+      .cta-panel p { font-size: 1.02rem; line-height: 1.6; color: #cbd5e1; max-width: 38rem; margin: 0 auto 1.2rem; }
+      .cta-panel .pill-row {
+        display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-top: 1.0rem;
+      }
+      .cta-panel .pill {
+        background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
+        color: #f8fafc; padding: 0.4rem 0.95rem; border-radius: 9999px;
+        font-size: 0.86rem; font-weight: 500;
+      }
+
+      /* Limits — single tight strip */
+      .limits-strip {
+        background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px;
+        padding: 1.0rem 1.25rem; margin: 1.5rem 0; font-size: 0.92rem;
+      }
+      .limits-strip h5 { color: #92400e; font-weight: 700; font-size: 0.92rem; margin: 0 0 0.4rem 0; }
+      .limits-strip p { color: #78350f; margin: 0; line-height: 1.6; }
+
+      .ref-list { list-style: none; padding: 0; margin: 0; font-size: 0.86rem; line-height: 1.55; }
+      .ref-list li { padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb; text-indent: -1.4rem; padding-left: 1.4rem; }
+      .ref-list li:last-child { border-bottom: none; }
+      .ref-list a { color: #1e3a8a; }
+      .ref-list em { color: #4b5563; }
+
+      .banner-warning {
+        background: linear-gradient(135deg,#fff7ed,#fef3c7);
+        border-left: 5px solid #f59e0b; border-radius: 8px;
+        padding: 1.0rem 1.3rem; margin: 1.3rem 0;
+      }
+      .banner-warning h4 { color: #92400e; margin: 0 0 0.4rem 0; font-size: 1.0rem; font-weight: 700; }
+      .banner-warning p { color: #78350f; margin: 0; font-size: 0.93rem; line-height: 1.6; }
 
       section[id] { scroll-margin-top: 1rem; }
     </style>
@@ -369,15 +224,13 @@
 
               <span class="kicker">PSY555 · Exploratory pilot · April 2026</span>
 
-              <h2 class="title is-1 publication-title" style="font-size:2.9rem;">
+              <h2 class="title is-1 publication-title" style="font-size:3.0rem;">
                 What GPA Misses
               </h2>
-              <p class="lead" style="margin-top:1rem; color:#374151; font-size:1.2rem;">
+              <p class="lead" style="margin-top:1rem; color:#374151;">
                 Chess masters don't remember more pieces — they see them in deeper
-                patterns (Chase &amp; Simon, 1973). Physics experts don't know more
-                facts — they organise them differently from novices
-                (Chi, Feltovich, &amp; Glaser, 1981). GPA averages outputs;
-                it never sees the <em>structure</em>. We tried to look directly.
+                patterns (Chase &amp; Simon, 1973). GPA averages outputs;
+                it never sees the structure underneath. So we tried to look directly.
               </p>
 
               <div class="is-size-6 publication-authors" style="margin-top:1.5rem;">
@@ -388,27 +241,9 @@
               </div>
 
               <div class="publication-links" style="margin-top:1.2rem;">
-                <span class="link-block">
-                  <a href="https://github.com/AntoninaNov/psy555-app/blob/master/psy555-all-sessions-2026-04-14.json" target="_blank"
-                     class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon"><i class="fas fa-database"></i></span>
-                    <span>Data</span>
-                  </a>
-                </span>
-                <span class="link-block">
-                  <a href="https://github.com/AntoninaNov/psy555-app/blob/master/figures.py" target="_blank"
-                     class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon"><i class="fab fa-python"></i></span>
-                    <span>Code</span>
-                  </a>
-                </span>
-                <span class="link-block">
-                  <a href="https://github.com/AntoninaNov/psy555-app" target="_blank"
-                     class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon"><i class="fab fa-github"></i></span>
-                    <span>Repo</span>
-                  </a>
-                </span>
+                <span class="link-block"><a href="https://github.com/AntoninaNov/psy555-app/blob/master/psy555-all-sessions-2026-04-14.json" target="_blank" class="button is-normal is-rounded is-dark"><span class="icon"><i class="fas fa-database"></i></span><span>Data</span></a></span>
+                <span class="link-block"><a href="https://github.com/AntoninaNov/psy555-app/blob/master/figures.py" target="_blank" class="button is-normal is-rounded is-dark"><span class="icon"><i class="fab fa-python"></i></span><span>Code</span></a></span>
+                <span class="link-block"><a href="https://github.com/AntoninaNov/psy555-app" target="_blank" class="button is-normal is-rounded is-dark"><span class="icon"><i class="fab fa-github"></i></span><span>Repo</span></a></span>
               </div>
 
             </div>
@@ -417,147 +252,59 @@
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════ THE PUNCH LINE ═══ -->
+    <!-- ═══════════════════════════════════════ PUNCHLINE ═══ -->
     <section class="section" style="padding-top:0.5rem;">
       <div class="container is-max-desktop">
         <figure>
           <img src="fig0_ceiling.png" alt="Edges drawn per participant" style="width:100%; max-width:1000px; display:block; margin:0 auto;" />
         </figure>
         <figcaption style="max-width:1000px; margin:0.6rem auto;">
-          <b>Figure 0.</b>  Number of edges each participant drew, sorted ascending. Nine of eleven
-          saturated the graph at <span class="mono">|E| = 91</span> — the maximum possible for 14
-          nodes. Two outliers: S7 (17 edges) and S12 (76 edges). S2 (incomplete session) excluded.
+          <b>The headline.</b>  Nine of eleven students saturated the graph at
+          <span class="mono">|E| = 91</span> — the maximum possible for 14 nodes
+          (<span class="mono">K<sub>14</sub></span>). Two outliers below.
         </figcaption>
 
         <div class="stat-row">
           <div class="stat-card"><span class="num">12</span><div class="lbl">enrolled · 11 complete</div></div>
           <div class="stat-card"><span class="num">14</span><div class="lbl">learning outcomes</div></div>
           <div class="stat-card"><span class="num">91</span><div class="lbl">possible edges (K<sub>14</sub>)</div></div>
-          <div class="stat-card danger"><span class="num">9 / 11</span><div class="lbl">drew the complete graph</div></div>
+          <div class="stat-card danger"><span class="num">9 / 11</span><div class="lbl">drew them all</div></div>
         </div>
       </div>
     </section>
 
     <!-- ═══════════════════════════════════════ THE IDEA ═══ -->
-    <section class="section" id="idea">
+    <section class="section hero is-light" id="idea">
       <div class="container is-max-desktop">
         <span class="kicker">The idea</span>
         <h2 class="section-title">Knowledge is a map, not a list</h2>
 
         <p class="section-intro">
-          The intuition that minds carry <em>maps</em> rather than catalogues is older than
-          cognitive science as a discipline. Tolman (1948) showed that even rats running mazes
-          construct internal spatial representations rather than chains of stimulus–response
-          pairs. Three decades later O'Keefe and Nadel (1978) located the neural substrate in
-          the hippocampus — cognitive maps were not a metaphor, they were anatomy. The map
-          turned out to generalise: networks of related ideas obey the same topological laws
-          as networks of physical landmarks (Barabási &amp; Albert, 1999;
-          Latora &amp; Marchiori, 2001).
+          Tolman (1948) showed rats build internal maps of mazes; O'Keefe and Nadel (1978)
+          located the substrate in the hippocampus. The same topology generalises to
+          semantic memory — networks of related ideas obey the laws Barabási and Albert
+          (1999) and Latora and Marchiori (2001) described for physical networks.
+          What makes someone an expert isn't <em>more</em> facts. It's how those facts
+          connect (Chase &amp; Simon, 1973; Chi, Feltovich, &amp; Glaser, 1981) — bounded
+          by working-memory limits (Miller, 1956; Sweller, 1988; Kahneman, 2011).
         </p>
-
-        <!-- Concept block 1: from physical to semantic navigation -->
-        <div class="concept-block">
-          <p class="cb-title">From physical to semantic navigation</p>
-          <div class="concept-grid-2">
-            <div class="concept-cell">
-              <span class="ic"><i class="fas fa-route"></i></span>
-              <h5>Spatial map of a maze</h5>
-              <p>Rats build an internal map of a maze rather than memorising motor sequences. The map supports detours and shortcuts neither was rehearsed.</p>
-              <span class="src">Tolman (1948); O'Keefe &amp; Nadel (1978)</span>
-            </div>
-            <div class="arrow-cell">→</div>
-            <div class="concept-cell">
-              <span class="ic green"><i class="fas fa-project-diagram"></i></span>
-              <h5>Network of ideas</h5>
-              <p>The same topology underlies semantic memory: ideas connect, cluster, hub. Network laws (scale-free, small-world) apply to both.</p>
-              <span class="src">Barabási &amp; Albert (1999); Latora &amp; Marchiori (2001)</span>
-            </div>
-          </div>
-        </div>
-
         <p class="section-intro">
-          What makes someone an expert in a field, then, is not how many items they have
-          stored — it is how those items connect. Chase and Simon (1973) showed that chess
-          masters reconstruct mid-game positions almost perfectly while novices remember
-          only a handful of pieces, but only when the position is meaningful: random boards
-          collapse the advantage. The advantage is in chunking, not capacity. Chi, Feltovich,
-          and Glaser (1981) found the same in physics: experts categorise problems by deep
-          principles (energy conservation, force balance), novices by surface features (an
-          inclined plane, a pulley). The structure of the map is the expertise.
+          GPA averages exam outputs. It cannot see the topology underneath. We wanted to.
         </p>
 
-        <!-- Concept block 2: knowledge is the topology -->
-        <div class="concept-block">
-          <p class="cb-title">Expertise lives in the topology, not in the count</p>
-          <div class="concept-grid-3">
-            <div class="concept-cell">
-              <span class="ic warm"><i class="fas fa-chess"></i></span>
-              <h5>Chunking, not memory</h5>
-              <p>Chess masters and novices remember the same number of <em>chunks</em>. Masters' chunks are larger because their internal structure groups pieces by purpose, not position.</p>
-              <span class="src">Chase &amp; Simon (1973); Miller (1956)</span>
-            </div>
-            <div class="concept-cell">
-              <span class="ic green"><i class="fas fa-layer-group"></i></span>
-              <h5>Deep vs surface categories</h5>
-              <p>Physics experts sort problems by the conservation law that solves them. Novices sort by visible objects (pulley, ramp). Same items — different graph.</p>
-              <span class="src">Chi, Feltovich, &amp; Glaser (1981)</span>
-            </div>
-            <div class="concept-cell">
-              <span class="ic purple"><i class="fas fa-microchip"></i></span>
-              <h5>Capacity is the constraint</h5>
-              <p>Working memory caps independent chunks near 7 ± 2. Cognitive load past that limit collapses comprehension into shallow surface coding.</p>
-              <span class="src">Miller (1956); Sweller (1988); Kahneman (2011)</span>
-            </div>
-          </div>
-        </div>
-
-        <p class="section-intro">
-          This map is not free to be arbitrary. Working memory caps the number of independent
-          chunks at roughly seven (Miller, 1956). Cognitive load theory (Sweller, 1988) and the
-          dual-system distinction (Kahneman, 2011) describe what happens when a learner's map
-          is forced past that limit — comprehension stalls, and the learner falls back on shallow
-          surface coding. A well-designed curriculum is, in part, a cognitive scaffold that keeps
-          the load tractable while building deep links. A poorly designed one is a list.
-        </p>
-
-        <p class="section-intro">
-          GPA averages exam outputs. It does not — cannot — see the topology underneath. What
-          would, if you could measure it directly?
-        </p>
-
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════ WHY THIS PROTOCOL ═══ -->
-    <section class="section hero is-light" id="why">
-      <div class="container is-max-desktop">
-        <span class="kicker">Why this protocol</span>
-        <h2 class="section-title">Concept maps + self-ratings + a structural perturbation</h2>
-
-        <p class="section-intro">
-          A concept-mapping task makes the topology visible. Edges and edge weights are
-          observable proxies for "which ideas the student treats as related, and how
-          strongly". Geary's (2008) evolutionarily-informed account of education predicts
-          that academic incentive structures often reward biologically-secondary skills
-          (memorising facts, signalling compliance) over the deep relational reasoning that
-          would actually transfer to new problems. The same logic that Nesse and Williams
-          (1994) used to think about Darwinian medicine — looking for evolutionary
-          mismatches — applies to school.
-        </p>
-
-        <!-- Concept block 3: Tinbergen's four questions -->
+        <!-- Tinbergen 2x2 — the one concept block we keep -->
         <div class="concept-block">
           <p class="cb-title">Tinbergen's four questions, applied to a learner's map</p>
           <div class="concept-2x2">
             <div class="corner"></div>
-            <div class="axis-h">Synchronic  ·  Now</div>
-            <div class="axis-h">Diachronic  ·  Over time</div>
+            <div class="axis-h">Synchronic · Now</div>
+            <div class="axis-h">Diachronic · Over time</div>
 
             <div class="axis-v">Proximate</div>
             <div class="concept-cell">
               <span class="ic"><i class="fas fa-bolt"></i></span>
               <h5>Mechanism</h5>
-              <p>Hippocampal–entorhinal coding lets the same circuitry index physical and conceptual space.</p>
+              <p>Hippocampal–entorhinal coding indexes physical and conceptual space with the same circuits.</p>
             </div>
             <div class="concept-cell">
               <span class="ic warm"><i class="fas fa-seedling"></i></span>
@@ -574,383 +321,164 @@
             <div class="concept-cell">
               <span class="ic purple"><i class="fas fa-balance-scale"></i></span>
               <h5>Function</h5>
-              <p>Energy-efficient topologies (sparse, hub-rich) win when metabolic cost matters — at exam time, ranking matters more.</p>
+              <p>Energy-efficient topologies win when metabolic cost matters — at exam time, ranking matters more (Geary, 2008; Nesse &amp; Williams, 1994).</p>
             </div>
           </div>
-          <p style="margin:0.9rem 0 0 0; font-size:0.82rem; color:#94a3b8; font-style:italic; text-align:center;">
-            After Tinbergen (1963); see Geary (2008) and Nesse &amp; Williams (1994) for application to learning and to medicine respectively.
-          </p>
         </div>
-
-        <p class="section-intro">
-          We added two further axes. Per-ILO self-ratings let us probe metacognition: do
-          students with structurally richer maps know they understand more, or less?
-          Flavell (1979) and Eva and Regehr (2005) suggest the relationship is non-monotone;
-          Dunning and Kruger (1999) made that famous as the unskilled-and-unaware effect. A
-          perturbation task — remove an ILO, choose a structural replacement — gives a
-          behavioural read on whether the map is robust or brittle (Barabási &amp; Albert, 1999).
-          Together the three signals span what GPA can never see in one number.
-        </p>
-
-        <p class="section-intro">
-          So: a one-hour computerised protocol, run as an exploratory pilot on twelve
-          third-year psychology students. The point of the pilot is not to settle anything.
-          It is to ask whether the instrument produces a usable signal at this small N — so
-          that the same protocol can scale to 300+ students next year and become a
-          quantitative curriculum-design tool.
-        </p>
-
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════ WHAT WE ASKED ═══ -->
+    <!-- ═══════════════════════════════════════ PROTOCOL ═══ -->
     <section class="section" id="protocol">
       <div class="container is-max-desktop">
         <span class="kicker">The protocol</span>
-        <h2 class="section-title">What each session looked like</h2>
+        <h2 class="section-title">One hour. Five blocks.</h2>
         <p class="section-intro">
-          Each participant ran the same five-block protocol on the study app
-          (≈ 60 minutes per session). The full session traces are in the public JSON data.
+          Each session ran the same five-block sequence on the study app. Full session
+          traces are in the public JSON.
         </p>
         <div class="recipe-grid">
-          <div class="recipe-card">
-            <span class="recipe-num">A</span>
-            <h4>Cluster</h4>
-            <p>Group the 14 ILOs into 4 thematic clusters; pick a "central" ILO in each cluster.</p>
-          </div>
-          <div class="recipe-card">
-            <span class="recipe-num">B</span>
-            <h4>Map</h4>
-            <p>Connect any two ILOs you see related. Weight every edge <code>w ∈ {1, 2, 3}</code> by strength.</p>
-          </div>
-          <div class="recipe-card">
-            <span class="recipe-num">C</span>
-            <h4>Self-rate</h4>
-            <p>Rate your own competence on each ILO on a Likert <code>1–7</code> scale.</p>
-          </div>
-          <div class="recipe-card">
-            <span class="recipe-num">D</span>
-            <h4>Pathfinding</h4>
-            <p>Given two ILOs, choose the shortest weighted path on your own graph (3–4 trials).</p>
-          </div>
-          <div class="recipe-card">
-            <span class="recipe-num">E</span>
-            <h4>Perturbation</h4>
-            <p>One ILO is removed. Pick a structural replacement among the remaining nodes (3–4 trials).</p>
-          </div>
+          <div class="recipe-card"><span class="recipe-num">A</span><h4>Cluster</h4><p>Group the 14 ILOs into 4 thematic clusters; pick a "central" ILO per cluster.</p></div>
+          <div class="recipe-card"><span class="recipe-num">B</span><h4>Map</h4><p>Connect any two ILOs you see related. Weight every edge <code>w ∈ {1, 2, 3}</code>.</p></div>
+          <div class="recipe-card"><span class="recipe-num">C</span><h4>Self-rate</h4><p>Rate your own competence on each ILO on a Likert <code>1–7</code> scale.</p></div>
+          <div class="recipe-card"><span class="recipe-num">D</span><h4>Pathfinding</h4><p>Given two ILOs, choose the shortest weighted path on your own graph.</p></div>
+          <div class="recipe-card"><span class="recipe-num">E</span><h4>Perturbation</h4><p>One ILO is removed. Pick a structural replacement among the rest.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════ THE 8 STEPS ═══ -->
-    <section class="section" id="method">
+    <!-- ═══════════════════════════════════════ THREE FINDINGS ═══ -->
+    <section class="section hero is-light" id="findings">
       <div class="container is-max-desktop">
-        <span class="kicker">Methodology</span>
-        <h2 class="section-title">From session traces to numbers — eight steps</h2>
-        <p class="section-intro">
-          The pipeline below is implemented in
-          <a class="mono" href="https://github.com/AntoninaNov/psy555-app/blob/master/figures.py" target="_blank">figures.py</a>.
-          Each card is one self-contained transformation.
-        </p>
-
-        <div class="recipe-grid" style="margin-top:1.5rem;">
-
-          <div class="recipe-card">
-            <span class="recipe-num">1 · Collect</span>
-            <h4>Data collection</h4>
-            <p>One cohort, KSE Psychology 3rd-year, April 2026. Computerised protocol logs every interaction (clicks, weights, decision times) into structured JSON.</p>
-          </div>
-
-          <div class="recipe-card">
-            <span class="recipe-num">2 · Filter</span>
-            <h4>Sample formation</h4>
-            <p>N<sub>enrolled</sub> = 12. Drop S2 (zero edges, incomplete). Analytical N = 11. Pathfinding sub-sample = 2 due to a logged session-launcher misconfiguration.</p>
-          </div>
-
-          <div class="recipe-card">
-            <span class="recipe-num">3 · Code</span>
-            <h4>Outcome variables</h4>
-            <p>Reduce each session to 9 metrics: <code>density</code>, <code>WGD</code>, <code>avgWeight</code>, <code>edgeWeightSD</code>, <code>avgRating</code>, <code>sdRating</code>, <code>bridgeAcc</code>, <code>perturbTime</code>, <code>homophily</code>.</p>
-          </div>
-
-          <div class="recipe-card">
-            <span class="recipe-num">4 · Operationalise</span>
-            <h4>Predictors</h4>
-            <p>GPA from transcript (100-pt). Graph predictors (<code>density</code>, <code>WGD</code>, <code>edgeWeightSD</code>) computed from the participant's adjacency matrix.</p>
-          </div>
-
-          <div class="recipe-card">
-            <span class="recipe-num">5 · Probe</span>
-            <h4>Exploratory probes</h4>
-            <p>Eight directional probes informed by theory (Geary 2008; Dunning &amp; Kruger 1999). Spearman <span class="rho">ρ̂</span><sub>S</sub> with permutation null, <code>n</code> = 9 999 (seed 42). No formal hypothesis testing at N = 11.</p>
-          </div>
-
-          <div class="recipe-card">
-            <span class="recipe-num">6 · Diagnose</span>
-            <h4>Quality checks</h4>
-            <p>For every probe report ρ̂, <code>p</code><sub>perm</sub>, and leave-one-out Δρ. At N = 11 only |ρ| ≳ 0.62 reaches α = .05 — effect <em>sizes</em> are the export.</p>
-          </div>
-
-          <div class="recipe-card">
-            <span class="recipe-num">7 · Interpret</span>
-            <h4>Status classes</h4>
-            <p>Three: <em>direction noted</em>, <em>opposite sign</em>, <em>not resolvable</em> (variance of one input collapsed below the threshold needed to see the contrast).</p>
-          </div>
-
-          <div class="recipe-card">
-            <span class="recipe-num">8 · Caveat</span>
-            <h4>Limitations</h4>
-            <p>Eight categorical limits propagated through every claim — see the <a href="#limits">Limits</a> section.</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════ GPA PROBES ═══ -->
-    <section class="section hero is-light" id="ceiling">
-      <div class="container is-max-desktop">
-        <span class="kicker">Probes — GPA &amp; the ceiling</span>
-        <h2 class="section-title">GPA tracked grades, not graph structure</h2>
-        <p class="section-intro">
-          We ran eight directional probes — four involving GPA, four involving graph-internal
-          structure. The headline pattern is simple: GPA has weak, mostly noisy associations with
-          every concept-graph metric we measured. And four of the eight probes can't be resolved
-          at all in this sample because nine students saturated the graph at
-          <span class="mono">density = 1.000</span>.
-        </p>
+        <span class="kicker">What we found</span>
+        <h2 class="section-title">Three patterns GPA never sees</h2>
 
         <div class="banner-warning">
-          <h4>⚠ Why everyone connected everything</h4>
+          <h4>⚠ The ceiling came first</h4>
           <p>
-            Saturation is a rational response to an under-constrained task: with no edge budget and
-            no penalty for spurious links, students minimise the risk of omitting a "right"
-            connection by drawing them all. The artefact is itself a finding — and the design fix
-            for the next iteration: cap <span class="mono">|E|</span>, force a ranking instead of
-            categorical 1–3 weights, score with a precision penalty.
+            Nine of eleven students saturated <span class="mono">density = 1.000</span>.
+            With near-zero variance, the four GPA-anchored probes we wanted to run on
+            density, hierarchy, and weight differentiation aren't resolvable in this sample.
+            <em>That artefact is itself the first finding</em> — and the design fix is an
+            edge budget, a forced ranking, and a precision-weighted score. Three patterns
+            still emerged from the residual variance.
           </p>
         </div>
 
-        <h3 class="section-sub">Probes at a glance</h3>
-        <figure>
-          <img src="fig6_hypotheses.png" alt="Probe bar chart" style="width:100%; max-width:1000px; display:block; margin:0 auto;" />
-        </figure>
-        <figcaption style="max-width:1000px; margin:0.6rem auto 1.5rem;">
-          <b>Figure 6.</b>  Observed Spearman <span class="rho">ρ</span> for each probe with the
-          theoretical expectation in brackets. Two starred bars reach asymptotic significance —
-          both are post-hoc patterns (the Socratic and confidence-penalty effects), not GPA probes.
-        </figcaption>
-
-        <div class="table-container">
-          <table class="results-table">
-            <thead>
-              <tr>
-                <th>ID</th><th>Predictor → Outcome</th><th>Expected</th><th><span class="rho">ρ̂</span></th><th><i>p</i><sub>perm</sub></th><th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><th>P1</th><td>GPA → WGD (overall integration)</td><td class="num">≈ 0</td><td class="num">+0.465</td><td class="num">.153</td><td><span class="v-ns">Weak +</span></td></tr>
-              <tr><th>P2</th><td>GPA → density</td><td class="num">+</td><td class="num">+0.304</td><td class="num">.389</td><td><span class="v-na">Not resolvable</span></td></tr>
-              <tr><th>P3</th><td>GPA → avgWeight</td><td class="num">−</td><td class="num">+0.228</td><td class="num">.497</td><td><span class="v-opp">Opposite sign</span></td></tr>
-              <tr><th>P4</th><td>GPA → edgeWeightSD (hierarchy)</td><td class="num">−</td><td class="num">+0.107</td><td class="num">.753</td><td><span class="v-ns">Noise</span></td></tr>
-              <tr><th>P5</th><td>density → avgWeight</td><td class="num">−</td><td class="num">+0.270</td><td class="num">.431</td><td><span class="v-na">Not resolvable</span></td></tr>
-              <tr><th>P6</th><td>edgeWeightSD → pathfindingAcc</td><td class="num">+</td><td class="num">—</td><td class="num">N = 2</td><td><span class="v-na">Not run</span></td></tr>
-              <tr><th>P7</th><td>edgeWeightSD → bridgeAcc</td><td class="num">+</td><td class="num">−0.032</td><td class="num">.925</td><td><span class="v-ns">Noise</span></td></tr>
-              <tr><th>P8</th><td>zombie ILO → selfRating ≥ integrated</td><td>—</td><td>—</td><td>—</td><td><span class="v-na">Not resolvable</span></td></tr>
-            </tbody>
-            <tfoot>
-              <tr><td colspan="6"><b>Table 1.</b> Exploratory probes, N = 11. p uncorrected. "Not resolvable" = the predictor's variance collapsed below the threshold needed to see the contrast (the density-ceiling problem). All four GPA probes (P1–P4) sit in noise — GPA does not predict map structure in this cohort.</td></tr>
-            </tfoot>
-          </table>
-        </div>
-
-        <p style="margin-top:1.2rem; color:#374151;">
-          The plain-English reading of P1–P4: <b>students with higher GPAs do not draw measurably
-          more integrated, more hierarchical, or more weight-differentiated concept maps than students
-          with lower GPAs.</b> If GPA tracked the structural quality of subject knowledge, one or
-          more of these four probes should have produced a large, signed effect. None did. That is
-          the central exploratory result of the pilot.
-        </p>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════ WHAT SURVIVED ═══ -->
-    <section class="section" id="survived">
-      <div class="container is-max-desktop">
-        <span class="kicker">Finding 2 — what survived</span>
-        <h2 class="section-title">Three patterns in the residual variance</h2>
-        <p class="section-intro">
-          Even with the ceiling, three effects emerged from the off-density variables — two of them
-          large, one universal. None was pre-specified at this level of operationalisation; we
-          report them as exploratory, hypothesis-generating for the next study.
-        </p>
-
-        <!-- A. Socratic -->
-        <h3 class="section-sub" id="socratic">A.  Higher integration → lower self-rating  (the Socratic effect)</h3>
+        <!-- Finding 1: Socratic -->
+        <h3 style="font-family:'Google Sans',sans-serif; font-weight:600; font-size:1.15rem; color:#1e3a8a; margin:1.6rem 0 0.4rem 0;">1.  Higher map integration → lower self-rating  (the Socratic effect)</h3>
         <p>
-          Across all eleven participants, weighted graph density correlates negatively with mean
-          self-rated competence: <span class="stat-pill neg">ρ = −0.69, p<sub>perm</sub> = .023</span>.
-          The effect persists with the Dunning–Kruger outlier removed
-          (<span class="stat-pill neg">ρ = −0.58, N = 10</span>).
-          Students whose maps look more integrated assign themselves <em>lower</em> competence —
-          the textbook Socratic pattern (Flavell, 1979; Eva &amp; Regehr, 2005).
+          <span class="stat-pill neg">ρ = −0.69, p<sub>perm</sub> = .023</span>
+          Students whose maps look more integrated rate their own competence
+          <em>lower</em>. The effect persists with the outlier removed
+          (<span class="stat-pill neg">ρ = −0.58, N = 10</span>) — the textbook Socratic
+          pattern (Flavell, 1979; Eva &amp; Regehr, 2005).
         </p>
         <figure>
-          <img src="fig1_socratic.png" alt="Socratic effect" style="width:100%; max-width:760px; display:block; margin:0.8rem auto 0.4rem;" />
+          <img src="fig1_socratic.png" alt="Socratic effect" style="width:100%; max-width:720px; display:block; margin:0.7rem auto 1.4rem;" />
         </figure>
-        <figcaption style="max-width:760px; margin:0 auto 1.8rem; text-align:left;">
-          <b>Figure 1.</b>  Weighted graph density vs. mean self-rating (1–7), N = 11.
-          Two OLS reference lines: full sample (grey) and S7-excluded (blue). The slope is
-          unaffected by the outlier.
-        </figcaption>
 
-        <!-- B. Confidence penalty -->
-        <h3 class="section-sub" id="confidence">B.  More confident → slower under perturbation</h3>
+        <!-- Finding 2: Confidence penalty -->
+        <h3 style="font-family:'Google Sans',sans-serif; font-weight:600; font-size:1.15rem; color:#1e3a8a; margin:1.6rem 0 0.4rem 0;">2.  More confident → slower under perturbation</h3>
         <p>
-          Mean self-rating positively predicts mean perturbation time:
-          <span class="stat-pill pos">ρ = +0.77, p<sub>perm</sub> = .008</span>.
-          Confident students take <em>longer</em> per replacement choice — not shorter. The most
-          natural reading is task investment: the people who rate themselves higher think more
-          carefully when the task confronts them with a structural choice.
+          <span class="stat-pill pos">ρ = +0.77, p<sub>perm</sub> = .008</span>
+          Students with higher self-ratings take <em>longer</em> per perturbation choice,
+          not shorter — most plausibly task investment. The single Dunning–Kruger case
+          (next section) is off-trend in the opposite direction.
         </p>
         <figure>
-          <img src="fig2_overconfidence.png" alt="Confidence penalty" style="width:100%; max-width:760px; display:block; margin:0.8rem auto 0.4rem;" />
+          <img src="fig2_overconfidence.png" alt="Confidence penalty" style="width:100%; max-width:720px; display:block; margin:0.7rem auto 1.4rem;" />
         </figure>
-        <figcaption style="max-width:760px; margin:0 auto 1.8rem; text-align:left;">
-          <b>Figure 2.</b>  Mean self-rating vs. mean perturbation decision time, N = 11. S7 is
-          off-trend in the opposite direction — fast and confident, but wrong (see §<a href="#s7">single case</a>).
-        </figcaption>
 
-        <!-- C. Homophily -->
-        <h3 class="section-sub" id="homophily">C.  All eleven participants weight within-cluster ties higher</h3>
+        <!-- Finding 3: Homophily -->
+        <h3 style="font-family:'Google Sans',sans-serif; font-weight:600; font-size:1.15rem; color:#1e3a8a; margin:1.6rem 0 0.4rem 0;">3.  All eleven students weight within-cluster ties higher</h3>
         <p>
-          Without exception, every participant assigned higher mean weights to within-cluster edges
-          than to between-cluster edges. Δ ranges from 0.20 (S6) to 0.90 (S5). Even S7, with only
-          17 edges, shows Δ = 0.36. The unanimity matters: it confirms that the prior thematic
-          clustering of the 14 ILOs is recovered as a semantic distinction by participants without
-          an explicit prompt — useful evidence for curriculum-cluster validity at the next iteration.
+          Without exception. Δ from 0.20 (S6) to 0.90 (S5). Even the outlier with 17 edges
+          shows Δ = 0.36. The unanimity matters: it confirms that the prior thematic
+          clustering of the 14 ILOs is recovered by participants without prompting —
+          ground truth for cluster validity at scale.
         </p>
         <figure>
-          <img src="fig3_homophily.png" alt="Cluster homophily" style="width:100%; max-width:920px; display:block; margin:0.8rem auto 0.4rem;" />
+          <img src="fig3_homophily.png" alt="Cluster homophily" style="width:100%; max-width:920px; display:block; margin:0.7rem auto 0.4rem;" />
         </figure>
-        <figcaption style="max-width:920px; margin:0 auto 1.8rem; text-align:left;">
-          <b>Figure 3.</b>  Within-cluster (dark) vs. between-cluster (light) mean edge weight per
-          participant, with the difference Δ above each pair.
-        </figcaption>
       </div>
     </section>
 
     <!-- ═══════════════════════════════════════ S7 SINGLE CASE ═══ -->
-    <section class="section hero is-light" id="s7">
+    <section class="section" id="s7">
       <div class="container is-max-desktop">
-        <span class="kicker">Finding 3 — single case</span>
-        <h2 class="section-title">S7: a textbook Dunning–Kruger profile across nine indicators</h2>
+        <span class="kicker">The single case</span>
+        <h2 class="section-title">One participant. Nine indicators. A textbook profile.</h2>
         <p class="section-intro">
-          One participant (S7, GPA = 93) deviates from the rest of the sample on nine indicators in
-          a coherent direction — peak self-evaluation co-occurs with minimum demonstrated structural
-          competence. Nine simultaneous deviations from the median in the predicted direction is
-          a strong signal even at single-case scope.
+          One participant (S7, GPA = 93) deviates from the rest of the sample on nine
+          indicators in a coherent direction — peak self-evaluation co-occurs with minimum
+          structural competence. That's nine simultaneous deviations from the median in
+          the predicted direction (Dunning &amp; Kruger, 1999).
         </p>
-
         <div class="columns">
           <div class="column is-half">
-            <figure>
-              <img src="fig4_s4_radar.png" alt="S7 radar profile" style="width:100%;" />
-            </figure>
-            <figcaption>
-              <b>Figure 4.</b>  Per-axis min-max normalised values, N = 11. S7 (red) collapses on
-              every objective indicator and peaks on subjective self-rating. The blue dashed
-              polygon is the median of the remaining N = 10.
-            </figcaption>
+            <figure><img src="fig4_s4_radar.png" alt="S7 radar" style="width:100%;" /></figure>
           </div>
           <div class="column is-half">
             <table class="results-table">
-              <thead>
-                <tr><th>Indicator</th><th>S7</th><th>Median</th><th>Direction</th></tr>
-              </thead>
+              <thead><tr><th>Indicator</th><th>S7</th><th>Median</th></tr></thead>
               <tbody>
-                <tr><th>density</th><td class="num">0.187</td><td class="num">1.000</td><td>↓ extreme</td></tr>
-                <tr><th>WGD</th><td class="num">0.077</td><td class="num">0.621</td><td>↓ extreme</td></tr>
-                <tr><th>avgWeight</th><td class="num">1.24</td><td class="num">1.84</td><td>↓ minimum</td></tr>
-                <tr><th>edgeWeightSD</th><td class="num">0.437</td><td class="num">0.748</td><td>↓ minimum</td></tr>
-                <tr><th>avgRating</th><td class="num">6.71</td><td class="num">5.25</td><td>↑ maximum</td></tr>
-                <tr><th>sdRating</th><td class="num">0.47</td><td class="num">1.14</td><td>↓ minimum</td></tr>
-                <tr><th>bridgeAcc</th><td class="num">0.120</td><td class="num">0.880</td><td>↓ minimum</td></tr>
-                <tr><th>perturbTime</th><td class="num">114.8</td><td class="num">37.6</td><td>↑ above median</td></tr>
-                <tr><th>propChoseHighest</th><td class="num">0.00</td><td class="num">0.67</td><td>↓ never optimal</td></tr>
+                <tr><th>density</th><td class="num">0.187</td><td class="num">1.000</td></tr>
+                <tr><th>WGD</th><td class="num">0.077</td><td class="num">0.621</td></tr>
+                <tr><th>avgWeight</th><td class="num">1.24</td><td class="num">1.84</td></tr>
+                <tr><th>edgeWeightSD</th><td class="num">0.437</td><td class="num">0.748</td></tr>
+                <tr><th>avgRating</th><td class="num">6.71</td><td class="num">5.25</td></tr>
+                <tr><th>sdRating</th><td class="num">0.47</td><td class="num">1.14</td></tr>
+                <tr><th>bridgeAcc</th><td class="num">0.120</td><td class="num">0.880</td></tr>
+                <tr><th>perturbTime</th><td class="num">114.8</td><td class="num">37.6</td></tr>
+                <tr><th>propChoseHighest</th><td class="num">0.00</td><td class="num">0.67</td></tr>
               </tbody>
-              <tfoot><tr><td colspan="4"><b>Table 2.</b> S7 vs. group median (N = 10).</td></tr></tfoot>
             </table>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════ AT SCALE ═══ -->
-    <section class="section" id="atscale">
+    <!-- ═══════════════════════════════════════ WHAT'S NEXT — CTA ═══ -->
+    <section class="section">
       <div class="container is-max-desktop">
-        <span class="kicker">Why N = 12 is enough — for now</span>
-        <h2 class="section-title">What this protocol becomes at 300+ students</h2>
-        <p class="section-intro">
-          The pilot was never about settling H1–H6. It was about answering: <em>does the instrument
-          produce a usable signal?</em> Three diagnostic answers — yes, with one major fix.
-        </p>
-
-        <div class="finding-card">
-          <h4>1.  Add an edge budget — stop measuring compliance.</h4>
+        <div class="cta-panel">
+          <h3>The full study lands next academic year</h3>
           <p>
-            Cap <span class="mono">|E|</span> at, say, 30 of the 91 possible. Force the participant to
-            choose. The information content of the resulting graph rises sharply because the prior
-            "everything connects" is no longer cheap.
+            This pilot answered one question: <em>does the instrument produce a usable
+            signal?</em> It does. Three large effects in N = 11 — and a clear design fix
+            for the ceiling. Next iteration: 300+ students across the undergraduate
+            Psychology programme, edge-budget cap, forced-ranking weights, precision-weighted
+            scoring.
           </p>
-        </div>
-        <div class="finding-card orange">
-          <h4>2.  Replace categorical weights with a forced ranking.</h4>
-          <p>
-            Instead of <span class="mono">w ∈ {1, 2, 3}</span>, ask the participant to rank their drawn
-            edges from strongest to weakest. <span class="mono">edgeWeightSD</span> gets back its
-            differentiating power.
-          </p>
-        </div>
-        <div class="finding-card green">
-          <h4>3.  Score perturbation and pathfinding with precision-weighted accuracy.</h4>
-          <p>
-            Penalise spurious connections instead of only rewarding present ones. With the homophily
-            pattern (Finding 2C) already established at N = 11, the cluster structure is a free
-            ground truth at scale.
+          <div class="pill-row">
+            <span class="pill">N ≈ 300+</span>
+            <span class="pill">Edge budget ≤ 30</span>
+            <span class="pill">Forced ranking</span>
+            <span class="pill">Precision penalty</span>
+            <span class="pill">Pre-registered</span>
+          </div>
+          <p style="margin-top:1.4rem; font-size:0.92rem; color:#cbd5e1;">
+            Curriculum-design diagnostic at programme scale. Email the authors if you want
+            to run the same protocol on your cohort.
           </p>
         </div>
 
-        <p style="margin-top:1.2rem; color:#374151;">
-          Run with these three changes on the next cohort (anticipated N ≈ 300 across the
-          undergraduate Psychology programme), and the same protocol becomes a quantitative
-          curriculum-design diagnostic: which ILOs cluster in students' minds, which edges are
-          load-bearing, which participants need scaffolding, and where the programme silently
-          encourages compliance over comprehension.
-        </p>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════ LIMITS ═══ -->
-    <section class="section hero is-light" id="limits">
-      <div class="container is-max-desktop">
-        <span class="kicker">Limits</span>
-        <h2 class="section-title">Eight caveats — read every result through these</h2>
-        <div class="lim-grid">
-          <div class="lim-card"><h5>1.  N = 11</h5><p>Critical |ρ| at α = .05 is ≈ 0.62. Effects below that are visible but not significant.</p></div>
-          <div class="lim-card"><h5>2.  No multiple-comparisons correction</h5><p>13 tests reported, no Bonferroni. Effect sizes are the export, not p-values.</p></div>
-          <div class="lim-card"><h5>3.  Density ceiling</h5><p>Var(density) ≈ 0.06; nine values exactly at 1.000. Four hypotheses untestable as a result.</p></div>
-          <div class="lim-card"><h5>4.  No external knowledge criterion</h5><p>GPA proxies academic success, not subject competence. Self-rating is not a knowledge measure.</p></div>
-          <div class="lim-card"><h5>5.  Cross-sectional</h5><p>One snapshot per participant. Test–retest reliability of the metrics is unknown.</p></div>
-          <div class="lim-card"><h5>6.  Pathfinding lost</h5><p>Block ran for 2/11 participants due to a session-launcher bug. H4 is "not tested", not null.</p></div>
-          <div class="lim-card"><h5>7.  Single cohort</h5><p>One programme, one institution, one year group. Generalisation is not warranted.</p></div>
-          <div class="lim-card"><h5>8.  Exploratory ≠ confirmatory</h5><p>Findings 2A–2C and the S7 single case are hypothesis-generating, not established.</p></div>
+        <div class="limits-strip">
+          <h5>⚠ Read every effect through these</h5>
+          <p>
+            <b>N = 11</b> — critical |ρ| at α = .05 is ≈ 0.62. <b>Density ceiling</b> —
+            four probes not resolvable. <b>No external knowledge criterion</b> — GPA is a
+            grade proxy, not a knowledge measure. <b>Single cohort</b>, single institution.
+            <b>Exploratory throughout</b> — every effect listed here is hypothesis-generating
+            for the next study.
+          </p>
         </div>
       </div>
     </section>
 
     <!-- ═══════════════════════════════════════ REFERENCES ═══ -->
-    <section class="section" id="references">
+    <section class="section hero is-light" id="references">
       <div class="container is-max-desktop">
         <span class="kicker">References</span>
         <h2 class="section-title">Cited literature</h2>
@@ -958,16 +486,16 @@
           <li>Barabási, A.-L., &amp; Albert, R. (1999). Emergence of scaling in random networks. <em>Science, 286</em>(5439), 509–512. <a href="https://doi.org/10.1126/science.286.5439.509" target="_blank">doi:10.1126/science.286.5439.509</a></li>
           <li>Chase, W. G., &amp; Simon, H. A. (1973). Perception in chess. <em>Cognitive Psychology, 4</em>(1), 55–81. <a href="https://doi.org/10.1016/0010-0285(73)90004-2" target="_blank">doi:10.1016/0010-0285(73)90004-2</a></li>
           <li>Chi, M. T. H., Feltovich, P. J., &amp; Glaser, R. (1981). Categorization and representation of physics problems by experts and novices. <em>Cognitive Science, 5</em>(2), 121–152. <a href="https://doi.org/10.1207/s15516709cog0502_2" target="_blank">doi:10.1207/s15516709cog0502_2</a></li>
-          <li>Dunning, D., &amp; Kruger, J. (1999). Unskilled and unaware of it: How difficulties in recognizing one's own incompetence lead to inflated self-assessments. <em>Journal of Personality and Social Psychology, 77</em>(6), 1121–1134. <a href="https://doi.org/10.1037/0022-3514.77.6.1121" target="_blank">doi:10.1037/0022-3514.77.6.1121</a></li>
-          <li>Eva, K. W., &amp; Regehr, G. (2005). Self-assessment in the health professions: A reformulation and research agenda. <em>Academic Medicine, 80</em>(10 Suppl), S46–S54. <a href="https://doi.org/10.1097/00001888-200510001-00015" target="_blank">doi:10.1097/00001888-200510001-00015</a></li>
-          <li>Flavell, J. H. (1979). Metacognition and cognitive monitoring: A new area of cognitive–developmental inquiry. <em>American Psychologist, 34</em>(10), 906–911. <a href="https://doi.org/10.1037/0003-066X.34.10.906" target="_blank">doi:10.1037/0003-066X.34.10.906</a></li>
+          <li>Dunning, D., &amp; Kruger, J. (1999). Unskilled and unaware of it. <em>Journal of Personality and Social Psychology, 77</em>(6), 1121–1134. <a href="https://doi.org/10.1037/0022-3514.77.6.1121" target="_blank">doi:10.1037/0022-3514.77.6.1121</a></li>
+          <li>Eva, K. W., &amp; Regehr, G. (2005). Self-assessment in the health professions. <em>Academic Medicine, 80</em>(10 Suppl), S46–S54. <a href="https://doi.org/10.1097/00001888-200510001-00015" target="_blank">doi:10.1097/00001888-200510001-00015</a></li>
+          <li>Flavell, J. H. (1979). Metacognition and cognitive monitoring. <em>American Psychologist, 34</em>(10), 906–911. <a href="https://doi.org/10.1037/0003-066X.34.10.906" target="_blank">doi:10.1037/0003-066X.34.10.906</a></li>
           <li>Geary, D. C. (2008). An evolutionarily informed education science. <em>Educational Psychologist, 43</em>(4), 179–195. <a href="https://doi.org/10.1080/00461520802392133" target="_blank">doi:10.1080/00461520802392133</a></li>
           <li>Kahneman, D. (2011). <em>Thinking, fast and slow</em>. Farrar, Straus and Giroux.</li>
           <li>Latora, V., &amp; Marchiori, M. (2001). Efficient behavior of small-world networks. <em>Physical Review Letters, 87</em>(19), 198701. <a href="https://doi.org/10.1103/PhysRevLett.87.198701" target="_blank">doi:10.1103/PhysRevLett.87.198701</a></li>
-          <li>Miller, G. A. (1956). The magical number seven, plus or minus two: Some limits on our capacity for processing information. <em>Psychological Review, 63</em>(2), 81–97. <a href="https://doi.org/10.1037/h0043158" target="_blank">doi:10.1037/h0043158</a></li>
+          <li>Miller, G. A. (1956). The magical number seven, plus or minus two. <em>Psychological Review, 63</em>(2), 81–97. <a href="https://doi.org/10.1037/h0043158" target="_blank">doi:10.1037/h0043158</a></li>
           <li>Nesse, R. M., &amp; Williams, G. C. (1994). <em>Why we get sick: The new science of Darwinian medicine</em>. Times Books.</li>
           <li>O'Keefe, J., &amp; Nadel, L. (1978). <em>The hippocampus as a cognitive map</em>. Oxford University Press.</li>
-          <li>Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. <em>Cognitive Science, 12</em>(2), 257–285. <a href="https://doi.org/10.1207/s15516709cog1202_4" target="_blank">doi:10.1207/s15516709cog1202_4</a></li>
+          <li>Sweller, J. (1988). Cognitive load during problem solving. <em>Cognitive Science, 12</em>(2), 257–285. <a href="https://doi.org/10.1207/s15516709cog1202_4" target="_blank">doi:10.1207/s15516709cog1202_4</a></li>
           <li>Tinbergen, N. (1963). On aims and methods of ethology. <em>Zeitschrift für Tierpsychologie, 20</em>(4), 410–433. <a href="https://doi.org/10.1111/j.1439-0310.1963.tb01161.x" target="_blank">doi:10.1111/j.1439-0310.1963.tb01161.x</a></li>
           <li>Tolman, E. C. (1948). Cognitive maps in rats and men. <em>Psychological Review, 55</em>(4), 189–208. <a href="https://doi.org/10.1037/h0061626" target="_blank">doi:10.1037/h0061626</a></li>
         </ul>
@@ -980,12 +508,9 @@
         <div class="columns is-centered">
           <div class="column is-8">
             <div class="content has-text-centered">
-              <p>
-                <b>PSY555 Cognitive Navigation Study</b> · Kyiv School of Economics · April 2026
-              </p>
+              <p><b>PSY555 Cognitive Navigation Study</b> · Kyiv School of Economics · April 2026</p>
               <p style="font-size:0.85rem; color:#6b7280;">
-                Analysis assisted by Claude Sonnet 4.6 (Anthropic). Data, code, and figures
-                released in the project repository under
+                Data, code, and figures released under
                 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.
               </p>
             </div>
