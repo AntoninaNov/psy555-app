@@ -196,6 +196,26 @@
       .limits-strip h5 { color: #92400e; font-weight: 700; font-size: 0.92rem; margin: 0 0 0.4rem 0; }
       .limits-strip p { color: #78350f; margin: 0; line-height: 1.6; }
 
+      /* Variable glossary */
+      .var-grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 0.55rem; margin: 1rem 0 1.4rem 0;
+      }
+      .var-card {
+        background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+        padding: 0.7rem 0.9rem;
+      }
+      .var-card .vname {
+        font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+        font-size: 0.86rem; font-weight: 600; color: #1e3a8a;
+        margin-right: 0.4rem;
+      }
+      .var-card .vdef { font-size: 0.86rem; color: #1f2937; line-height: 1.45; }
+      .var-card .vform {
+        display: block; font-family: 'Castoro', serif; font-style: italic;
+        color: #6b7280; font-size: 0.78rem; margin-top: 0.18rem;
+      }
+
       .ref-list { list-style: none; padding: 0; margin: 0; font-size: 0.86rem; line-height: 1.55; }
       .ref-list li { padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb; text-indent: -1.4rem; padding-left: 1.4rem; }
       .ref-list li:last-child { border-bottom: none; }
@@ -234,10 +254,17 @@
               </p>
 
               <div class="is-size-6 publication-authors" style="margin-top:1.5rem;">
-                <span class="author-block">Dmytro Yashchuk,</span>
-                <span class="author-block">Antonina Novak</span>
+                <span class="author-block">Dmytro Yashchuk</span>
                 <span style="color:#9ca3af;">·</span>
-                <span style="color:#4b5563;">Kyiv School of Economics</span>
+                <span class="author-block">Antonina Novak</span>
+              </div>
+              <div style="margin-top:0.4rem; font-size:0.92rem; color:#4b5563;">
+                <a href="mailto:dyashchuk@kse.org.ua" style="color:#1e3a8a; text-decoration:none;">dyashchuk@kse.org.ua</a>
+                <span style="color:#9ca3af; margin:0 0.4rem;">·</span>
+                <a href="mailto:anovak@kse.org.ua" style="color:#1e3a8a; text-decoration:none;">anovak@kse.org.ua</a>
+              </div>
+              <div style="margin-top:0.3rem; font-size:0.9rem; color:#6b7280;">
+                Kyiv School of Economics
               </div>
 
               <div class="publication-links" style="margin-top:1.2rem;">
@@ -409,11 +436,55 @@
       <div class="container is-max-desktop">
         <span class="kicker">All at once</span>
         <h2 class="section-title">Every variable, every pair</h2>
+
         <p class="section-intro">
+          Nine variables per session — four describe the concept graph, three describe
+          self-rating, two describe perturbation behaviour. Each is a single number per
+          participant; full per-edge data is in the public JSON.
+        </p>
+
+        <div class="var-grid">
+          <div class="var-card">
+            <span class="vname">GPA</span><span class="vdef">academic transcript average (0–100 scale).</span>
+          </div>
+          <div class="var-card">
+            <span class="vname">density</span><span class="vdef">share of the 91 possible ILO pairs that the participant connected.</span>
+            <span class="vform">density = |E| / 91</span>
+          </div>
+          <div class="var-card">
+            <span class="vname">avgWeight</span><span class="vdef">mean of the edge weights w<sub>ij</sub> ∈ {1, 2, 3} over present edges.</span>
+          </div>
+          <div class="var-card">
+            <span class="vname">edgeWeightSD</span><span class="vdef">SD of edge weights — proxy for hierarchical differentiation of the map.</span>
+          </div>
+          <div class="var-card">
+            <span class="vname">WGD</span><span class="vdef">weighted graph density. 1.0 = complete graph with all weights at 3.</span>
+            <span class="vform">WGD = (Σ w<sub>ij</sub>) / (3 · 91)</span>
+          </div>
+          <div class="var-card">
+            <span class="vname">avgRating</span><span class="vdef">mean self-rated competence on the 14 ILOs (Likert 1–7).</span>
+          </div>
+          <div class="var-card">
+            <span class="vname">sdRating</span><span class="vdef">SD of self-ratings — high = differentiated; low = flat profile.</span>
+          </div>
+          <div class="var-card">
+            <span class="vname">bridgeAcc</span><span class="vdef">perturbation accuracy. Overlap of the chosen replacement's neighbours with the removed node's neighbours, averaged over trials.</span>
+            <span class="vform">|N(rm) ∩ N(ch)| / |N(rm)|</span>
+          </div>
+          <div class="var-card">
+            <span class="vname">perturbTime</span><span class="vdef">mean elapsed time per perturbation trial (seconds).</span>
+          </div>
+          <div class="var-card">
+            <span class="vname">homophily</span><span class="vdef">positive = within-cluster ties weighted higher than between-cluster ties.</span>
+            <span class="vform">w̄<sub>intra</sub> − w̄<sub>inter</sub></span>
+          </div>
+        </div>
+
+        <p class="section-intro" style="margin-top:0.5rem;">
           The full Spearman matrix across nine variables, N = 11. Two stars cross
           asymptotic significance — the Socratic effect (WGD × avgRating, ρ = −0.69)
-          and the confidence penalty (avgRating × perturbTime, ρ = +0.77).
-          Every other |ρ| ≥ 0.5 sits on the way there.
+          and the confidence penalty (avgRating × perturbTime, ρ = +0.77). Every other
+          |ρ| ≥ 0.5 sits on the way there.
         </p>
         <figure>
           <img src="fig5_corr_heatmap.png" alt="Spearman correlation matrix"
@@ -482,8 +553,11 @@
             <span class="pill">Pre-registered</span>
           </div>
           <p style="margin-top:1.4rem; font-size:0.92rem; color:#cbd5e1;">
-            Curriculum-design diagnostic at programme scale. Email the authors if you want
-            to run the same protocol on your cohort.
+            Curriculum-design diagnostic at programme scale. Get in touch if you want to run
+            the same protocol on your cohort:
+            <a href="mailto:dyashchuk@kse.org.ua" style="color:#fbbf24; text-decoration:none;">dyashchuk@kse.org.ua</a>
+            ·
+            <a href="mailto:anovak@kse.org.ua" style="color:#fbbf24; text-decoration:none;">anovak@kse.org.ua</a>.
           </p>
         </div>
 
