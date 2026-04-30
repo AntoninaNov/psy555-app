@@ -196,6 +196,41 @@
       .limits-strip h5 { color: #92400e; font-weight: 700; font-size: 0.92rem; margin: 0 0 0.4rem 0; }
       .limits-strip p { color: #78350f; margin: 0; line-height: 1.6; }
 
+      /* Evidence ladder — three-tier theoretical positioning */
+      .evidence-ladder {
+        background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px;
+        padding: 1.2rem 1.4rem; margin: 1.4rem 0;
+        box-shadow: 0 1px 3px rgba(0,0,0,.04);
+      }
+      .evidence-ladder .el-title {
+        font-family: 'Google Sans', sans-serif;
+        font-weight: 600; font-size: 0.96rem; color: #111827;
+        margin: 0 0 0.85rem 0;
+      }
+      .el-grid { display: grid; gap: 0.55rem; }
+      .el-row {
+        display: grid; grid-template-columns: 7.5rem 1fr; gap: 0.85rem;
+        padding: 0.7rem 0.9rem; border-radius: 8px;
+        align-items: start;
+      }
+      .el-row.el-strong  { background: #ecfdf5; border-left: 3px solid #047857; }
+      .el-row.el-inspire { background: #eef2ff; border-left: 3px solid #4338ca; }
+      .el-row.el-not     { background: #fef2f2; border-left: 3px solid #b91c1c; }
+      .el-row .el-tag {
+        font-family: 'Google Sans', sans-serif; font-weight: 700;
+        font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.1em;
+        text-align: center; padding: 0.35em 0.5em; border-radius: 6px;
+        line-height: 1.3;
+      }
+      .el-strong  .el-tag { background: #047857; color: #ffffff; }
+      .el-inspire .el-tag { background: #4338ca; color: #ffffff; }
+      .el-not     .el-tag { background: #b91c1c; color: #ffffff; }
+      .el-row p { margin: 0; font-size: 0.88rem; line-height: 1.55; color: #1f2937; }
+      @media (max-width: 600px) {
+        .el-row { grid-template-columns: 1fr; }
+        .el-row .el-tag { width: fit-content; }
+      }
+
       /* Detailed limits */
       .limits-section {
         background: #fffbeb;
@@ -446,11 +481,12 @@
           and Edvard Moser. Constantinescu, O'Reilly, and Behrens (2016) subsequently
           showed that grid-like fMRI signatures appear when human participants traverse
           abstract <em>conceptual</em> dimensions in a non-spatial task, suggesting that
-          the cognitive-map machinery is not strictly modality-specific. We treat this as
-          a <em>generative metaphor</em> rather than a validation: it motivates a graph-
-          theoretic treatment of students' representations of programme learning outcomes
-          (PLOs) without claiming that an explicit, externalised concept map is the same
-          object as the implicit code those neural systems implement.
+          the cognitive-map machinery is not strictly modality-specific. This is a
+          heuristic bridge, not a validation. It motivates a weaker working hypothesis:
+          students' representations of programme learning outcomes (PLOs) may be
+          meaningfully analysed as structured relational maps. We are not claiming that
+          an externalised concept map drawn on a screen is the same object as the
+          implicit code those neural systems implement.
         </p>
 
         <p class="section-intro">
@@ -549,16 +585,34 @@
           construct claims would have to be argued in a confirmatory study.
         </p>
 
+        <div class="evidence-ladder">
+          <p class="el-title">How the cited literature stacks up against the present claims</p>
+          <div class="el-grid">
+            <div class="el-row el-strong">
+              <span class="el-tag">Strong basis</span>
+              <p>Concept-map assessment as a measurement tradition (Novak &amp; Gowin, 1984; Ruiz-Primo &amp; Shavelson, 1996). Expertise as topology, not item count (Chase &amp; Simon, 1973; Chi, Feltovich, &amp; Glaser, 1981). Metacognition and self-assessment limits (Flavell, 1979; Eva &amp; Regehr, 2005; Dunning &amp; Kruger, 1999). Working-memory bound (Miller, 1956; Sweller, 1988).</p>
+            </div>
+            <div class="el-row el-inspire">
+              <span class="el-tag">Inspiration</span>
+              <p>Cognitive maps in spatial cognition (Tolman, 1948; O'Keefe &amp; Nadel, 1978; Hafting et&nbsp;al., 2005). Grid-like coding for abstract dimensions (Constantinescu et&nbsp;al., 2016). Evolutionary mismatch in education (Geary, 2008; Nesse &amp; Williams, 1994). Network topology constraints (Barabási &amp; Albert, 1999; Latora &amp; Marchiori, 2001).</p>
+            </div>
+            <div class="el-row el-not">
+              <span class="el-tag">Not claimed</span>
+              <p>That an externalised concept map drawn on a screen is the same object as the implicit code those neural systems implement. That the protocol is construct-validated. That single-case patterns establish population-level effects.</p>
+            </div>
+          </div>
+        </div>
+
         <p class="section-intro">
           From this literature we derive a single working assumption: a learner's grasp
-          of a curriculum is more accurately characterised by the <em>topology</em> of the
-          induced concept graph than by an aggregate of exam outputs. A grade-point average
-          marginalises over that topology and is informative about the marginal density of
-          assessed performance, not about the structural relations the student has
-          acquired. The aim of the present pilot is to evaluate whether a brief
-          computerised concept-mapping protocol can recover usable structural information
-          at the level of an individual undergraduate cohort, as a precondition for
-          deploying the same instrument at programme scale.
+          of a curriculum may be more informatively characterised by the <em>topology</em>
+          of an induced concept graph than by an aggregate of exam outputs. A grade-point
+          average marginalises over that topology and is informative about assessed
+          performance, not about the structural relations the student has acquired. The
+          aim of the present pilot is to evaluate whether a brief computerised concept-
+          mapping protocol can recover interpretable structural information at the level
+          of an individual undergraduate cohort, as a precondition for deploying the same
+          instrument at programme scale.
         </p>
 
       </div>
@@ -819,10 +873,10 @@
         <div class="highlight-strip">
           <span class="hl-label">Why this matters at scale</span>
           <p>
-            Cluster homophily gives the next study a <b>free ground truth</b>. With 300+
-            participants and the same 14 PLOs, deviations from this 11/11 unanimity
-            become diagnostic of confused or weakly-coupled segments of the programme —
-            an automatic curriculum red-flag detector.
+            Cluster homophily gives the next study a <b>provisional internal benchmark</b>.
+            With 300+ participants and the same 14 PLOs, departures from this 11/11
+            unanimity would warrant follow-up — candidate signals of weakly-coupled
+            segments of the programme rather than confirmed diagnoses.
           </p>
         </div>
       </div>
@@ -901,25 +955,12 @@
         <span class="kicker">The single case</span>
         <h2 class="section-title">One participant, a Dunning–Kruger-like pattern</h2>
         <p class="section-intro">
-          One participant (S7, GPA = 93) deviates from the rest of the sample on nine
-          indicators in a coherent direction — peak self-evaluation co-occurs with minimum
-          structural performance. The combination is consistent with the overconfident
-          low-structure pattern described in the metacognition literature (Dunning &amp;
-          Kruger, 1999), but at N = 1 we are reading a profile, not testing a population
-          claim. We describe the case in detail because the configuration is striking
-          enough to be worth pre-registering as a target pattern in a larger sample, not
-          because the single observation establishes anything by itself.
+          One participant (S7, GPA = 93) deviates from the median on nine indicators in
+          a coherent direction — high self-rating with low structural performance. At
+          N = 1 this is a profile, not a population claim; we report it because the
+          configuration is the kind of pattern worth pre-registering as a target in a
+          larger sample.
         </p>
-
-        <div class="highlight-strip">
-          <span class="hl-label">The cleanest signature</span>
-          <p>
-            Across <b>seven perturbation trials</b>, S7 chose the most-strongly-connected
-            neighbour of the removed node <b>zero times</b>. The group median: <b>67 %</b>.
-            Highest self-rating (6.71/7), flattest rating SD (0.47), worst structural
-            accuracy (bridgeAcc = 0.12). Nine extremes, one direction.
-          </p>
-        </div>
         <div class="columns">
           <div class="column is-half">
             <figure><img src="fig4_s4_radar.png" alt="S7 radar" style="width:100%;" /></figure>
@@ -950,10 +991,11 @@
         <div class="cta-panel">
           <h3>Where this could go</h3>
           <p>
-            This pilot answered one question: <em>does the instrument produce a usable
-            signal?</em> It does. Three large effects in N = 11 — and a clear design fix
-            for the ceiling. The natural next iteration would run the protocol on a much
-            larger cohort with three changes that turn compliance back into information:
+            The pilot suggests that the instrument can produce interpretable structural
+            signals — but not yet validated diagnostic scores. Three sizeable effects in
+            N = 11 and a clear design fix for the density ceiling are the export. The
+            natural next iteration would run the same protocol on a much larger cohort
+            with three changes that turn compliance back into information:
           </p>
           <div class="pill-row">
             <span class="pill">N ≈ 300+</span>
