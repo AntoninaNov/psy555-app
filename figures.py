@@ -108,6 +108,57 @@ def fmt_rho(r, p, n):
 
 
 # ═════════════════════════════════════════════════════════════════════════════
+# FIGURE 0 — The ceiling: number of edges per participant
+# ═════════════════════════════════════════════════════════════════════════════
+n_edges_per = (density * 91).astype(float)  # density × 91 = |E|
+n_edges_per[~complete] = np.nan
+
+c_idx0 = np.where(complete)[0]
+order  = np.argsort(n_edges_per[c_idx0])  # ascending
+ids_sorted   = ids[c_idx0][order]
+edges_sorted = n_edges_per[c_idx0][order]
+
+bar_colors = []
+for sid in ids_sorted:
+    if sid == 7:    bar_colors.append(C_RED)
+    elif sid == 12: bar_colors.append(C_ORANGE)
+    else:           bar_colors.append(C_BLUE)
+
+fig, ax = plt.subplots(figsize=(10, 4.6))
+x = np.arange(len(edges_sorted))
+ax.bar(x, edges_sorted, color=bar_colors, alpha=0.92,
+       edgecolor='white', linewidth=0.8, width=0.72)
+
+# Maximum-edges reference line
+ax.axhline(y=91, color='#111827', linestyle='--', linewidth=1.2, alpha=0.7)
+
+# Value labels on bars
+for xi, v, sid in zip(x, edges_sorted, ids_sorted):
+    ax.text(xi, v + 1.6, '%d' % int(round(v)), ha='center', va='bottom',
+            fontsize=10, fontweight='bold',
+            color=C_RED if sid == 7 else C_ORANGE if sid == 12 else '#1F2937')
+
+ax.set_xticks(x)
+ax.set_xticklabels(['S%d' % i for i in ids_sorted], fontsize=10)
+ax.set_xlabel('Participant (sorted by edge count)')
+ax.set_ylabel('Edges drawn  |E|')
+ax.set_title(r'Figure 0.  Nine of eleven participants drew the complete graph $K_{14}$  (|E| = 91)')
+ax.set_ylim(0, 115)
+ax.grid(axis='y', linestyle=':', linewidth=0.6, color=C_LGREY, alpha=0.7)
+ax.set_axisbelow(True)
+
+# Right-side maximum line annotation
+ax.text(len(x) - 0.45, 96,
+        r'$|E|_{\max}$ = $\binom{14}{2}$ = 91',
+        fontsize=10, color='#111827', ha='right', va='bottom', style='italic')
+
+plt.tight_layout()
+plt.savefig('fig0_ceiling.png')
+plt.close()
+print('saved fig0_ceiling.png')
+
+
+# ═════════════════════════════════════════════════════════════════════════════
 # FIGURE 1 — Socratic effect: WGD vs. mean self-rating
 # ═════════════════════════════════════════════════════════════════════════════
 fig, ax = plt.subplots(figsize=(7.0, 5.2))
