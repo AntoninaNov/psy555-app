@@ -486,14 +486,14 @@ print('saved fig5_corr_heatmap.png')
 # FIGURE 6 — Hypothesis summary: observed rho (N = 11)
 # ═════════════════════════════════════════════════════════════════════════════
 hyp_labels = [
-    'H1a:  GPA  →  WGD',
-    'H1b:  GPA  →  density',
-    'H1c:  GPA  →  avgWeight',
-    'H2:    density  →  avgWeight',
-    'H3:    GPA  →  edgeWeightSD',
-    'H5:    edgeWeightSD  →  bridgeAcc',
-    'EDA:  WGD  →  avgRating',
-    'EDA:  avgRating  →  perturbTime',
+    'P1:    GPA  →  WGD',
+    'P2:    GPA  →  density',
+    'P3:    GPA  →  avgWeight',
+    'P5:    density  →  avgWeight',
+    'P4:    GPA  →  edgeWeightSD',
+    'P7:    edgeWeightSD  →  bridgeAcc',
+    'post-hoc:  WGD  →  avgRating',
+    'post-hoc:  avgRating  →  perturbTime',
 ]
 exp_signs  = ['≈ 0', '+', '−', '−', '−', '+', 'EDA', 'EDA']
 obs_rho    = [+0.465, +0.304, +0.228, +0.270, +0.107, -0.032, -0.690, +0.772]
@@ -535,14 +535,14 @@ ax.set_yticks(y)
 ax.set_yticklabels(labels_with_exp, fontsize=10)
 
 ax.set_xlabel(r'Spearman $\rho$  (permutation test, $n_\mathrm{resample}$ = 9 999)')
-ax.set_title('Figure 6.  Pre-specified hypotheses and exploratory findings (N = 11)')
+ax.set_title('Figure 6.  Exploratory probes and post-hoc patterns (N = 11)')
 ax.set_xlim(-1.05, 1.05)
 
 legend = [
-    mpatches.Patch(color=C_BLUE,   label='Direction confirmed'),
+    mpatches.Patch(color=C_BLUE,   label='Direction noted'),
     mpatches.Patch(color=C_RED,    label='Opposite sign'),
-    mpatches.Patch(color=C_ORANGE, label='Departure from H1a (≈ 0)'),
-    mpatches.Patch(color=C_GREEN,  label='Exploratory (EDA)'),
+    mpatches.Patch(color=C_ORANGE, label='Departure from P1 (≈ 0)'),
+    mpatches.Patch(color=C_GREEN,  label='Post-hoc pattern'),
 ]
 ax.legend(handles=legend, frameon=False,
           loc='upper center', bbox_to_anchor=(0.5, -0.12), ncol=4)

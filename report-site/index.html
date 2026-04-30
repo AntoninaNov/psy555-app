@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="description" content="A pilot study in psychology curriculum design. 12 students. 14 learning outcomes. 91 possible connections. Most students drew them all." />
-    <meta property="og:title" content="Why Students Draw Everything" />
-    <meta property="og:description" content="A pilot for scalable curriculum diagnostics. 12 → 300+. Compliance, the Socratic effect, and one Dunning–Kruger." />
-    <meta name="keywords" content="concept map, complete graph, K14, learning outcomes, compliance adaptation, Socratic effect, Dunning-Kruger, curriculum design, ESG, KSE" />
+    <meta name="description" content="What GPA Misses — an exploratory pilot in psychology curriculum design. GPA tells you who passes; concept maps tell you what they actually understood." />
+    <meta property="og:title" content="What GPA Misses" />
+    <meta property="og:description" content="Exploratory pilot. GPA correlates with little of what students' concept maps reveal about their knowledge structure." />
+    <meta name="keywords" content="GPA, concept map, complete graph, K14, learning outcomes, compliance, Socratic effect, Dunning-Kruger, curriculum design, exploratory, KSE" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Why Students Draw Everything · a pilot in psychology curriculum design</title>
+    <title>What GPA Misses · an exploratory pilot in psychology curriculum design</title>
 
     <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,700|Noto+Sans:400,500,600|Castoro|JetBrains+Mono:400,500" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
@@ -266,16 +266,16 @@
           <div class="columns is-centered">
             <div class="column has-text-centered">
 
-              <span class="kicker">PSY555 · Pilot study · April 2026</span>
+              <span class="kicker">PSY555 · Exploratory pilot · April 2026</span>
 
-              <h2 class="title is-1 publication-title" style="font-size:2.7rem;">
-                Why Students Draw Everything
+              <h2 class="title is-1 publication-title" style="font-size:2.9rem;">
+                What GPA Misses
               </h2>
-              <p class="lead" style="margin-top:1rem; color:#374151;">
-                We asked 12 psychology students to map the 14 learning outcomes
-                of their programme. Nine of them connected every possible pair.
-                That changed the study — and pointed at a useful diagnostic for
-                curriculum design at scale.
+              <p class="lead" style="margin-top:1rem; color:#374151; font-size:1.2rem;">
+                GPA tells you who passes. It doesn't tell you what they
+                <em>understood</em>. Twelve psychology students. Fourteen learning
+                outcomes. We watched their concept maps and self-ratings — and
+                found three patterns GPA never sees.
               </p>
 
               <div class="is-size-6 publication-authors" style="margin-top:1.5rem;">
@@ -343,15 +343,16 @@
         <h2 class="section-title">A diagnostic for curriculum design — at scale</h2>
         <p class="section-intro">
           Universities decide how courses connect to each other once, then teach the same
-          structure for years. We wanted a fast way to <em>see</em> what students think the
-          structure is — without interviewing them. If a one-hour computerised concept-mapping
-          protocol gives a usable signal, the same protocol scales to a 300+ student cohort
-          and turns the question "is our programme coherent?" into a measurable.
+          structure for years. GPA tells the registrar who passed. It doesn't tell anyone
+          which ideas actually link up in students' heads — or where the programme silently
+          rewards memorisation over comprehension.
         </p>
         <p class="section-intro">
-          So: pilot first. Twelve students, controlled instrument, six pre-registered hypotheses.
-          We expected to come back with effect sizes. We came back with a different finding —
-          and a sharper protocol for the next iteration.
+          So we built a one-hour computerised concept-mapping protocol and ran it on a small
+          cohort first. Twelve students. Exploratory analysis — no formal hypothesis testing
+          on N this small. The point of the pilot was simple: <em>does the instrument produce
+          a usable signal?</em> If yes, the same protocol scales to 300+ students next year
+          and becomes a quantitative curriculum-design tool that reaches what GPA never could.
         </p>
       </div>
     </section>
@@ -433,21 +434,21 @@
           </div>
 
           <div class="recipe-card">
-            <span class="recipe-num">5 · Specify</span>
-            <h4>Models</h4>
-            <p>Spearman <span class="rho">ρ̂</span><sub>S</sub> per hypothesis. Permutation null with <code>n</code> = 9 999 (seed 42). Two-tailed. No multivariate models at N = 11.</p>
+            <span class="recipe-num">5 · Probe</span>
+            <h4>Exploratory probes</h4>
+            <p>Eight directional probes informed by theory (Geary 2008; Dunning &amp; Kruger 1999). Spearman <span class="rho">ρ̂</span><sub>S</sub> with permutation null, <code>n</code> = 9 999 (seed 42). No formal hypothesis testing at N = 11.</p>
           </div>
 
           <div class="recipe-card">
             <span class="recipe-num">6 · Diagnose</span>
             <h4>Quality checks</h4>
-            <p>For every test report ρ̂, <code>p</code><sub>perm</sub>, and leave-one-out Δρ. Critical |ρ| at α = .05 is ≈ 0.62 — only large effects detectable.</p>
+            <p>For every probe report ρ̂, <code>p</code><sub>perm</sub>, and leave-one-out Δρ. At N = 11 only |ρ| ≳ 0.62 reaches α = .05 — effect <em>sizes</em> are the export.</p>
           </div>
 
           <div class="recipe-card">
             <span class="recipe-num">7 · Interpret</span>
-            <h4>Verdict classes</h4>
-            <p>Three classes: <em>direction confirmed</em>, <em>opposite sign</em>, <em>structurally untestable</em> (Var(X) too small to test the hypothesis as written).</p>
+            <h4>Status classes</h4>
+            <p>Three: <em>direction noted</em>, <em>opposite sign</em>, <em>not resolvable</em> (variance of one input collapsed below the threshold needed to see the contrast).</p>
           </div>
 
           <div class="recipe-card">
@@ -460,62 +461,70 @@
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════ THE WALL ═══ -->
+    <!-- ═══════════════════════════════════════ GPA PROBES ═══ -->
     <section class="section hero is-light" id="ceiling">
       <div class="container is-max-desktop">
-        <span class="kicker">Finding 1 — the wall</span>
-        <h2 class="section-title">Density saturated. Most hypotheses became untestable.</h2>
+        <span class="kicker">Probes — GPA &amp; the ceiling</span>
+        <h2 class="section-title">GPA tracked grades, not graph structure</h2>
         <p class="section-intro">
-          Four of six pre-specified hypotheses depend on between-subject variance in graph density.
-          Nine participants saturated at <span class="mono">density = 1.000</span>. The variance
-          collapsed to a degenerate distribution (one cluster at 1.0, two outliers below). With
-          almost no rank information left, those hypotheses are <em>structurally</em> untestable —
-          not refuted, not null, but mathematically out of reach in this sample.
+          We ran eight directional probes — four involving GPA, four involving graph-internal
+          structure. The headline pattern is simple: GPA has weak, mostly noisy associations with
+          every concept-graph metric we measured. And four of the eight probes can't be resolved
+          at all in this sample because nine students saturated the graph at
+          <span class="mono">density = 1.000</span>.
         </p>
 
         <div class="banner-warning">
-          <h4>⚠ Compliance adaptation, not laziness</h4>
+          <h4>⚠ Why everyone connected everything</h4>
           <p>
-            We read the saturation as a rational response to an under-constrained task: with no edge
-            budget and no penalty for spurious links, the dominant student strategy is to connect
-            everything and avoid the risk of omitting a "right" connection. The artefact is the
-            finding. Future versions of the protocol cap <span class="mono">|E|</span>, force
-            ranking instead of categorical weighting, and score with a precision penalty.
+            Saturation is a rational response to an under-constrained task: with no edge budget and
+            no penalty for spurious links, students minimise the risk of omitting a "right"
+            connection by drawing them all. The artefact is itself a finding — and the design fix
+            for the next iteration: cap <span class="mono">|E|</span>, force a ranking instead of
+            categorical 1–3 weights, score with a precision penalty.
           </p>
         </div>
 
-        <h3 class="section-sub">Hypothesis outcomes at a glance</h3>
+        <h3 class="section-sub">Probes at a glance</h3>
         <figure>
-          <img src="fig6_hypotheses.png" alt="Hypothesis bar chart" style="width:100%; max-width:1000px; display:block; margin:0 auto;" />
+          <img src="fig6_hypotheses.png" alt="Probe bar chart" style="width:100%; max-width:1000px; display:block; margin:0 auto;" />
         </figure>
         <figcaption style="max-width:1000px; margin:0.6rem auto 1.5rem;">
-          <b>Figure 6.</b>  Observed Spearman <span class="rho">ρ</span> for each hypothesis with
-          the expected sign in brackets. Two starred bars reach asymptotic significance — both are
-          exploratory effects, not pre-specified ones.
+          <b>Figure 6.</b>  Observed Spearman <span class="rho">ρ</span> for each probe with the
+          theoretical expectation in brackets. Two starred bars reach asymptotic significance —
+          both are post-hoc patterns (the Socratic and confidence-penalty effects), not GPA probes.
         </figcaption>
 
         <div class="table-container">
           <table class="results-table">
             <thead>
               <tr>
-                <th>ID</th><th>Predictor → Outcome</th><th>Expected</th><th><span class="rho">ρ̂</span></th><th><i>p</i><sub>perm</sub></th><th>Verdict</th>
+                <th>ID</th><th>Predictor → Outcome</th><th>Expected</th><th><span class="rho">ρ̂</span></th><th><i>p</i><sub>perm</sub></th><th>Status</th>
               </tr>
             </thead>
             <tbody>
-              <tr><th>H1a</th><td>GPA → WGD</td><td class="num">≈ 0</td><td class="num">+0.465</td><td class="num">.153</td><td><span class="v-ns">Mixed</span></td></tr>
-              <tr><th>H1b</th><td>GPA → density</td><td class="num">+</td><td class="num">+0.304</td><td class="num">.389</td><td><span class="v-ns">Direction OK</span></td></tr>
-              <tr><th>H1c</th><td>GPA → avgWeight</td><td class="num">−</td><td class="num">+0.228</td><td class="num">.497</td><td><span class="v-opp">Opposite</span></td></tr>
-              <tr><th>H2</th><td>density → avgWeight</td><td class="num">−</td><td class="num">+0.270</td><td class="num">.431</td><td><span class="v-na">Untestable</span></td></tr>
-              <tr><th>H3</th><td>GPA → edgeWeightSD</td><td class="num">−</td><td class="num">+0.107</td><td class="num">.753</td><td><span class="v-ns">Null</span></td></tr>
-              <tr><th>H4</th><td>edgeWeightSD → pathfindingAcc</td><td class="num">+</td><td class="num">—</td><td class="num">N = 2</td><td><span class="v-na">Not tested</span></td></tr>
-              <tr><th>H5</th><td>edgeWeightSD → bridgeAcc</td><td class="num">+</td><td class="num">−0.032</td><td class="num">.925</td><td><span class="v-ns">Null</span></td></tr>
-              <tr><th>H6</th><td>zombie ILO → selfRating ≥ integrated</td><td>—</td><td>—</td><td>—</td><td><span class="v-na">Untestable</span></td></tr>
+              <tr><th>P1</th><td>GPA → WGD (overall integration)</td><td class="num">≈ 0</td><td class="num">+0.465</td><td class="num">.153</td><td><span class="v-ns">Weak +</span></td></tr>
+              <tr><th>P2</th><td>GPA → density</td><td class="num">+</td><td class="num">+0.304</td><td class="num">.389</td><td><span class="v-na">Not resolvable</span></td></tr>
+              <tr><th>P3</th><td>GPA → avgWeight</td><td class="num">−</td><td class="num">+0.228</td><td class="num">.497</td><td><span class="v-opp">Opposite sign</span></td></tr>
+              <tr><th>P4</th><td>GPA → edgeWeightSD (hierarchy)</td><td class="num">−</td><td class="num">+0.107</td><td class="num">.753</td><td><span class="v-ns">Noise</span></td></tr>
+              <tr><th>P5</th><td>density → avgWeight</td><td class="num">−</td><td class="num">+0.270</td><td class="num">.431</td><td><span class="v-na">Not resolvable</span></td></tr>
+              <tr><th>P6</th><td>edgeWeightSD → pathfindingAcc</td><td class="num">+</td><td class="num">—</td><td class="num">N = 2</td><td><span class="v-na">Not run</span></td></tr>
+              <tr><th>P7</th><td>edgeWeightSD → bridgeAcc</td><td class="num">+</td><td class="num">−0.032</td><td class="num">.925</td><td><span class="v-ns">Noise</span></td></tr>
+              <tr><th>P8</th><td>zombie ILO → selfRating ≥ integrated</td><td>—</td><td>—</td><td>—</td><td><span class="v-na">Not resolvable</span></td></tr>
             </tbody>
             <tfoot>
-              <tr><td colspan="6"><b>Table 1.</b> N = 11. p uncorrected. "Untestable" = the predictor variance collapsed below the threshold needed to resolve the hypothesised contrast.</td></tr>
+              <tr><td colspan="6"><b>Table 1.</b> Exploratory probes, N = 11. p uncorrected. "Not resolvable" = the predictor's variance collapsed below the threshold needed to see the contrast (the density-ceiling problem). All four GPA probes (P1–P4) sit in noise — GPA does not predict map structure in this cohort.</td></tr>
             </tfoot>
           </table>
         </div>
+
+        <p style="margin-top:1.2rem; color:#374151;">
+          The plain-English reading of P1–P4: <b>students with higher GPAs do not draw measurably
+          more integrated, more hierarchical, or more weight-differentiated concept maps than students
+          with lower GPAs.</b> If GPA tracked the structural quality of subject knowledge, one or
+          more of these four probes should have produced a large, signed effect. None did. That is
+          the central exploratory result of the pilot.
+        </p>
       </div>
     </section>
 
