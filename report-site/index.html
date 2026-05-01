@@ -196,41 +196,6 @@
       .limits-strip h5 { color: #92400e; font-weight: 700; font-size: 0.92rem; margin: 0 0 0.4rem 0; }
       .limits-strip p { color: #78350f; margin: 0; line-height: 1.6; }
 
-      /* Evidence ladder — three-tier theoretical positioning */
-      .evidence-ladder {
-        background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px;
-        padding: 1.2rem 1.4rem; margin: 1.4rem 0;
-        box-shadow: 0 1px 3px rgba(0,0,0,.04);
-      }
-      .evidence-ladder .el-title {
-        font-family: 'Google Sans', sans-serif;
-        font-weight: 600; font-size: 0.96rem; color: #111827;
-        margin: 0 0 0.85rem 0;
-      }
-      .el-grid { display: grid; gap: 0.55rem; }
-      .el-row {
-        display: grid; grid-template-columns: 7.5rem 1fr; gap: 0.85rem;
-        padding: 0.7rem 0.9rem; border-radius: 8px;
-        align-items: start;
-      }
-      .el-row.el-strong  { background: #ecfdf5; border-left: 3px solid #047857; }
-      .el-row.el-inspire { background: #eef2ff; border-left: 3px solid #4338ca; }
-      .el-row.el-not     { background: #fef2f2; border-left: 3px solid #b91c1c; }
-      .el-row .el-tag {
-        font-family: 'Google Sans', sans-serif; font-weight: 700;
-        font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.1em;
-        text-align: center; padding: 0.35em 0.5em; border-radius: 6px;
-        line-height: 1.3;
-      }
-      .el-strong  .el-tag { background: #047857; color: #ffffff; }
-      .el-inspire .el-tag { background: #4338ca; color: #ffffff; }
-      .el-not     .el-tag { background: #b91c1c; color: #ffffff; }
-      .el-row p { margin: 0; font-size: 0.88rem; line-height: 1.55; color: #1f2937; }
-      @media (max-width: 600px) {
-        .el-row { grid-template-columns: 1fr; }
-        .el-row .el-tag { width: fit-content; }
-      }
-
       /* Detailed limits */
       .limits-section {
         background: #fffbeb;
@@ -458,76 +423,41 @@
     <section class="section hero is-light" id="idea">
       <div class="container is-max-desktop">
         <span class="kicker">Theoretical background</span>
-        <h2 class="section-title">From cognitive maps to concept graphs</h2>
+        <h2 class="section-title">Why connections — and what we already know about measuring them</h2>
 
         <p class="section-intro">
-          Spatial-cognition research since Tolman (1948) has converged on a representational
-          rather than associative account of how organisms encode environments. The
-          empirical case rests on novel behaviour — shortcuts and detours an animal has
-          never been reinforced for — which a chained stimulus–response account cannot
-          generate. Tolman labelled the underlying representation a <em>cognitive map</em>;
-          the term was inferential at the time, but a neural substrate was subsequently
-          identified. Recordings from the rat hippocampus (O'Keefe &amp; Nadel, 1978)
-          isolated <em>place cells</em> whose firing rates encode the animal's position in
-          its environment, providing the first single-unit correlate of a Tolmanian map.
+          Concept-map assessment is an established measurement tradition. Novak and Gowin
+          (1984) formalised concept mapping as a structured technique for eliciting how a
+          learner organises a body of ideas; Ruiz-Primo and Shavelson (1996) defined a
+          concept-map assessment as the joint specification of three components — a task,
+          a response format, and a scoring system. The protocol described below is an
+          instance of that schema. The cognitive-psychology backdrop is consistent: what
+          distinguishes experts from novices is the structure connecting their items, not
+          the number of items (Chase &amp; Simon, 1973; Chi, Feltovich, &amp; Glaser, 1981),
+          all within working-memory limits (Miller, 1956; Sweller, 1988).
         </p>
 
         <p class="section-intro">
-          The mapping system extends beyond the hippocampus proper. Hafting, Fyhn, Molden,
-          Moser, and Moser (2005) reported a second cell type in the medial entorhinal
-          cortex — <em>grid cells</em> — whose firing fields tile the environment in a
-          regular hexagonal lattice. The discovery established a metric and coordinate
-          basis for spatial representation; the work was recognised by the 2014 Nobel
-          Prize in Physiology or Medicine awarded jointly to John O'Keefe, May-Britt Moser,
-          and Edvard Moser. Constantinescu, O'Reilly, and Behrens (2016) subsequently
-          showed that grid-like fMRI signatures appear when human participants traverse
-          abstract <em>conceptual</em> dimensions in a non-spatial task, suggesting that
-          the cognitive-map machinery is not strictly modality-specific. This is a
-          heuristic bridge, not a validation. It motivates a weaker working hypothesis:
-          students' representations of programme learning outcomes (PLOs) may be
-          meaningfully analysed as structured relational maps. We are not claiming that
-          an externalised concept map drawn on a screen is the same object as the
-          implicit code those neural systems implement.
+          A softer line of inspiration comes from spatial cognition. Tolman (1948),
+          O'Keefe and Nadel (1978), Hafting et&nbsp;al. (2005), and Constantinescu, O'Reilly,
+          and Behrens (2016) describe a brain that builds and reuses map-like
+          representations — first for places, then for abstract conceptual dimensions —
+          and the network-topology literature (Barabási &amp; Albert, 1999;
+          Latora &amp; Marchiori, 2001) gives the graph-theoretic vocabulary for talking
+          about such structures. We treat this as a heuristic bridge, not a validation:
+          it motivates a weaker working hypothesis — students' representations of
+          programme learning outcomes may be meaningfully analysed as structured
+          relational maps — without claiming that a concept map drawn on a screen is the
+          same object as the neural code.
         </p>
 
-        <p class="section-intro">
-          The structural properties of large biological and informational networks have
-          themselves been characterised: scale-free degree distributions
-          (Barabási &amp; Albert, 1999), small-world routing efficiency
-          (Latora &amp; Marchiori, 2001), and a generalised dependence of behavioural
-          performance on network topology rather than on node count alone. Within
-          cognitive psychology this position has a parallel literature: Chase and Simon
-          (1973) showed that chess expertise produces no gain on randomised boards but a
-          large gain on meaningful positions, locating the advantage in chunking rather
-          than memory capacity; Chi, Feltovich, and Glaser (1981) extended the result to
-          physics, demonstrating that experts categorise problems by underlying principle
-          while novices categorise by surface features. Miller (1956) provides the upper
-          bound on independent chunks in working memory; cognitive load theory
-          (Sweller, 1988) and dual-system models (Kahneman, 2011) describe the failure
-          modes when that limit is exceeded.
-        </p>
-
-        <p class="section-intro">
-          A learner's behaviour at a concept-mapping task is usually more complex than it
-          looks. To avoid stopping at the first plausible explanation, we lean on a
-          checklist from ethology — Tinbergen's (1963) four questions, framed as
-          <em>how it works</em>, <em>how it grows</em>, <em>where it came from</em>, and
-          <em>what it's for</em>. The four-question structure gives the evolutionary frame
-          we use to interpret findings: Geary (2008) distinguishes biologically primary
-          cognitive abilities (which develop without explicit instruction) from
-          biologically secondary abilities such as formal academic content, which are
-          acquired only under sustained external pressure and are vulnerable to mismatch
-          when the pressure rewards surface compliance over deep relational reasoning. The
-          wider Darwinian-mismatch framework (Nesse &amp; Williams, 1994) treats this kind
-          of incentive misalignment as a generic source of dysfunction across institutions.
-        </p>
-
-        <!-- Tinbergen 2x2 — friendlier framing -->
+        <!-- Tinbergen 2x2 — kept as the only conceptual visual -->
         <div class="concept-block">
           <p class="cb-title">Tinbergen's four questions, applied to a learner's concept map</p>
           <p style="font-size:0.86rem; color:#cbd5e1; margin:0 0 0.9rem 0; line-height:1.55;">
-            Each question asks something different about the same behaviour. Two axes:
-            mechanism (how) vs function (why); current state (now) vs change over time.
+            Behaviour at a concept-mapping task is usually more complex than it looks.
+            Tinbergen's (1963) four-question checklist keeps the analyst from stopping
+            at the first plausible explanation.
           </p>
           <div class="concept-2x2">
             <div class="corner"></div>
@@ -538,7 +468,7 @@
             <div class="concept-cell">
               <span class="ic"><i class="fas fa-bolt"></i></span>
               <h5>Mechanism</h5>
-              <p>Place &amp; grid cells (Nobel 2014) index physical space; the same code activates for abstract conceptual dimensions (Constantinescu et&nbsp;al., 2016).</p>
+              <p>Place &amp; grid cells (Nobel 2014) index space; the same code activates for abstract conceptual dimensions (Constantinescu et&nbsp;al., 2016).</p>
             </div>
             <div class="concept-cell">
               <span class="ic warm"><i class="fas fa-seedling"></i></span>
@@ -555,65 +485,18 @@
             <div class="concept-cell">
               <span class="ic purple"><i class="fas fa-balance-scale"></i></span>
               <h5>Function</h5>
-              <p>Energy-efficient topologies win when metabolic cost matters — at exam time, ranking matters more (Geary, 2008; Nesse &amp; Williams, 1994).</p>
+              <p>Energy-efficient topologies are favoured when metabolic cost matters; under exam pressure, ranking matters more (Geary, 2008; Nesse &amp; Williams, 1994).</p>
             </div>
           </div>
         </div>
-
-        <p class="section-intro">
-          The neuroscience and expertise literatures motivate the <em>question</em> of
-          whether knowledge has measurable topology, but they do not on their own tell us
-          how to externalise that topology in an undergraduate population. For that there
-          is a separate, older tradition in educational measurement. Novak and Gowin (1984)
-          formalised concept mapping as a structured technique for eliciting hierarchical
-          propositional knowledge; Ruiz-Primo and Shavelson (1996) explicitly framed
-          concept-map assessment as the joint specification of three components — a task
-          (what the student is asked to draw), a response format (how edges, weights, and
-          labels are constrained), and a scoring system (how the resulting graph is
-          reduced to a number). The protocol below is an instance of that schema; the
-          present pilot asks whether the particular instance produces a usable signal.
-        </p>
 
         <p class="section-intro">
           We adopt Kane's (2013) argument-based view of validity throughout: validity is
-          not a property of an instrument but the <em>plausibility</em> of the chain of
-          inferences from observed scores to substantive interpretations and intended
-          uses. The pilot therefore evaluates the weakest links in that chain — whether
-          the protocol elicits informative variance, whether the metrics carry the
-          structural meaning we ascribe to them, and whether the inferences we are
-          tempted to make from N = 11 are warranted at all (cf. §<a href="#limits">Limits</a>).
-          We make no claim of construct validation here; we identify the sites where
-          construct claims would have to be argued in a confirmatory study.
-        </p>
-
-        <div class="evidence-ladder">
-          <p class="el-title">How the cited literature stacks up against the present claims</p>
-          <div class="el-grid">
-            <div class="el-row el-strong">
-              <span class="el-tag">Strong basis</span>
-              <p>Concept-map assessment as a measurement tradition (Novak &amp; Gowin, 1984; Ruiz-Primo &amp; Shavelson, 1996). Expertise as topology, not item count (Chase &amp; Simon, 1973; Chi, Feltovich, &amp; Glaser, 1981). Metacognition and self-assessment limits (Flavell, 1979; Eva &amp; Regehr, 2005; Dunning &amp; Kruger, 1999). Working-memory bound (Miller, 1956; Sweller, 1988).</p>
-            </div>
-            <div class="el-row el-inspire">
-              <span class="el-tag">Inspiration</span>
-              <p>Cognitive maps in spatial cognition (Tolman, 1948; O'Keefe &amp; Nadel, 1978; Hafting et&nbsp;al., 2005). Grid-like coding for abstract dimensions (Constantinescu et&nbsp;al., 2016). Evolutionary mismatch in education (Geary, 2008; Nesse &amp; Williams, 1994). Network topology constraints (Barabási &amp; Albert, 1999; Latora &amp; Marchiori, 2001).</p>
-            </div>
-            <div class="el-row el-not">
-              <span class="el-tag">Not claimed</span>
-              <p>That an externalised concept map drawn on a screen is the same object as the implicit code those neural systems implement. That the protocol is construct-validated. That single-case patterns establish population-level effects.</p>
-            </div>
-          </div>
-        </div>
-
-        <p class="section-intro">
-          From this literature we derive a single working assumption: a learner's grasp
-          of a curriculum may be more informatively characterised by the <em>topology</em>
-          of an induced concept graph than by an aggregate of exam outputs. A grade-point
-          average marginalises over that topology and is informative about assessed
-          performance, not about the structural relations the student has acquired. The
-          aim of the present pilot is to evaluate whether a brief computerised concept-
-          mapping protocol can recover interpretable structural information at the level
-          of an individual undergraduate cohort, as a precondition for deploying the same
-          instrument at programme scale.
+          the plausibility of the chain of inferences from observed scores to
+          substantive interpretations, not a property of the instrument. The pilot
+          therefore evaluates whether the protocol elicits informative variance and
+          whether the metrics carry the structural meaning we attach to them — not
+          whether the resulting scores are construct-validated.
         </p>
 
       </div>
